@@ -7,7 +7,7 @@ Below are the frameworks and databased will used to develop event management web
 - Styling based : Material UI
 - Database: MySQL and Firebase
 
-
+This is the branch of Vaishwi Patel (B00914336): vs439755@dal.ca.
 
 ## Group Members:
 - Arpit Patel : B00927071
