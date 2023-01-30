@@ -2,7 +2,7 @@
 
 This is the branch of Khushi Hirenbhai Shah - B00923816
 
-Below are the frameworks and databased will used to develop event management web appllication.
+Below are the frameworks and databased will used to develop event management web application.
 
 - Frontend : React JS
 - Backend : Python (flask)
