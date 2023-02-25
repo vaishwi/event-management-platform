@@ -3,9 +3,11 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import Home from "./pages/Home.jsx";
+import Blog from "./pages/eventDetails/Blog.jsx";
 import About from "./pages/About.jsx";
 import PrivateRoutes from "./utils/PrivateRoutes.jsx";
 import "./App.css";
+import './styles/main.scss';
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           <Route element={<Home />} path="/" />
           <Route element={<Home />} path="/home" />
           <Route element={<About />} path="/about" />
+          <Route element= {<Blog />} path = "/blog" />
         </Route>
       </Routes>
     </div>
