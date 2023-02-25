@@ -2,9 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import {BrowserRouter} from "react-router-dom";
+import {createClient, Provider} from "urql";
+
+const client = createClient({url: "http://localhost:1337/graphql"});
 
 ReactDOM.createRoot(document.getElementById('root')).render(<React.StrictMode>
     <BrowserRouter>
-        <App/>
+        <Provider value={client}>
+            <App/>
+        </Provider>
     </BrowserRouter>
 </React.StrictMode>,)
