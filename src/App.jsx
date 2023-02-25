@@ -7,13 +7,16 @@ import About from "./pages/About.jsx";
 import PrivateRoutes from "./utils/PrivateRoutes.jsx";
 import "./App.css";
 import Search from "./pages/Search.jsx";
+import ResponsiveAppBar from "./components/Navbar.jsx";
 
 function App() {
-    return (<div>
-        <Routes>
-            {/* Unprotected Routes */}
-            <Route element={<Login/>} path="/login"/>
-            <Route element={<SignUp/>} path="/signup"/>
+  return (
+    <div>
+      {localStorage.getItem("loginStatus") && <ResponsiveAppBar/>}
+      <Routes>
+        {/* Unprotected Routes */}
+        <Route element={<Login />} path="/login" />
+        <Route element={<SignUp />} path="/signup" />
 
         {/* Protected Routes */}
         <Route element={<PrivateRoutes />}>
