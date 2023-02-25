@@ -6,10 +6,14 @@ import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import PrivateRoutes from "./utils/PrivateRoutes.jsx";
 import "./App.css";
+import ResponsiveAppBar from "./components/Navbar.jsx";
 
 function App() {
   return (
     <div>
+      
+      {localStorage.getItem("loginStatus") && <ResponsiveAppBar/>}
+
       <Routes>
         {/* Unprotected Routes */}
         <Route element={<Login />} path="/login" />
