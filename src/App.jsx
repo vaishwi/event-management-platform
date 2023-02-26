@@ -1,5 +1,5 @@
 import React from "react";
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import Home from "./pages/Home.jsx";
@@ -8,11 +8,13 @@ import PrivateRoutes from "./utils/PrivateRoutes.jsx";
 import "./App.css";
 import Search from "./pages/Search.jsx";
 import ResponsiveAppBar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   return (
     <div>
-      {localStorage.getItem("loginStatus") && <ResponsiveAppBar/>}
+      {localStorage.getItem("loginStatus") && <ResponsiveAppBar />}
+
       <Routes>
         {/* Unprotected Routes */}
         <Route element={<Login />} path="/login" />
@@ -26,6 +28,7 @@ function App() {
           <Route element={<Search />} path="/search" />
         </Route>
       </Routes>
+      {localStorage.getItem("loginStatus") && <Footer />}
     </div>
   );
 }

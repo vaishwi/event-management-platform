@@ -1,12 +1,11 @@
 import React from "react";
-import {Navigate, Outlet} from "react-router-dom";
-import ResponsiveAppBar from "../components/Navbar";
+import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoutes = () => {
-    const loggedIn = true;
-    localStorage.setItem("loginStatus",false)
-    const defaultNavigatePage = "/login";
-    return loggedIn ? <Outlet/> : <Navigate to={defaultNavigatePage}/>;
+  const loggedIn = true;
+  localStorage.setItem("loginStatus", true);
+  const defaultNavigatePage = "/login";
+  return loggedIn ? <Outlet /> : <Navigate to={defaultNavigatePage} />;
 };
 
 export default PrivateRoutes;

@@ -1,46 +1,75 @@
-import React from 'react';
-import {useQuery} from "urql";
-import {EVENTS_QUERY} from "../utils/Queries.jsx";
+import React, { useState } from "react";
+import { useQuery } from "urql";
+import { SEARCH_EVENTS } from "../utils/Queries.jsx";
+import EventCard from "../components/SearchEventCards";
+import Grid from "@mui/material/Grid";
+import "../styles/searchPage.css";
 
-// const Event = ({event}) => {
-//     console.log("==>", event)
-//     return (<div>
-//         <p>{event.attributes.title}</p>
-//     </div>);
-// };
+import { AiOutlineSearch } from "react-icons/ai";
+import Button from "@mui/material/Button";
+import TrendingEvents from "../components/TrendingEvents.jsx";
 
 const Search = () => {
+  const [searchValue, setSearchValue] = useState("");
+  const [events, setEvents] = useState(null);
+  const [result, getEvent] = useQuery({
+    query: SEARCH_EVENTS,
+    variables: { queryString: searchValue },
+    pause: true,
+  });
 
-    const [result] = useQuery({
-        query: EVENTS_QUERY
-    })
+  const handleSearch = () => {
+    getEvent();
+    if (result.data !== undefined) {
+      console.log("data fetchedd");
+      setEvents(result.data.events.data);
+    }
+  };
 
-    const {data, fetching, error} = result;
+  return (
+    <div>
+      <Grid container>
+        {/********************************************** SIDEBAR **********************************************/}
 
-    if (fetching) return <p>Loading...</p>;
-    if (error) return <p>Error...{error.message}</p>;
-    const events = data.events.data;
-    console.log(events)
-    return (<div>
-        <p>Events</p>
-        <hr/>
-        <div>
-            {events.map((event) => {
-                return (<div key={event.id}>
-                    <div>
-                        <img src={event.attributes.image.data[0].attributes.url} height={"50%"} width={"80%"} alt=""/>
-                    </div>
-                    <p>Title: {event.attributes.title}</p>
-                    <p>Price: {event.attributes.price}</p>
-                    <p>Date: {event.attributes.start_date}</p>
-                    <p>Address: {event.attributes.address}</p>
-                    <p>City: {event.attributes.city}</p>
-                    <p>Country: {event.attributes.country}</p>
-                    <hr/>
-                </div>)
-            })}
-        </div>
-    </div>);
+        <Grid item sm={12} md={2}>
+          <p>Side bar</p>
+        </Grid>
+
+        {/********************************************** SearchBar *********************************************/}
+        <Grid item sm={12} md={8}>
+          <div className="search">
+            <input
+              value={searchValue}
+              type="text"
+              className="searchTerm"
+              placeholder="Search anything"
+              onChange={(event) => {
+                setSearchValue(event.target.value);
+              }}
+            />
+            <Button
+              className="searchButton"
+              variant="contained"
+              onClick={handleSearch}
+              size="small">
+              <AiOutlineSearch size={20} />
+            </Button>
+          </div>
+
+          {/******************************************* Events *********************************************/}
+          <div>
+            {events ? (
+              events.map((event) => {
+                return <EventCard key={event.id} event={event} />;
+              })
+            ) : (
+              <TrendingEvents />
+            )}
+          </div>
+        </Grid>
+      </Grid>
+    </div>
+  );
 };
 
 export default Search;
