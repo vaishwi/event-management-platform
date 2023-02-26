@@ -1,8 +1,6 @@
 # Course: CSCI 5709 : Project Group_7
 
-This is the branch of Khushi Hirenbhai Shah - B00923816
-
-Below are the frameworks and databased will used to develop event management web application.
+Below are the frameworks and databased will used to develop event management web appllication.
 
 - Frontend : React JS
 - Backend : Python (flask)
@@ -11,6 +9,7 @@ Below are the frameworks and databased will used to develop event management web
 
 
 ## Group Members:
+
 - Arpit Patel : B00927071
 - Deep Dave : B00931783
 - Khushi Shah : B00923816

@@ -4,7 +4,7 @@ import ResponsiveAppBar from "../components/Navbar";
 
 const PrivateRoutes = () => {
     const loggedIn = true;
-    localStorage.setItem("loginStatus",false)
+    localStorage.setItem("loginStatus",loggedIn)
     const defaultNavigatePage = "/login";
     return loggedIn ? <Outlet/> : <Navigate to={defaultNavigatePage}/>;
 };

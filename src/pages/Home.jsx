@@ -32,7 +32,7 @@ const Dashboard = () => {
       date: 'March 23,2023',
       time: '4 PM Onwards',
       location: 'Citadel Hill Halifax',
-      url: '/blog',
+      url: '/event',
       detailedTitle: 'Unicycling race - March 23,2023',
       eventInfo: "Unicycling race age dependent, winners will get excited prizes. It's a fund raising event",
       organizer: 'Halifax Community Center',
@@ -231,7 +231,8 @@ const Dashboard = () => {
                         </Paper>
                 </div>
                 <div>
-                    <h3>Trending Events</h3>
+                    <h1>Trending Events</h1>
+
                     <div className="top-boxes full-width horizontal-scroll">
                         {TrendingEventBox.map((element, index) => (
                             <div className="full-width single-box">
