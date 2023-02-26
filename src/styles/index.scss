@@ -13,7 +13,7 @@
   --site-primary-color: #000; /*Titles*/
   --site-secondary-color: #aaaaaa; /*body font*/
   --site-line-height: 24px;
-  --site-Bgcolor: #191720;
+  --site-Bgcolor: white;
   --section-padding: 110px 0px 118px;
   --h1-font-size: 34px;
   --h2-font-size: 30px;
@@ -143,13 +143,6 @@ h6 + p {
 .full-width {
   float: left;
   width: 100%;
-}
-
-.full-width-events{
-  align: center;
-  text-align: center;
-  width: 100%;
-  vertical-align: middle;
 }
 
 .child-triggerm,
@@ -2532,12 +2525,13 @@ input:-webkit-autofill:active,
 .top-boxes {
   display: flex;
   .single-box {
+    color:black;
     width: 24%;
-    padding: 35px;
-    background: #2b2836;
+    padding: 25px;
+    background:  #e6e6e6;
     border-radius: 10px;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
     cursor: pointer;
     -webkit-transition: all 400ms ease;
     -moz-transition: all 400ms ease;
@@ -2567,7 +2561,7 @@ input:-webkit-autofill:active,
     }
 
     .earning-text {
-      margin: 5px 0 10px;
+      margin: 5px 0 4px;
       font-weight: 500;
     }
     .earning-price {
@@ -3005,17 +2999,6 @@ html body .edit-image .ant-upload {
   background: #191720;
   position: sticky;
   // border-bottom: 1px solid #2d2f39;
-}
-
-.top-boxes.three-boxes .single-box {
-  width: 33%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: left;
-  .earning-text {
-    margin-top: 0;
-  }
 }
 
 .search-box {
@@ -6993,7 +6976,7 @@ html .pagination-footer {
 }
 
 .section-wrapper h3 {
-    color: white;
+    color: black;
 }
 
 .events-details{
@@ -7030,52 +7013,7 @@ align:center
   scrollbar-width: none;  /* Firefox */
 }
 
-.new-line{
-white-space: pre;}
 
-.custom-search {
-  width: 100%;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  background-color: white;
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  padding: 12px 20px 12px 40px;
-}
-
-.center-content{
-  margin: auto;
-  width: 50%;
-    width: 24%;
-    padding: 35px;
-    background: #2b2836;
-    border-radius: 10px;
-
-    cursor: pointer;
-    -webkit-transition: all 400ms ease;
-    -moz-transition: all 400ms ease;
-    -ms-transition: all 400ms ease;
-    -o-transition: all 400ms ease;
-    transition: all 400ms ease;
-    .hover-show {
-      display: none;
-    }
-    &.active {
-    }
-    &:hover,
-    &.active {
-      background: #ff7a00;
-      color: #fff;
-    }
-    .earning-text {
-      margin: 5px 0 10px;
-      font-weight: 500;
-    }
-    .earning-price {
-      font-weight: 700;
-      color: #fff;
-      font-size: 20px;
-    }
+.mainEventImage{
+    margin-top: 10px
 }

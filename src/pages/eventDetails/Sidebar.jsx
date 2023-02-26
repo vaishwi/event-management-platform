@@ -1,30 +1,45 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import ButtonGroup from "@mui/material/ButtonGroup";
+import IncrementDecrement from './IncrementDecrement.jsx'
 function Sidebar(props) {
-  const { archives, description, social, title } = props;
+  const { social, price } = props;
+  const navigate = useNavigate();
+    const handleRedirection = (element) => {
+      navigate(element);
+    }
 
   return (
-    <Grid item xs={12} md={4}>
-      <Paper elevation={0} sx={{ p: 2, bgcolor: 'grey.200' }}>
-        <Typography variant="h6" gutterBottom>
-          {title}
-        </Typography>
-        <Typography>{description}</Typography>
+    <Grid item xs={12} md={4} sx = {{alignItems:"center"}} >
+      <Paper elevation={0} sx={{ p: 5, bgcolor: 'grey.200' }}>
+        <Box sx = {{padding: 1.2}}>
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Typography variant="h6" gutterBottom sx = {{alignItems:"center"}} >
+                  From ${price}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                 <IncrementDecrement />
+              </Grid>
+              <Grid item xs={12}>
+                 <Button sx = {{bgcolor: 'red', alignItems:"center"}} size = "large" fullWidth = "true" variant="contained" onClick={() => handleRedirection('/checkout')}>Get tickets</Button>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Typography></Typography>
       </Paper>
-      <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-        Archives
-      </Typography>
-      {archives.map((archive) => (
-        <Link display="block" variant="body1" href={archive.url} key={archive.title}>
-          {archive.title}
-        </Link>
-      ))}
+
 
       <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
         Social
@@ -44,24 +59,9 @@ function Sidebar(props) {
         </Link>
       ))}
     </Grid>
+
   );
 }
 
-Sidebar.propTypes = {
-  archives: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  description: PropTypes.string.isRequired,
-  social: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.elementType.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  title: PropTypes.string.isRequired,
-};
 
 export default Sidebar;
