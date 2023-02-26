@@ -27,20 +27,20 @@ function MainEvent(props) {
         },
       }}
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography component = "h5" variant="h5" gutterBottom>
         {date}
       </Typography>
-      <Typography variant="h4" gutterBottom>
+      <Typography component = "h3" variant="h3" gutterBottom sx = {{fontWeight:"bolder"}}>
         {title}
       </Typography>
-      <Typography component="h6" variant="h6" gutterBottom>
+      <Typography component="h6" variant="h6" gutterBottom sx = {{fontWeight:600}}>
         {eventInfo}
       </Typography>
 
       <Grid item xs={12} md={8} sx = {{mt:3, mb:3}}>
         <Card sx = {{display: 'flex', boxShadow: 0.5}}>
             <CardContent sx = {{flex:3}}>
-                <Typography component="h8" variant="h10" gutterBottom>
+                <Typography component="h6" variant="h6" gutterBottom>
                   By {organizer}
                 </Typography>
             </CardContent>
@@ -50,7 +50,7 @@ function MainEvent(props) {
         </Card>
       </Grid>
 
-    <Typography variant="h5" gutterBottom>
+    <Typography component = "h6" variant="h6" gutterBottom sx = {{fontWeight:"bold"}}>
         When and Where
     </Typography>
     <Grid item xs={12} md={12} sx={{ display: 'flex', gap: 2, mb: 3}}>
@@ -60,10 +60,10 @@ function MainEvent(props) {
                   <CalendarMonthIcon/>
                   Date and time
                 </Typography>
-                <Typography variant="subtitle1" color="text.secondary">
+                <Typography variant="h6" color="text.secondary" sx = {{fontWeight:"normal", fontStyle: "normal"}}>
                     {date}
                 </Typography>
-                <Typography variant="subtitle2" color="text.secondary">
+                <Typography variant="h7" color="text.secondary" sx = {{fontWeight:"normal", fontStyle: "normal"}}>
                     {time}
                 </Typography>
               </CardContent>
@@ -74,7 +74,7 @@ function MainEvent(props) {
                   <LocationOnIcon/>
                   Location
                 </Typography>
-                <Typography variant="subtitle1" color="text.secondary">
+                <Typography variant="h6" color="text.secondary" sx = {{fontWeight:"normal", fontStyle: "normal"}}>
                     {location}
                 </Typography>
 
@@ -84,25 +84,25 @@ function MainEvent(props) {
         <Divider />
 
       <Grid item xs={12} md={12} sx = {{mt:3, mb:3}}>
-          <Typography variant="h5" gutterBottom>
+          <Typography component = "h6" variant="h6" gutterBottom sx = {{fontWeight:"bold"}}>
             About this event
           </Typography>
             <Grid item xs={5} md={5} sx = {{mt:1}}>
               <Card sx = {{display: 'flex', boxShadow: 0}}>
                   <CardContent sx = {{flex:1}}>
-                      <Typography component="h8" variant="h10" gutterBottom>
+                      <Typography component="h8" variant="h8" gutterBottom>
                         <AccessTimeIcon/> {runtime}
                       </Typography>
 
                   </CardContent>
                   <CardContent sx = {{flex:2}}>
-                      <Typography component="h8" variant="h10" gutterBottom>
+                      <Typography component="h8" variant="h8" gutterBottom>
                         <BookOnlineIcon/> {ticket}
                       </Typography>
                   </CardContent>
               </Card>
             </Grid>
-          <Typography variant="h" component="h7" color = "black">
+          <Typography variant="h6" component="h7" color = "black" sx = {{fontWeight:"normal", fontStyle: "normal"}}>
             {about}
           </Typography>
       </Grid>

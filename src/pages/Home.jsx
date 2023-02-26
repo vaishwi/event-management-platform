@@ -15,7 +15,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import '../styles/index.scss';
+import '../index.scss';
 
   const { Content } = Layout;
 const Dashboard = () => {
@@ -184,8 +184,8 @@ const Dashboard = () => {
     <Layout>
         <React.Fragment>
           <Content>
-            <div className="site-layout-background layout-padding">
-                <div className = "section-wrapper">
+            <div className="layout-padding">
+                <div>
                     <Paper
                           sx={{
                             position: 'relative',
@@ -230,7 +230,7 @@ const Dashboard = () => {
                           </Grid>
                         </Paper>
                 </div>
-                <div className="section-wrapper">
+                <div>
                     <h3>Trending Events</h3>
                     <div className="top-boxes full-width horizontal-scroll">
                         {TrendingEventBox.map((element, index) => (

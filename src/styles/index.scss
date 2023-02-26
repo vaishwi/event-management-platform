@@ -2572,16 +2572,16 @@ input:-webkit-autofill:active,
   }
 }
 
-.single-box-active {
-  background: #ff7a00 !important;
-  color: #fff !important;
-  .hover-show {
-    display: inline-block !important;
-  }
-  .not-hover-show {
-    display: none !important;
-  }
-}
+// .single-box-active {
+//   background: #ff7a00 !important;
+//   color: #fff !important;
+//   .hover-show {
+//     display: inline-block !important;
+//   }
+//   .not-hover-show {
+//     display: none !important;
+//   }
+// }
 
 .tottal-earning-title {
   h3 {
@@ -6971,49 +6971,49 @@ html .pagination-footer {
   width: 100%;
 }
 
-.layout-padding {
-    padding: 40px;
-}
-
-.section-wrapper h3 {
-    color: black;
-}
+// .layout-padding {
+//     padding: 40px;
+// }
+//
+// .section-wrapper h3 {
+//     color: black;
+// }
 
 .events-details{
 align:center
 }
 
-.center-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-}
+// .center-img {
+//     display: block;
+//     margin-left: auto;
+//     margin-right: auto;
+//     width: 100%;
+// }
+//
+// .full-width .single-box .full-width .center-img:hover {
+//     display: block;
+//     margin-left: auto;
+//     margin-right: auto;
+//      width: 100%;
+//       height: auto;
+// }
 
-.full-width .single-box .full-width .center-img:hover {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-     width: 100%;
-      height: auto;
-}
-
-.horizontal-scroll {
-    overflow: auto;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.horizontal-scroll::-webkit-scrollbar {
-    display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.horizontal-scroll {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
+// .horizontal-scroll {
+//     overflow: auto;
+// }
+//
+// /* Hide scrollbar for Chrome, Safari and Opera */
+// .horizontal-scroll::-webkit-scrollbar {
+//     display: none;
+// }
+//
+// /* Hide scrollbar for IE, Edge and Firefox */
+// .horizontal-scroll {
+//   -ms-overflow-style: none;  /* IE and Edge */
+//   scrollbar-width: none;  /* Firefox */
+// }
 
 
-.mainEventImage{
-    margin-top: 10px
-}
+// .mainEventImage{
+//     margin-top: 10px
+// }

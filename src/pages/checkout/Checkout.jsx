@@ -12,11 +12,12 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddressForm from './AddressForm';
+import AddressForm from './OrderSummary.jsx';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
+import { useNavigate } from 'react-router-dom';
 
-const steps = ['Order Summary', 'Payment details', 'Review your order'];
+const steps = ['Order Summary', 'Payment details', 'Place your order'];
 
 function getStepContent(step) {
   switch (step) {
@@ -44,6 +45,11 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  const navigate = useNavigate();
+    const handleRedirection = (element) => {
+      navigate(element);
+    }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -63,13 +69,10 @@ export default function Checkout() {
           {activeStep === steps.length ? (
             <React.Fragment>
               <Typography variant="h5" gutterBottom>
-                Thank you for your order.
+                Thank you for your registration.
               </Typography>
-              <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order
-                confirmation, and will send you an update when your order has
-                shipped.
-              </Typography>
+              <Button sx = {{bgcolor: 'green', alignItems:"center", mt:5}} size = "large" fullWidth = "true" variant="contained" onClick={() => handleRedirection('/home')}>Explore more events</Button>
+
             </React.Fragment>
           ) : (
             <React.Fragment>

@@ -24,7 +24,7 @@ function Sidebar(props) {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
-                <Typography variant="h6" gutterBottom sx = {{alignItems:"center"}} >
+                <Typography variant="h6" gutterBottom sx = {{alignItems:"center", fontWeight:"bold"}} >
                   From ${price}
                 </Typography>
               </Grid>
