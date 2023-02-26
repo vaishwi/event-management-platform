@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import MuiPhoneNumber from 'material-ui-phone-number';
+
 import InputAdornment from '@mui/material/InputAdornment';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -49,6 +51,7 @@ const SignUp = () => {
     console.log({
       firstname: data.get('firstName'),
       lastname: data.get('lastName'),
+      countryCode: data.get('countryCode'),
       phonenumber: data.get('phoneNumber'),
       email: data.get('email'),
       password: data.get('password'),
@@ -60,9 +63,14 @@ const SignUp = () => {
     setPhoneNumber(newValue);
   };
 
-  const handleCountryCodeChange = (event) => {
-    setCountryCode(event.target.value);
-  };
+  function handleCountryCodeChange(value) {
+    console.log(value)
+    setCountryCode(value)
+ }
+
+  // const handleCountryCodeChange = (event) => {
+  //   setCountryCode(event.target.value);
+  // };
 
   const handlePasswordChange = (event) => {
     const newValue = event.target.value;
@@ -120,6 +128,7 @@ const SignUp = () => {
                 />
               </Grid>
               <Grid item xs={12}>
+              {/* <MuiPhoneNumber defaultCountry={'us'} onChange={handleCountryCodeChange}/> */}
                 <TextField
                   label="Phone Number"
                   variant="outlined"
@@ -134,20 +143,34 @@ const SignUp = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Select
+                        <MuiPhoneNumber
                           value={countryCode}
+                          id="countryCode"
+                          name="countryCode"
+                          defaultCountry={'ca'}
                           onChange={handleCountryCodeChange}
-                          variant="standard"
-                        >
-                          <MenuItem value="+1">USA (+1)</MenuItem>
-                          <MenuItem value="+1">CANADA (+1)</MenuItem>
-                          <MenuItem value="+44">UK (+44)</MenuItem>
-                          <MenuItem value="+91">India (+91)</MenuItem>
-                          {/* Add more countries and codes as needed */}
-                        </Select>
+                        />
                       </InputAdornment>
                     ),
                   }}
+                  // InputProps={{
+                  //   startAdornment: (
+                  //     <InputAdornment position="start">
+                  //       <Select
+                  //         value={countryCode}
+                  //         onChange={handleCountryCodeChange}
+                  //         variant="standard"
+                  //       >
+                  //         <MenuItem value="+1">USA (+1)</MenuItem>
+                  //         <MenuItem value="+1">CANADA (+1)</MenuItem>
+                  //         <MenuItem value="+44">UK (+44)</MenuItem>
+                  //         <MenuItem value="+91">India (+91)</MenuItem>
+                  //         {/* Add more countries and codes as needed */}
+                  //       </Select>
+                  //     </InputAdornment>
+                  //   ),
+                  // }}
+                  
                   inputProps={{ maxLength: 20 }}
                 />
               </Grid>
