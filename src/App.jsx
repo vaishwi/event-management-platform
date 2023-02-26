@@ -9,6 +9,8 @@ import "./App.css";
 import ResponsiveAppBar from "./components/Navbar.jsx";
 import OrganizerList from "./pages/OrganizerList.jsx";
 import OrganizerProfile from "./pages/OrganizerProfile.jsx";
+// import Profile from "./pages/Profile.jsx";
+import Profile from "./pages/P.jsx";
 
 function App() {
   return (
@@ -27,7 +29,7 @@ function App() {
           <Route element={<Home />} path="/home" />
           <Route element={<About />} path="/about" />
           <Route element={<OrganizerList />} path="/organizers" />
-          <Route element={<OrganizerProfile />} path="/organizerProfile" />
+          <Route element={<Profile />} path="/organizerProfile" />
         </Route>
       </Routes>
     </div>

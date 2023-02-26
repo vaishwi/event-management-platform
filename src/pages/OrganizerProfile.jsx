@@ -4,7 +4,7 @@ const OrganizerProfile = () => {
     return ( 
         <div>
             <Stack direction="row">
-                <Box sx={{width: '100', mt:5,ml:5,mr:10,bgcolor: '#efefef'}}>
+                <Box sx={{p:2,mx: 'auto', mt:5,ml:5,mr:10,bgcolor: '#efefef'}}>
                       <Avatar></Avatar>      
                       <Typography>Hello</Typography>
                 </Box>
