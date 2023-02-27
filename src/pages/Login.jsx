@@ -81,13 +81,13 @@ const Login = () => {
             if (u.email == email && u.password == password) {
                 localStorage.setItem("user", u);
                 console.log(u);
-                if (u.userType == "user"){
+                if (u.userType == "user") {
                     navigate("/home");
                 }
-                if (u.userType == "organizer"){
+                if (u.userType == "organizer") {
                     navigate("/");
                 }
-                if (u.userType == "admin"){
+                if (u.userType == "admin") {
                     navigate("/organizers");
                 }
             }
@@ -247,7 +247,7 @@ const Login = () => {
                                     item
                                     xs>
                                     <Link
-                                        href="#"
+                                        href="/forgetPassword"
                                         variant="body2">
                                         Forgot password?
                                     </Link>

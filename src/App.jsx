@@ -11,6 +11,7 @@ import "./App.css";
 import ResponsiveAppBar from "./components/Navbar.jsx";
 import OrganizerList from "./pages/OrganizerList.jsx";
 import OrganizerProfile from "./pages/OrganizerProfile.jsx";
+import CheckoutForgetPassword from "./pages/forgetPassword/CheckoutForgetPassword.jsx";
 
 function App() {
   return (
@@ -29,7 +30,9 @@ function App() {
           <Route element={<Home />} path="/home" />
           <Route element={<About />} path="/about" />
           <Route element= {<Blog />} path = "/event" />
-          <Route element= {<Checkout />} path = "/checkout" />
+          <Route element={<Checkout />} path="/checkout" />
+          <Route element={<CheckoutForgetPassword />} path="/forgetPassword" />
+          
 
           <Route element={<OrganizerList />} path="/organizers" />
           <Route element={<OrganizerProfile />} path="/organizerProfile" />
