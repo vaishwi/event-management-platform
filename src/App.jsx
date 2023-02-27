@@ -13,6 +13,8 @@ import ResponsiveAppBar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import OrganizerList from "./pages/OrganizerList.jsx";
 import OrganizerProfile from "./pages/OrganizerProfile.jsx";
+import RegisteredEvents from "./pages/eventDetails/myRegisteredEvents.jsx";
+import Payments from "./pages/eventDetails/payments.jsx";
 import CheckoutForgetPassword from "./pages/forgetPassword/CheckoutForgetPassword.jsx";
 
 function App() {
@@ -35,6 +37,9 @@ function App() {
           <Route element= {<Blog />} path = "/event" />
           <Route element= {<Blog />} path = "/event/:id" />
           <Route element= {<Checkout />} path = "/checkout" />
+          <Route element= {<RegisteredEvents />} path = "/myEvents" />
+          <Route element= {<Payments />} path = "/billing" />
+{/*           <Route element= {<Search />} path = "/search" /> */}
           <Route element={<Checkout />} path="/checkout" />
           <Route element={<CheckoutForgetPassword />} path="/forgetPassword" />
 

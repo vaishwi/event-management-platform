@@ -11,14 +11,21 @@ import Button from '@mui/material/Button';
 import ButtonGroup from "@mui/material/ButtonGroup";
 import IncrementDecrement from './IncrementDecrement.jsx'
 function Sidebar(props) {
-  const { social, price } = props;
+  const { social, price, url, title } = props;
   const navigate = useNavigate();
-    const handleRedirection = (element) => {
-      navigate(element);
+
+    const handleRedirection = (element , url , title) => {
+      navigate(element, {state : {
+      url,
+      title
+      }});
     }
 
   return (
     <Grid item xs={12} md={4} sx = {{alignItems:"center"}} >
+    {console.log(url)}
+    {console.log(title)}
+
       <Paper elevation={0} sx={{ p: 5, bgcolor: 'grey.200' }}>
         <Box sx = {{padding: 1.2}}>
         <Box sx={{ flexGrow: 1 }}>
@@ -32,7 +39,7 @@ function Sidebar(props) {
                  <IncrementDecrement />
               </Grid>
               <Grid item xs={12}>
-                 <Button sx = {{bgcolor: 'red', alignItems:"center"}} size = "large" fullWidth = "true" variant="contained" onClick={() => handleRedirection('/checkout')}>Get tickets</Button>
+                 <Button sx = {{bgcolor: 'red', alignItems:"center"}} size = "large" fullWidth = "true" variant="contained" onClick={() => handleRedirection('/checkout', url , title )}>Get tickets</Button>
               </Grid>
             </Grid>
           </Box>

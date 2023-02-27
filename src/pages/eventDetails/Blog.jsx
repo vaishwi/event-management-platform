@@ -60,6 +60,8 @@ const Blog = () => {
                     <Sidebar
                       price = {data.price}
                       social={sidebar.social}
+                      title = {data.title}
+                      url = {data.icon}
                     />
                   </Grid>
                   <Grid container spacing={4}>
