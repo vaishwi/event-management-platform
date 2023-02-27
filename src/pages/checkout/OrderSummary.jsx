@@ -9,9 +9,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Divider from '@mui/material/Divider';
 
-export default function AddressForm() {
+export default function AddressForm(props) {
+  const {url , title} = props;
+
   return (
     <React.Fragment>
+        {console.log(url)}
+
       <Typography variant="h4" gutterBottom>
         Order Summary
       </Typography>
@@ -46,13 +50,13 @@ export default function AddressForm() {
                 </Grid>
               </CardContent>
             </Card>
-            <Card sx={{ flex: 1 , boxShadow: 0}}>
+            <Card align = "center" sx={{ flex: 1 , boxShadow: 0}}>
                 <Typography variant="h5" sx = {{fontWeight:"normal", fontStyle: "normal"}}>
-                    Unicycling Race
+                    {title}
                 </Typography>
                 <CardContent sx={{ flex: 1 }}>
                 <CardMedia
-                   src = "../Images/Event1.png"
+                   src = {url}
                    component="img"
                    sx={{ width: 1, position: 'relative', backgroundSize: 'cover', display: { xs: 'none', sm: 'block' } }}
                 />
