@@ -26,9 +26,9 @@ query{
 }`;
 
 export const SEARCH_EVENTS = `
-query getEvents($queryString: String!){
+query getEvents($queryString: String!, $city: String!){
   events(
-    filters: {or: [{country: { containsi: $queryString }}, {description: { containsi: $queryString }}]}
+    filters: {or: [{city: { containsi: $queryString }}, {description: { containsi: $queryString }}, {city: { containsi: $city }}]}
   ){
     data{
       id

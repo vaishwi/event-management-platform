@@ -7,14 +7,14 @@ import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
-const TrendingEvents = () => {
-  const [result] = useQuery({
-    query: GET_EVENTS,
-  });
-  const { data, fetching, error } = result;
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Error...{error.message}</p>;
-  const trendingEvents = data.events.data;
+const TrendingEvents = ({events}) => {
+  // const [result] = useQuery({
+  //   query: GET_EVENTS,
+  // });
+  // const { data, fetching, error } = result;
+  // if (fetching) return <p>Loading...</p>;
+  // if (error) return <p>Error...{error.message}</p>;
+  // const trendingEvents = data.events.data;
 
   return (
     <div>
@@ -65,7 +65,7 @@ const TrendingEvents = () => {
         </Grid>
       </Paper>
 
-      {trendingEvents.map((event) => {
+      {events.map((event) => {
         return <EventCard key={event.id} event={event} />;
       })}
     </div>

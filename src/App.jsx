@@ -31,13 +31,13 @@ function App() {
           <Route element={<About />} path="/about" />
           <Route element={<Search />} path="/search" />
           <Route element= {<Blog />} path = "/event" />
+          <Route element= {<Blog />} path = "/event/:id" />
           <Route element= {<Checkout />} path = "/checkout" />
 
           <Route element={<OrganizerList />} path="/organizers" />
           <Route element={<OrganizerProfile />} path="/organizerProfile" />
         </Route>
       </Routes>
-      {localStorage.getItem("loginStatus") && <Footer />}
     </div>
   );
 }

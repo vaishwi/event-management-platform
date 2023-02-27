@@ -20,19 +20,19 @@ function Footer() {
   return (
     <Box
       component="footer"
-      sx={{ bgcolor: "#efefef", py: 6, mt: 3 }}
+      sx={{ bgcolor: "#efefef", py: 3, mt: 3 }}
       className="footer">
       <Container maxWidth="lg">
-        <Typography variant="h6" align="center" gutterBottom>
-          {"Eventify"}
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p">
-          {"All rights are reserved"}
-        </Typography>
+        {/*<Typography variant="h6" align="center" gutterBottom>*/}
+        {/*  {"Eventify"}*/}
+        {/*</Typography>*/}
+        {/*<Typography*/}
+        {/*  variant="subtitle1"*/}
+        {/*  align="center"*/}
+        {/*  color="text.secondary"*/}
+        {/*  component="p">*/}
+        {/*  {"All rights are reserved"}*/}
+        {/*</Typography>*/}
         <Copyright />
       </Container>
     </Box>

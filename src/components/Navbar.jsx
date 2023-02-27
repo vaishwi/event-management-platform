@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router';
 
 // const pages = ['Products', 'Pricing', 'Blog'];
-const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/organizers'}]
+const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/organizers'}, {'pageName':'Find Events','route':'/search'}]
 
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -46,7 +46,7 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
     console.log(setting.route)
     navigate(setting.route)
-    
+
   };
 
   return (
