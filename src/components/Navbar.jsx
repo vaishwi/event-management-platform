@@ -14,9 +14,12 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router';
 
-// const pages = ['Products', 'Pricing', 'Blog'];
-const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}, {'pageName':'Find Events','route':'/search'},{'pageName':'My Events','route':'/myEvents'}]
 
+const p = localStorage.getItem("pages")
+console.log(JSON.parse(p))
+const pages = JSON.parse(p)
+
+// const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}]
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/login'},{'settingName':'Payments','route':'/billing'}]
@@ -24,7 +27,7 @@ const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboar
 function ResponsiveAppBar() {
 
   const navigate = useNavigate();
-
+  
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 

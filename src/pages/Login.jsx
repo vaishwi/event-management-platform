@@ -40,7 +40,9 @@ const theme = createTheme();
 
 const Login = () => {
     const navigate = useNavigate();
-
+    const organizationPages = [{'pageName':'My Events','route':'/organizerevents'},{'pageName':'Add Event','route':'/postevent'},{'pageName':'Subscribers','route':'/subscribers'}]
+    const userPages = [{'pageName':'Registered Events','route':'/organizers'},{'pageName':'Payment Details','route':'/'}]
+    const adminPages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}]
     const user = [
         {
             email: "user@gmail.com",
@@ -79,16 +81,29 @@ const Login = () => {
         });
         user.map((u) => {
             if (u.email == email && u.password == password) {
-                localStorage.setItem("user", u);
-                console.log(u);
+                localStorage.setItem("loginStatus",true)
+                localStorage.setItem("user", JSON.stringify(u));
+                
+                
                 if (u.userType == "user") {
+                    localStorage.setItem("pages",JSON.stringify(userPages))
+                    
+                    console.log(JSON.stringify(userPages))
+                    
                     navigate("/home");
+                    window.location.reload()
                 }
                 if (u.userType == "organizer") {
+                    localStorage.setItem("pages",JSON.stringify(organizationPages))
+                    
                     navigate("/");
+                    window.location.reload()
                 }
                 if (u.userType == "admin") {
+                    localStorage.setItem("pages",JSON.stringify(adminPages))
+                    
                     navigate("/organizers");
+                    window.location.reload()
                 }
             }
         });
