@@ -8,8 +8,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import MuiPhoneNumber from 'material-ui-phone-number';
 
 import InputAdornment from '@mui/material/InputAdornment';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -21,6 +19,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router';
 
 function Copyright(props) {
   return (
@@ -39,12 +38,17 @@ const theme = createTheme();
 
 const SignUp = () => {
 
+  const navigate = useNavigate();
+
+  const emailValidation = /^[ ]*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})[ ]*$/i;
+
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countryCode, setCountryCode] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-
+  const [emailError, setEmailError] = useState(false);
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -56,6 +60,7 @@ const SignUp = () => {
       email: data.get('email'),
       password: data.get('password'),
     });
+    navigate("/login");
   };
   
   const handlePhoneNumberChange = (event) => {
@@ -71,6 +76,15 @@ const SignUp = () => {
   // const handleCountryCodeChange = (event) => {
   //   setCountryCode(event.target.value);
   // };
+  const handleEmailChange = (event) => {
+    const newValue = event.target.value;
+    // setEmail(newValue);
+    if (!emailValidation.test(newValue)) {
+      setEmailError(true);
+    } else {
+      setEmailError(false);
+    }
+  };
 
   const handlePasswordChange = (event) => {
     const newValue = event.target.value;
@@ -182,6 +196,10 @@ const SignUp = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={handleEmailChange}
+                  error={emailError}
+                  helperText={emailError && "Please enter valid email address"}
+                  
                 />
               </Grid>
               {/* <Grid item xs={12}>
@@ -239,7 +257,7 @@ const SignUp = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
