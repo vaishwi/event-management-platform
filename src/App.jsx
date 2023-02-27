@@ -16,11 +16,23 @@ import OrganizerProfile from "./pages/OrganizerProfile.jsx";
 import RegisteredEvents from "./pages/eventDetails/myRegisteredEvents.jsx";
 import Payments from "./pages/eventDetails/payments.jsx";
 import CheckoutForgetPassword from "./pages/forgetPassword/CheckoutForgetPassword.jsx";
+import Logout from "./pages/Logout.jsx";
+import SubscriberList from "./pages/SubscriberList.jsx";
+import PostEvent from "./pages/PostEvent.jsx";
+import OrganizerEvents from "./pages/OrganizerEvents.jsx";
 
 function App() {
+  // localStorage.setItem("user",JSON.stringify({userType:""}))
+  const loginStatus = localStorage.getItem("loginStatus")
+  const user = JSON.parse(localStorage.getItem("user"))
+  console.log(localStorage.getItem("loginStatus"))
+  
+  console.log(loginStatus)
+  
   return (
     <div>
-      {localStorage.getItem("loginStatus") && <ResponsiveAppBar />}
+
+      {loginStatus && <ResponsiveAppBar />}
 
       <Routes>
         {/* Unprotected Routes */}
@@ -29,7 +41,8 @@ function App() {
 
         {/* Protected Routes */}
         <Route element={<PrivateRoutes />}>
-          <Route element={<Home />} path="/" />
+          {user.userType == "organizer"? <Route element={<SubscriberList />} path="/" /> : user.userType == "user" ?<Route element={<Home />} path="/" />: <Route element={<OrganizerList isAutheticationRequests={true}/>} path="/" />}
+          
           <Route element={<Home />} path="/home" />
           <Route element={<About />} path="/about" />
           <Route element={<Search />} path="/search" />
@@ -47,6 +60,10 @@ function App() {
           <Route element={<OrganizerList />} path="/organizers" />
           <Route element={<OrganizerProfile />} path="/organizerProfile" />
           <Route element={<OrganizerList isAutheticationRequests={true}/>} path="/authenticationRequests" />
+          <Route element={<OrganizerEvents />} path="/organizerevents" />
+          <Route element={<Logout />} path="/logout" />
+          <Route element={<SubscriberList/>} path="/subscribers"/>
+          <Route element={<PostEvent />} path="/postevent" />
         </Route>
       </Routes>
     </div>
