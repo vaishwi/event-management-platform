@@ -79,8 +79,7 @@ const Login = () => {
         });
         user.map((u) => {
             if (u.email == email && u.password == password) {
-                localStorage.setItem("user", u);
-                console.log(u);
+                localStorage.setItem("user", JSON.stringify(u));
                 if (u.userType == "user") {
                     navigate("/home");
                 }
