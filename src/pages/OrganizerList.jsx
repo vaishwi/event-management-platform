@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box } from '@mui/material'
+import { Box,Typography } from '@mui/material'
 import OrganizerItem from "../components/OranizerItem";
 
 const OrganizerList = (props) => {
@@ -17,8 +17,6 @@ const OrganizerList = (props) => {
     const organizer4 = {id:4,organizationName:"Halifax Public Library",managedBy:"Khushi Shah", occupation:"Public Library ", about:orgAbout ,contactNo:contactNo, email:email, location:location, subscribers:25,state:"Halifax, NS",isAuthenticated:true}
     const organizer5 = {id:5,organizationName:"Halifax Event Club", managedBy:"Deep Dave", occupation:"Club Owner", about:orgAbout ,contactNo:contactNo, email:email, location:location, subscribers:10,state:"Halifax, NS",isAuthenticated:false}
 
-    
-
     const organizerStaticList1 = [organizer1,organizer2,organizer3,organizer4,organizer5]    
     const organizerStaticList2 = [organizer3,organizer5]    
     const [organizerList, setOrganizerList] = useState(organizerStaticList1)
@@ -26,7 +24,11 @@ const OrganizerList = (props) => {
 
     return (
     <div>
-       
+       < Box sx={{ mt:5,ml:30,mr:30,}}>
+        <Typography variant="h3" component="h2" align="center">
+            {props.isAutheticationRequests == true ? "Authentication Requests" : "Organizers List"}
+        </Typography>
+        </Box>
         <Box sx={{width: 'auto', mt:5,ml:5,mr:10,bgcolor: '#efefef'}}> 
         
         {props.isAutheticationRequests == false ? organizerList.map( (org) => <OrganizerItem organizer = {org}/>) : organizerStaticList2.map( (org) => <OrganizerItem organizer = {org}/>)}
