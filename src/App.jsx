@@ -11,6 +11,8 @@ import "./App.css";
 import ResponsiveAppBar from "./components/Navbar.jsx";
 import OrganizerList from "./pages/OrganizerList.jsx";
 import OrganizerProfile from "./pages/OrganizerProfile.jsx";
+import RegisteredEvents from "./pages/eventDetails/myRegisteredEvents.jsx";
+import Payments from "./pages/eventDetails/payments.jsx";
 import CheckoutForgetPassword from "./pages/forgetPassword/CheckoutForgetPassword.jsx";
 
 function App() {
@@ -31,9 +33,13 @@ function App() {
           <Route element={<About />} path="/about" />
           <Route element={<OrganizerList isAutheticationRequests={false}/>} path="/organizers" />
           <Route element= {<Blog />} path = "/event" />
+          <Route element= {<Checkout />} path = "/checkout" />
+          <Route element= {<RegisteredEvents />} path = "/myEvents" />
+          <Route element= {<Payments />} path = "/billing" />
+{/*           <Route element= {<Search />} path = "/search" /> */}
           <Route element={<Checkout />} path="/checkout" />
           <Route element={<CheckoutForgetPassword />} path="/forgetPassword" />
-          
+
 
           <Route element={<OrganizerList />} path="/organizers" />
           <Route element={<OrganizerProfile />} path="/organizerProfile" />

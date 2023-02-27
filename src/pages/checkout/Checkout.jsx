@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,14 +15,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './OrderSummary.jsx';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const steps = ['Order Summary', 'Payment details', 'Place your order'];
 
-function getStepContent(step) {
+function getStepContent(step , url , title) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <AddressForm url = {url} title = {title}/>;
     case 1:
       return <PaymentForm />;
     case 2:
@@ -35,6 +35,18 @@ function getStepContent(step) {
 const theme = createTheme();
 
 export default function Checkout() {
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        {console.log(location.state)}
+        if(location.state != null){
+            setData(location.state);
+        }
+    },[])
+
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -45,7 +57,6 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
-  const navigate = useNavigate();
     const handleRedirection = (element) => {
       navigate(element);
     }
@@ -53,8 +64,8 @@ export default function Checkout() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
       <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
+      {console.log(data?.url)}
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
             Checkout
@@ -76,7 +87,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep)}
+              {getStepContent(activeStep , data?.url, data?.title)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
