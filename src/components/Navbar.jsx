@@ -15,11 +15,11 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router';
 
 // const pages = ['Products', 'Pricing', 'Blog'];
-const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/organizers'}]
+const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/organizers'}, {'pageName':'My Events','route':'/myEvents'}]
 
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/login'}]
+const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/login'},{'settingName':'Payments','route':'/billing'}]
 
 function ResponsiveAppBar() {
 
