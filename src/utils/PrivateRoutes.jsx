@@ -1,6 +1,5 @@
 import React from "react";
-import {Navigate, Outlet} from "react-router-dom";
-import ResponsiveAppBar from "../components/Navbar";
+import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoutes = () => {
     // localStorage.setItem("loginStatus",false)

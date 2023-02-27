@@ -18,6 +18,8 @@ import CardActionArea from '@mui/material/CardActionArea';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import { useParams } from "react-router-dom";
+
 
 const sidebar = {
   social: [
@@ -30,7 +32,8 @@ const sidebar = {
 const theme = createTheme();
 
 const Blog = () => {
-
+    const params = useParams();
+    console.log(params)
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -57,6 +60,8 @@ const Blog = () => {
                     <Sidebar
                       price = {data.price}
                       social={sidebar.social}
+                      title = {data.title}
+                      url = {data.icon}
                     />
                   </Grid>
                   <Grid container spacing={4}>

@@ -13,7 +13,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
 
 
 const p = localStorage.getItem("pages")
@@ -23,7 +22,7 @@ const pages = JSON.parse(p)
 // const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}]
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/logout'}]
+const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/login'},{'settingName':'Payments','route':'/billing'}]
 
 function ResponsiveAppBar() {
 
@@ -50,7 +49,7 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
     console.log(setting.route)
     navigate(setting.route)
-    
+
   };
 
   return (
