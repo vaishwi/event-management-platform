@@ -56,6 +56,11 @@ const OrganizerProfile = () => {
     const [dialogDiscription,setDialogDiscription] = useState("");
     const REMOVE_DIALOG_DESCR = "Organizer removed successfully."
     const AUTHENTICATE_DIALOG_DESCR = "Authentication Successful. Now you can post events."
+    const user = localStorage.getItem("user")
+    const USER_TYPE = "user"
+    const IS_USER = JSON.parse(user).userType == USER_TYPE
+    // const IS_USER = "user" == USER_TYPE
+    console.log(JSON.parse(user))
 
     const openDialogBox = (description) =>{
         setOpenDialog(true)
@@ -96,11 +101,11 @@ const OrganizerProfile = () => {
                             <LocationOn fontSize="small" className={classes.contactInfoIcon} />
                             {organizer.state}
                         </Typography>
-                        
-                        <div align="center">
+                       {IS_USER && <div align="center">
                        
-                            <Button variant="contained" sx={{mt:10}}>Subscribe</Button>
-                        </div>
+                       <Button variant="contained" sx={{mt:10}}>Subscribe</Button>
+                   </div> } 
+                        
                         <Divider sx={{m:5}}/>
                         
                     </Paper>
@@ -141,15 +146,15 @@ const OrganizerProfile = () => {
                             <Business />
                             <Typography variant="subtitle1" sx={{ml:2}}>{organizer.location}</Typography>
                         </div>
-
-                        {isAuthenticated ==true ? 
+                        
+                        {!IS_USER &&( isAuthenticated ==true ? 
                             <div align="center">
                                 <Button variant='outlined' color="error" onClick={() => openDialogBox(REMOVE_DIALOG_DESCR,)}> Remove </Button>
                             </div> 
                             
                             :<div align="center">
                                 <Button variant='contained' onClick={() => openDialogBox(AUTHENTICATE_DIALOG_DESCR)}> Authenticate </Button>
-                            </div>
+                            </div>)
                         }
                         <CustomDialogBox openDialog={openDialog} dialogDiscription={dialogDiscription} handleClose={handleAuthenticationRemoveClick}/> 
                         
