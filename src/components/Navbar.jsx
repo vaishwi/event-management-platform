@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router';
 
 // const pages = ['Products', 'Pricing', 'Blog'];
-const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/organizers'}, {'pageName':'My Events','route':'/myEvents'}]
+const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}, {'pageName':'My Events','route':'/myEvents'}]
 
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
