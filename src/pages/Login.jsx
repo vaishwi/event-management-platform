@@ -41,7 +41,7 @@ const theme = createTheme();
 const Login = () => {
     const navigate = useNavigate();
     const organizationPages = [{'pageName':'My Events','route':'/organizerevents'},{'pageName':'Add Event','route':'/postevent'},{'pageName':'Subscribers','route':'/subscribers'}]
-    const userPages = [{'pageName':'Registered Events','route':'/myEvents'},{'pageName':'Payment Details','route':'/billing'}]
+    const userPages = [{'pageName':'My Events','route':'/home'}, {'pageName':'Registered Events','route':'/myEvents'},{'pageName':'Payment Details','route':'/billing'}]
     const adminPages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/manageEvents'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}]
     const user = [
         {
