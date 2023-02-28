@@ -1,6 +1,4 @@
 import React from "react";
-import { useQuery } from "urql";
-import { GET_EVENTS } from "../utils/Queries.jsx";
 import Typography from "@mui/material/Typography";
 import EventCard from "./SearchEventCards.jsx";
 import { Paper } from "@mui/material";

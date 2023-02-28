@@ -150,7 +150,7 @@ const Login = () => {
                     md={8}
                     sx={{
                         backgroundImage:
-                            "url(/public/Images/carousel.jpg)",
+                            "url(/Images/carousel.jpg)",
                         backgroundRepeat: "no-repeat",
                         backgroundColor: (t) =>
                             t.palette.mode === "light"

@@ -1,16 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, {  useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation, Trans } from 'react-i18next';
-import { Layout, Menu, Table, Button, Dropdown, Pagination } from 'antd';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Layout, Button } from 'antd';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -20,7 +11,6 @@ import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder.js";
 import Favorite from "@mui/icons-material/Favorite.js";
 import ShareIcon from "@mui/icons-material/Share.js";
-import SendIcon from "@mui/icons-material/Send.js";
 import {toast, ToastContainer} from "react-toastify";
 
   const { Content } = Layout;
@@ -34,8 +24,8 @@ const Dashboard = () => {
   const TrendingEventBox = [
     {
       key: '1',
-      icon: 'public/Images/Event1.png',
-      hoverIcon: 'public/Images/Event1.png',
+      icon: 'Images/Event1.png',
+      hoverIcon: '/Images/Event1.png',
       title: `${t('Unicycling Race')}`,
       price: '40',
       date: 'March 23,2023',
@@ -55,8 +45,8 @@ const Dashboard = () => {
     },
     {
       key: '2',
-      icon: 'public/Images/Event2.jpg',
-      hoverIcon: 'public/Images/Event2.jpg',
+      icon: '/Images/Event2.jpg',
+      hoverIcon: '/Images/Event2.jpg',
       title: `${t('Night Party')}`,
       price: '40',
       date: 'March 23,2023',
@@ -76,8 +66,8 @@ const Dashboard = () => {
     },
     {
       key: '3',
-      icon: 'public/Images/Event3.jpg',
-      hoverIcon: 'public/Images/Event3.jpg',
+      icon: '/Images/Event3.jpg',
+      hoverIcon: '/Images/Event3.jpg',
       title: `${t('Twsift Party')}`,
       price: '40',
       date: 'March 23,2023',
@@ -97,8 +87,8 @@ const Dashboard = () => {
     },
     {
       key: '4',
-      icon: 'public/Images/Event4.jpg',
-      hoverIcon: 'public/Images/Event4.jpg',
+      icon: '/Images/Event4.jpg',
+      hoverIcon: '/Images/Event4.jpg',
       title: `${t('Kite Fight')}`,
       price: '40',
       date: 'March 23,2023',
@@ -118,8 +108,8 @@ const Dashboard = () => {
     },
     {
       key: '5',
-      icon: 'public/Images/Event5.jpg',
-      hoverIcon: 'public/Images/Event5.jpg',
+      icon: '/Images/Event5.jpg',
+      hoverIcon: '/Images/Event5.jpg',
       title: `${t('Colors hub')}`,
       price: '40',
       date: 'March 23,2023',
@@ -143,8 +133,8 @@ const Dashboard = () => {
     const OtherEventsBox = [
       {
       key: '1',
-      icon: 'public/Images/Event1.png',
-      hoverIcon: 'public/Images/Event1.png',
+      icon: '/Images/Event1.png',
+      hoverIcon: '/Images/Event1.png',
       title: `${t('Unicycling Race')}`,
       price: '40',
       date: 'March 23,2023',
@@ -164,8 +154,8 @@ const Dashboard = () => {
     },
       {
       key: '2',
-      icon: 'public/Images/Event2.jpg',
-      hoverIcon: 'public/Images/Event2.jpg',
+      icon: '/Images/Event2.jpg',
+      hoverIcon: '/Images/Event2.jpg',
       title: `${t('Night Party')}`,
       price: '40',
       date: 'March 23,2023',
@@ -185,8 +175,8 @@ const Dashboard = () => {
     },
       {
       key: '3',
-      icon: 'public/Images/Event3.jpg',
-      hoverIcon: 'public/Images/Event3.jpg',
+      icon: '/Images/Event3.jpg',
+      hoverIcon: '/Images/Event3.jpg',
       title: `${t('Twsift Party')}`,
       price: '40',
       date: 'March 23,2023',
@@ -206,8 +196,8 @@ const Dashboard = () => {
     },
       {
       key: '4',
-      icon: 'public/Images/Event4.jpg',
-      hoverIcon: 'public/Images/Event4.jpg',
+      icon: '/Images/Event4.jpg',
+      hoverIcon: '/Images/Event4.jpg',
       title: `${t('Kite Fight')}`,
       price: '40',
       date: 'March 23,2023',
@@ -227,8 +217,8 @@ const Dashboard = () => {
     },
       {
       key: '5',
-      icon: 'public/Images/Event5.jpg',
-      hoverIcon: 'public/Images/Event5.jpg',
+      icon: '/Images/Event5.jpg',
+      hoverIcon: '/Images/Event5.jpg',
       title: `${t('Colors hub')}`,
       price: '40',
       date: 'March 23,2023',
@@ -248,8 +238,8 @@ const Dashboard = () => {
     },
       {
       key: '6',
-      icon: 'public/Images/Event6.jpg',
-      hoverIcon: 'public/Images/Event6.jpg',
+      icon: '/Images/Event6.jpg',
+      hoverIcon: '/Images/Event6.jpg',
       title: `${t('Concert')}`,
       price: '40',
       date: 'March 23,2023',
@@ -292,8 +282,8 @@ const Dashboard = () => {
   const TempList = [
     {
       key: '1',
-      icon: 'public/Images/Event1.png',
-      hoverIcon: 'public/Images/Event1.png',
+      icon: '/Images/Event1.png',
+      hoverIcon: '/Images/Event1.png',
       title: `${t('Unicycling Race')}`,
       price: 'Price: $40',
       date: 'March 23,2023',
@@ -314,8 +304,8 @@ const Dashboard = () => {
     },
     {
       key: '2',
-      icon: 'public/Images/Event2.jpg',
-      hoverIcon: 'public/Images/Event2.jpg',
+      icon: '/Images/Event2.jpg',
+      hoverIcon: '/Images/Event2.jpg',
       title: `${t('Night party')}`,
       price: 'Price: $30',
       location: 'Location: Halifax',
@@ -325,8 +315,8 @@ const Dashboard = () => {
     },
     {
       key: '3',
-      icon: 'public/Images/Event3.jpg',
-      hoverIcon: 'public/Images/Event3.jpg',
+      icon: '/Images/Event3.jpg',
+      hoverIcon: '/Images/Event3.jpg',
       title: `${t('Tswift Party')}`,
       price: 'Price: $20',
       date: 'Feb 1,2023',
@@ -336,8 +326,8 @@ const Dashboard = () => {
     },
     {
       key: '4',
-      icon: 'public/Images/Event4.jpg',
-      hoverIcon: 'public/Images/Event4.jpg',
+      icon: '/Images/Event4.jpg',
+      hoverIcon: '/Images/Event4.jpg',
       title: `${t('Kite fight')}`,
       price: 'Price: $10',
       date: 'Feb 1,2023',
@@ -347,8 +337,8 @@ const Dashboard = () => {
     },
     {
       key: '5',
-      icon: 'public/Images/Event5.jpg',
-      hoverIcon: 'public/Images/Event5.jpg',
+      icon: '/Images/Event5.jpg',
+      hoverIcon: '/Images/Event5.jpg',
       title: `${t('Colors hub')}`,
       price: 'Price: $40',
       date: 'Feb 1,2023',
@@ -358,8 +348,8 @@ const Dashboard = () => {
     },
     {
       key: '6',
-      icon: 'public/Images/Event6.jpg',
-      hoverIcon: 'public/Images/Event6.jpg',
+      icon: '/Images/Event6.jpg',
+      hoverIcon: '/Images/Event6.jpg',
       title: `${t('Concert')}`,
       price: 'Price: $40',
       date: 'Feb 1,2023',

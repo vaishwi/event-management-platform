@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import {useLocation, useNavigate} from 'react-router-dom';
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import '../../index.scss';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
