@@ -17,12 +17,19 @@ import { useNavigate } from 'react-router';
 
 const p = localStorage.getItem("pages")
 console.log(JSON.parse(p))
-const pages = JSON.parse(p)
+let pages = []
+if(p!==null){
+  pages = JSON.parse(p)
+}
+else{
+  console.log(" In pages null")
+}
+
 
 // const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}]
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/login'},{'settingName':'Payments','route':'/billing'}]
+const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/logout'}]
 
 function ResponsiveAppBar() {
 
@@ -61,7 +68,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            // href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },

@@ -20,19 +20,49 @@ import Logout from "./pages/Logout.jsx";
 import SubscriberList from "./pages/SubscriberList.jsx";
 import PostEvent from "./pages/PostEvent.jsx";
 import OrganizerEvents from "./pages/OrganizerEvents.jsx";
+import ManageEventsList from "./pages/manageEvents/ManageEventsList.jsx";
+import DeleteEvent from "./pages/manageEvents/DeleteEvent.jsx";
+import ViewAllUsers from "./pages/manageEvents/VIewAllUsers.jsx";
+
+let loginStatus = localStorage.getItem("loginStatus") == "true"
+
+if(localStorage.getItem("loginStatus") == null){
+  console.log("In null login status")
+  localStorage.setItem("loginStatus",false)
+  loginStatus = localStorage.getItem("loginStatus") == "true"
+  console.log(typeof(loginStatus))
+}
 
 function App() {
-//   localStorage.setItem("user",JSON.stringify({userType:""}))
-  const loginStatus = localStorage.getItem("loginStatus")
+  // localStorage.setItem("user",JSON.stringify({userType:""}))
+
+  if(localStorage.getItem("loginStatus") == null){
+    console.log("In null login")
+    localStorage.setItem("loginStatus",'false')
+  }
+
+  if(localStorage.getItem("user") == null){
+    localStorage.setItem("user",JSON.stringify({userType:""}))
+  }
+
+  if(localStorage.getItem("pages") == null){
+    localStorage.setItem("pages",JSON.stringify([]))
+  }
+
+  // const loginStatus = localStorage.getItem("loginStatus")
+
   const user = JSON.parse(localStorage.getItem("user"))
+
   console.log(localStorage.getItem("loginStatus"))
-  
-  console.log(loginStatus)
+
+
+  // console.log(loginStatus)
   
   return (
     <div>
 
       {loginStatus && <ResponsiveAppBar />}
+
 
       <Routes>
         {/* Unprotected Routes */}
@@ -64,6 +94,11 @@ function App() {
           <Route element={<Logout />} path="/logout" />
           <Route element={<SubscriberList/>} path="/subscribers"/>
           <Route element={<PostEvent />} path="/postevent" />
+
+
+          <Route element={<ManageEventsList />} path="/manageEvents" />
+          <Route element={<DeleteEvent />} path="/deleteEvent" />
+          <Route element={<ViewAllUsers />} path="/viewAllUsers" />
         </Route>
       </Routes>
     </div>
