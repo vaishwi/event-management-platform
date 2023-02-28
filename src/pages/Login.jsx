@@ -46,17 +46,17 @@ const Login = () => {
     const user = [
         {
             email: "user@gmail.com",
-            password: 123456,
+            password: '123456',
             userType: "user",
         },
         {
             email: "admin@gmail.com",
-            password: 123456,
+            password: '123456',
             userType: "admin",
         },
         {
             email: "organizer@gmail.com",
-            password: 123456,
+            password: '123456',
             userType: "organizer",
         },
     ];
