@@ -21,18 +21,44 @@ import SubscriberList from "./pages/SubscriberList.jsx";
 import PostEvent from "./pages/PostEvent.jsx";
 import OrganizerEvents from "./pages/OrganizerEvents.jsx";
 
+let loginStatus = localStorage.getItem("loginStatus") == "true"
+
+if(localStorage.getItem("loginStatus") == null){
+  console.log("In null login status")
+  localStorage.setItem("loginStatus",false)
+  loginStatus = localStorage.getItem("loginStatus") == "true"
+  console.log(typeof(loginStatus))
+}
+
 function App() {
   // localStorage.setItem("user",JSON.stringify({userType:""}))
-  const loginStatus = localStorage.getItem("loginStatus")
+  
+  if(localStorage.getItem("loginStatus") == null){
+    console.log("In null login")
+    localStorage.setItem("loginStatus",'false')
+  }
+
+  if(localStorage.getItem("user") == null){
+    localStorage.setItem("user",JSON.stringify({userType:""}))
+  }
+
+  if(localStorage.getItem("pages") == null){
+    localStorage.setItem("pages",JSON.stringify([]))
+  }
+
+  // const loginStatus = localStorage.getItem("loginStatus")
+
   const user = JSON.parse(localStorage.getItem("user"))
+  
   console.log(localStorage.getItem("loginStatus"))
   
-  console.log(loginStatus)
+  // console.log(loginStatus)
   
   return (
     <div>
 
       {loginStatus && <ResponsiveAppBar />}
+      
 
       <Routes>
         {/* Unprotected Routes */}
