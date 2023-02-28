@@ -19,11 +19,6 @@ function DeleteEventButton(props) {
     const handleRedirection = (url) => {
         toast("Event Deleted Successfully")
         navigate(url);
-        let devicesArray  = JSON.parse(localStorage.getItem("events"))
-        let newList = devicesArray.filter(d => d.key !== index)
-        localStorage.setItem("events", JSON.stringify(newList));
-        console.log(JSON.parse(localStorage.getItem("events")),index,"pppp")
-
     }
 
     const submit = () => {
