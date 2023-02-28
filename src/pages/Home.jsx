@@ -376,9 +376,13 @@ const Dashboard = () => {
       const organizer1 = {id:1,organizationName:"Halifax community center",managedBy:"Vaishwi Patel", occupation:"Club Owner", about:orgAbout ,contactNo:contactNo, email:email, location:location, subscribers:100,state:"Halifax, NS", isAuthenticated:true}
       const organizer2 = {id:2,organizationName:"The comedy factory",managedBy:"Arpitkumar Patel", occupation:"Dalhousie Event Manager", about:orgAbout ,contactNo:contactNo, email:email, location:location, subscribers:70,state:"Halifax, NS",isAuthenticated:true}
 
-  const handleRedirection = (element) => {
+  const handleRedirection_organization = (element) => {
     element.nav === "true" ? navigate(element.url, {state : {organizer:organizer1}}) : navigate(element.url, {state : {organizer:organizer2}});
   }
+
+    const handleRedirection = (element) => {
+      navigate(element.url, {state : element});
+    }
 
   const searchNavigation = (element) => {
     navigate(element);
@@ -506,7 +510,7 @@ const Dashboard = () => {
                     <div className="top-boxes full-width horizontal-scroll">
                       {OrganizationBox.map((element, index) => (
                         <div className="full-width single-box">
-                            <div className="full-width" key={element.key} onClick={() => handleRedirection(element, true)}>
+                            <div className="full-width" key={element.key} onClick={() => handleRedirection_organization(element, true)}>
                                 <img className=" center-img" src={element.icon} alt="product" />
                                 <div className="earning-text full-width">{element.title}</div>
                             </div>
