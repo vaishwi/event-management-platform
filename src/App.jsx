@@ -22,7 +22,7 @@ import PostEvent from "./pages/PostEvent.jsx";
 import OrganizerEvents from "./pages/OrganizerEvents.jsx";
 
 function App() {
-  // localStorage.setItem("user",JSON.stringify({userType:""}))
+//   localStorage.setItem("user",JSON.stringify({userType:""}))
   const loginStatus = localStorage.getItem("loginStatus")
   const user = JSON.parse(localStorage.getItem("user"))
   console.log(localStorage.getItem("loginStatus"))
