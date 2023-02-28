@@ -23,6 +23,7 @@ import ManageEventsList from "./pages/manageEvents/ManageEventsList.jsx";
 import DeleteEvent from "./pages/manageEvents/DeleteEvent.jsx";
 import ViewAllUsers from "./pages/manageEvents/VIewAllUsers.jsx";
 
+
 let loginStatus = localStorage.getItem("loginStatus") === "true"
 
 if(localStorage.getItem("loginStatus") == null){
