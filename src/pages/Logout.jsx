@@ -7,13 +7,13 @@ const Logout = () => {
     
     localStorage.setItem("loginStatus",false) 
     useEffect(() => {
-        return () => {
+        
           // cleanup when component unmounts
           console.log("leaving checkout");
           navigate("/login")
           window.location.reload()
           // history.go()
-        };
+        
       }, []);
     
     
