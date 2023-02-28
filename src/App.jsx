@@ -68,6 +68,8 @@ function App() {
         {/* Unprotected Routes */}
         <Route element={<Login />} path="/login" />
         <Route element={<SignUp />} path="/signup" />
+        <Route element={<CheckoutForgetPassword />} path="/forgetPassword" />
+
 
         {/* Protected Routes */}
         <Route element={<PrivateRoutes />}>
@@ -84,7 +86,6 @@ function App() {
           <Route element= {<Payments />} path = "/billing" />
 {/*           <Route element= {<Search />} path = "/search" /> */}
           <Route element={<Checkout />} path="/checkout" />
-          <Route element={<CheckoutForgetPassword />} path="/forgetPassword" />
 
 
           <Route element={<OrganizerList />} path="/organizers" />
