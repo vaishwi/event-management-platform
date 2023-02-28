@@ -138,7 +138,7 @@ const ManageEventsList = () => {
                     <div className="layout-padding">
                         <div>
                             <div className="top-boxes full-width horizontal-scroll">
-                                {eventList.map((element, index) => (
+                                {TrendingEventBox.map((element, index) => (
                                     <div className="full-width single-box">
                                         <div className="full-width" key={element.key} onClick={() => handleRedirection(element)}>
                                             <img className=" center-img" src={element.icon} alt="product" />
