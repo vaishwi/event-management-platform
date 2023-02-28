@@ -41,8 +41,8 @@ const theme = createTheme();
 const Login = () => {
     const navigate = useNavigate();
     const organizationPages = [{'pageName':'My Events','route':'/organizerevents'},{'pageName':'Add Event','route':'/postevent'},{'pageName':'Subscribers','route':'/subscribers'}]
-    const userPages = [{'pageName':'My Events','route':'/home'}, {'pageName':'Registered Events','route':'/myEvents'},{'pageName':'Payment Details','route':'/billing'}]
-    const adminPages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/manageEvents'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}]
+    const userPages = [{'pageName':'My Events','route':'/home'}, {'pageName':'Search','route':'/search'}, {'pageName':'Registered Events','route':'/myEvents'},{'pageName':'Payment Details','route':'/billing'}]
+    const adminPages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Search','route':'/search'},{'pageName':'Events','route':'/manageEvents'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}]
     const user = [
         {
             email: "user@gmail.com",
@@ -80,12 +80,12 @@ const Login = () => {
             password: data.get("password"),
         });
         user.map((u) => {
-            if (u.email == email && u.password == password) {
+            if (u.email === email && u.password === password) {
                 localStorage.setItem("loginStatus",true)
                 localStorage.setItem("user", JSON.stringify(u));
                 
                 
-                if (u.userType == "user") {
+                if (u.userType === "user") {
                     localStorage.setItem("pages",JSON.stringify(userPages))
                     
                     console.log(JSON.stringify(userPages))
@@ -93,13 +93,13 @@ const Login = () => {
                     navigate("/home");
                     window.location.reload()
                 }
-                if (u.userType == "organizer") {
+                if (u.userType === "organizer") {
                     localStorage.setItem("pages",JSON.stringify(organizationPages))
                     
                     navigate("/");
                     window.location.reload()
                 }
-                if (u.userType == "admin") {
+                if (u.userType === "admin") {
                     localStorage.setItem("pages",JSON.stringify(adminPages))
                     
                     navigate("/organizers");

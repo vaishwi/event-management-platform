@@ -1,13 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {useQuery} from "urql";
-import {GET_EVENTS, SEARCH_EVENTS} from "../utils/Queries.jsx";
 import EventCard from "../components/SearchEventCards";
 import Grid from "@mui/material/Grid";
 import "../styles/searchPage.css";
-import {AiOutlineSearch} from "react-icons/ai";
 import Button from "@mui/material/Button";
-import TrendingEvents from "../components/TrendingEvents.jsx";
-import {Chip, Paper, Stack} from "@mui/material";
+import {Stack} from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -19,6 +15,7 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import {EventsData} from "../utils/EventsData.jsx";
 import {Box} from "@mui/system";
+import {AiOutlineSearch} from "react-icons/ai";
 import {MdOutlineErrorOutline} from "react-icons/md"
 
 const ITEM_HEIGHT = 48;

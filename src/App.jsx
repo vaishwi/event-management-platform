@@ -10,7 +10,6 @@ import PrivateRoutes from "./utils/PrivateRoutes.jsx";
 import "./App.css";
 import Search from "./pages/Search.jsx";
 import ResponsiveAppBar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
 import OrganizerList from "./pages/OrganizerList.jsx";
 import OrganizerProfile from "./pages/OrganizerProfile.jsx";
 import RegisteredEvents from "./pages/eventDetails/myRegisteredEvents.jsx";
@@ -24,12 +23,12 @@ import ManageEventsList from "./pages/manageEvents/ManageEventsList.jsx";
 import DeleteEvent from "./pages/manageEvents/DeleteEvent.jsx";
 import ViewAllUsers from "./pages/manageEvents/VIewAllUsers.jsx";
 
-let loginStatus = localStorage.getItem("loginStatus") == "true"
+let loginStatus = localStorage.getItem("loginStatus") === "true"
 
 if(localStorage.getItem("loginStatus") == null){
   console.log("In null login status")
   localStorage.setItem("loginStatus",false)
-  loginStatus = localStorage.getItem("loginStatus") == "true"
+  loginStatus = localStorage.getItem("loginStatus") === "true"
   console.log(typeof(loginStatus))
 }
 
@@ -73,7 +72,7 @@ function App() {
 
         {/* Protected Routes */}
         <Route element={<PrivateRoutes />}>
-          {user.userType == "organizer"? <Route element={<SubscriberList />} path="/" /> : user.userType == "user" ?<Route element={<Home />} path="/" />: <Route element={<OrganizerList isAutheticationRequests={true}/>} path="/" />}
+          {user.userType === "organizer"? <Route element={<SubscriberList />} path="/" /> : user.userType === "user" ?<Route element={<Home />} path="/" />: <Route element={<OrganizerList isAutheticationRequests={true}/>} path="/" />}
           
           <Route element={<Home />} path="/home" />
           <Route element={<About />} path="/about" />
