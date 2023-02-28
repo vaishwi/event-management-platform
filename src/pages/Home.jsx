@@ -1,16 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, {  useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation, Trans } from 'react-i18next';
-import { Layout, Menu, Table, Button, Dropdown, Pagination } from 'antd';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Layout, Button } from 'antd';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -20,7 +11,6 @@ import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder.js";
 import Favorite from "@mui/icons-material/Favorite.js";
 import ShareIcon from "@mui/icons-material/Share.js";
-import SendIcon from "@mui/icons-material/Send.js";
 import {toast, ToastContainer} from "react-toastify";
 
   const { Content } = Layout;
@@ -34,7 +24,7 @@ const Dashboard = () => {
   const TrendingEventBox = [
     {
       key: '1',
-      icon: 'public/Images/Event1.png',
+      icon: 'Images/Event1.png',
       hoverIcon: 'public/Images/Event1.png',
       title: `${t('Unicycling Race')}`,
       price: '40',

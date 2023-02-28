@@ -1,23 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import {useLocation, useNavigate} from 'react-router-dom';
-import { useTranslation, Trans } from 'react-i18next';
-import { Layout, Menu, Table, Button, Dropdown, Pagination } from 'antd';
-import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-} from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import { useTranslation } from 'react-i18next';
+import { Layout } from 'antd';
 import '../../index.scss';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { FormControlLabel } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import Favorite from '@mui/icons-material/Favorite';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';

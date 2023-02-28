@@ -5,11 +5,6 @@ const Logout = () => {
 
     window.localStorage.clear()
     
-    // localStorage.setItem("loginStatus",false)
-    // localStorage.setItem("pages",JSON.stringify([]))
-    // localStorage.setItem("user",JSON.stringify({userType:""}))
-    // localStorage.removeItem("user")
-    // console.log(localStorage.getItem("loginStatus"))
     localStorage.setItem("loginStatus",false) 
     useEffect(() => {
         return () => {

@@ -1,5 +1,3 @@
-import { filter } from 'lodash';
-import { useState } from 'react';
 // @mui
 import {
   Box,
@@ -9,20 +7,13 @@ import {
   Divider,
   Grid,
   Stack,
-  Paper,
-  Avatar,
   Button,
-  Popover,
-  Checkbox,
   TableRow,
-  MenuItem,
   TableBody,
   TableCell,
   Container,
   Typography,
-  IconButton,
   TableContainer,
-  TablePagination,
 } from '@mui/material';
 
 export default function MyEventsComponent() {
