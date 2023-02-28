@@ -20,6 +20,9 @@ import Logout from "./pages/Logout.jsx";
 import SubscriberList from "./pages/SubscriberList.jsx";
 import PostEvent from "./pages/PostEvent.jsx";
 import OrganizerEvents from "./pages/OrganizerEvents.jsx";
+import ManageEventsList from "./pages/manageEvents/ManageEventsList.jsx";
+import DeleteEvent from "./pages/manageEvents/DeleteEvent.jsx";
+import ViewAllUsers from "./pages/manageEvents/VIewAllUsers.jsx";
 
 let loginStatus = localStorage.getItem("loginStatus") == "true"
 
@@ -51,6 +54,7 @@ function App() {
   const user = JSON.parse(localStorage.getItem("user"))
   
   console.log(localStorage.getItem("loginStatus"))
+
   
   // console.log(loginStatus)
   
@@ -90,6 +94,11 @@ function App() {
           <Route element={<Logout />} path="/logout" />
           <Route element={<SubscriberList/>} path="/subscribers"/>
           <Route element={<PostEvent />} path="/postevent" />
+
+
+          <Route element={<ManageEventsList />} path="/manageEvents" />
+          <Route element={<DeleteEvent />} path="/deleteEvent" />
+          <Route element={<ViewAllUsers />} path="/viewAllUsers" />
         </Route>
       </Routes>
     </div>
