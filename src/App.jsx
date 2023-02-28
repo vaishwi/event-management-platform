@@ -35,7 +35,7 @@ if(localStorage.getItem("loginStatus") == null){
 
 function App() {
   // localStorage.setItem("user",JSON.stringify({userType:""}))
-  
+
   if(localStorage.getItem("loginStatus") == null){
     console.log("In null login")
     localStorage.setItem("loginStatus",'false')
@@ -52,17 +52,17 @@ function App() {
   // const loginStatus = localStorage.getItem("loginStatus")
 
   const user = JSON.parse(localStorage.getItem("user"))
-  
+
   console.log(localStorage.getItem("loginStatus"))
 
-  
+
   // console.log(loginStatus)
   
   return (
     <div>
 
       {loginStatus && <ResponsiveAppBar />}
-      
+
 
       <Routes>
         {/* Unprotected Routes */}

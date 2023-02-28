@@ -276,6 +276,8 @@ const Dashboard = () => {
           hoverIcon: 'Images/Organizer1.jpg',
           title: `${t('Halifax Community Center')}`,
           price: '40',
+          url: '/organizerProfile',
+          nav: 'true'
         },
         {
           key: '2',
@@ -283,6 +285,8 @@ const Dashboard = () => {
           hoverIcon: 'Images/Organizer2.jpg',
           title: `${t('The comedy factory')}`,
           price: '30',
+          url: '/organizerProfile',
+          nav: 'false'
         },
       ];
   const TempList = [
@@ -365,9 +369,15 @@ const Dashboard = () => {
     }
 
   ];
+      const contactNo = "+1 (902) 989-7898"
+      const orgAbout = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      const email = "vs439755@dal.ca"
+      const location = "Halifax"
+      const organizer1 = {id:1,organizationName:"Halifax community center",managedBy:"Vaishwi Patel", occupation:"Club Owner", about:orgAbout ,contactNo:contactNo, email:email, location:location, subscribers:100,state:"Halifax, NS", isAuthenticated:true}
+      const organizer2 = {id:2,organizationName:"The comedy factory",managedBy:"Arpitkumar Patel", occupation:"Dalhousie Event Manager", about:orgAbout ,contactNo:contactNo, email:email, location:location, subscribers:70,state:"Halifax, NS",isAuthenticated:true}
 
   const handleRedirection = (element) => {
-    navigate(element.url, {state : element});
+    element.nav === "true" ? navigate(element.url, {state : {organizer:organizer1}}) : navigate(element.url, {state : {organizer:organizer2}});
   }
 
   const searchNavigation = (element) => {
@@ -496,7 +506,7 @@ const Dashboard = () => {
                     <div className="top-boxes full-width horizontal-scroll">
                       {OrganizationBox.map((element, index) => (
                         <div className="full-width single-box">
-                            <div className="full-width" key={element.key}>
+                            <div className="full-width" key={element.key} onClick={() => handleRedirection(element, true)}>
                                 <img className=" center-img" src={element.icon} alt="product" />
                                 <div className="earning-text full-width">{element.title}</div>
                             </div>

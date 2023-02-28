@@ -29,7 +29,7 @@ else{
 // const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}]
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/logout'},{'settingName':'Payments','route':'/billing'}]
+const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/logout'}]
 
 function ResponsiveAppBar() {
 
