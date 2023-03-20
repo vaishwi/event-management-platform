@@ -22,3 +22,4 @@ Link for the group branch - https://git.cs.dal.ca/vaishwi/group_7_csci5709
 
 
 
+npm config set legacy-peer-deps true
