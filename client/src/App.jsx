@@ -8,7 +8,7 @@ import Checkout from "./pages/checkout/Checkout.jsx";
 import About from "./pages/About.jsx";
 import PrivateRoutes from "./utils/PrivateRoutes.jsx";
 import "./App.css";
-import Search from "./pages/Search.jsx";
+import Search from "./pages/Search2.jsx";
 import ResponsiveAppBar from "./components/Navbar.jsx";
 import OrganizerList from "./pages/OrganizerList.jsx";
 import OrganizerProfile from "./pages/OrganizerProfile.jsx";
