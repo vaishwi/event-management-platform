@@ -18,7 +18,8 @@ class Event(Model):
     organizer = TextField()
     type = TextField()
 
-    def add_event(self, data):
+    @classmethod
+    def add_event(cls, data):
         e = Event(
             title=data.get('title'),
             description=data.get('description'),
@@ -37,8 +38,8 @@ class Event(Model):
         e.save()
         return e.id
     
-
-    def get_event(self, key):
+    @classmethod
+    def get_event(cls, key):
         event_dict = {
             "success": False,
             "data": {}
@@ -51,7 +52,9 @@ class Event(Model):
             print(e)
         return event_dict
 
-    def get_all_events(self):
+    @classmethod
+
+    def get_all_events(cls):
         events = []
         event_list = Event.collection.fetch()
         

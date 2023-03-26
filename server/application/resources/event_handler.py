@@ -4,6 +4,7 @@ import json
 from application.auth_token import token_validator
 from application.business_logic.events import Event
 
+
 class EventsEndpoint(Resource):
 
     def get(self):
@@ -25,7 +26,7 @@ class EventsEndpoint(Resource):
         # response['limit'] = limit
         # response['total_pages'] = total_pages
 
-        events = Event().get_all_events()
+        events = Event.get_all_events()
         response['data'] = events
         return response
 
@@ -34,14 +35,14 @@ class EventEndpoint(Resource):
 
     # @token_validator
     def get(self, id):
-        response = Event().get_event(id)
+        response = Event.get_event(id)
         if response['success']:
             return response['data'], 200
         return "Event not found", 404
 
     def post(self, id):
         data = request.get_json()
-        response = Event().add_event(data)
+        response = Event.add_event(data)
         return response
 
     def put(self, id):
