@@ -4,7 +4,6 @@ import Grid from "@mui/material/Grid";
 import "../styles/searchPage.css";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/material";
-import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -13,10 +12,13 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
-import { EventsData } from "../utils/EventsData.jsx";
 import { Box } from "@mui/system";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdOutlineErrorOutline } from "react-icons/md"
+import Pagination from '@mui/material/Pagination';
+import { MdClear } from "react-icons/md";
+
+import axios from 'axios';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -29,75 +31,107 @@ const MenuProps = {
 };
 
 const eventTypes = ['Paid', 'Free']
-let cities = [];
-EventsData.data.events.data.forEach((event) => {
-    if (!cities.includes(event.attributes.city)) {
-        cities.push(event.attributes.city);
-    }
-})
+
 
 const Search = () => {
-    const [events, setEvents] = useState(EventsData.data.events.data);
+    const [events, setEvents] = useState({ "data": [] });
+    const [filteredEvents, setFilteredEvents] = useState(events);
+    const cities = [];
+
     const [searchValue, setSearchValue] = useState("");
     const [selectedCity, setSelectedCity] = useState([]);
     const [eventType, setEventType] = useState([]);
 
-    // const [result, getEvent] = useQuery({
-    //     query: SEARCH_EVENTS, variables: {queryString: searchValue, city: 'halifax'}, pause: true,
-    // });
-    // const [trendingEvents] = useQuery({
-    //     query: GET_EVENTS,
-    // });
-    // const {data, fetching, error} = trendingEvents;
-    // if (fetching) return <p>Loading...</p>;
-    // if (error) return <p>Error...{error.message}</p>;
-    // let trendingEventsData = data.events.data;
+
+    // Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [cardsPerPage] = useState(5);
+    const indexOfLastCard = currentPage * cardsPerPage;
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    const currentCards = events.data.slice(indexOfFirstCard, indexOfLastCard);
+    const pageCount = events.data.length / cardsPerPage > 0 ? Math.floor(events.data.length / cardsPerPage) : 1;
+
+
+    const handleChange = (event, value) => {
+        setCurrentPage(value);
+    };
 
     useEffect(() => {
-        if (searchValue === '') {
-            setEvents(EventsData.data.events.data);
+        if (searchValue.length === 0) {
+            let data = [];
+            axios.get(`http://localhost:5000/events`)
+                .then(res => {
+                    data = res.data;
+                    console.log("event", data);
+                    data.data.forEach(element => {
+                        if (!cities.includes(element.city)) {
+                            cities.push(element.city);
+                        }
+                    });
+                    setEvents(data)
+                })
+
+            data.forEach(element => {
+                if (!cities.includes(element.city)) {
+                    cities.push(element.city);
+                }
+            });
         }
-    }, [searchValue]);
+    }, [currentPage, searchValue]);
 
 
     const applyFilter = (searchVal, selectedCityVal, eventTypeValue) => {
         if (searchVal !== '' && selectedCityVal.length !== 0 && eventTypeValue !== '') {
-            const results = EventsData.data.events.data.filter(eventValue => {
-                return ((eventValue.attributes.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.attributes.description.toLowerCase().includes(searchVal.toLowerCase())) && (selectedCityVal.includes(eventValue.attributes.city)) && (eventValue.attributes.type === eventTypeValue))
+            const results = events.data.filter(eventValue => {
+                return ((eventValue.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.description.toLowerCase().includes(searchVal.toLowerCase())) && (selectedCityVal.includes(eventValue.city)) && (eventValue.type === eventTypeValue))
             })
-            setEvents(results)
+            setEvents({
+                'data': results
+            })
         } else if (searchVal !== '' && eventTypeValue !== '') {
-            const results = EventsData.data.events.data.filter(eventValue => {
-                return ((eventValue.attributes.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.attributes.description.toLowerCase().includes(searchVal.toLowerCase())) && (eventValue.attributes.type === eventTypeValue))
+            const results = events.data.filter(eventValue => {
+                return ((eventValue.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.description.toLowerCase().includes(searchVal.toLowerCase())) && (eventValue.type === eventTypeValue))
             })
-            setEvents(results)
+            setEvents({
+                'data': results
+            })
         } else if (searchVal !== '' && selectedCityVal.length !== 0) {
-            const results = EventsData.data.events.data.filter(eventValue => {
-                return ((eventValue.attributes.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.attributes.description.toLowerCase().includes(searchVal.toLowerCase())) && (selectedCityVal.includes(eventValue.attributes.city)))
+            const results = events.data.filter(eventValue => {
+                return ((eventValue.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.description.toLowerCase().includes(searchVal.toLowerCase())) && (selectedCityVal.includes(eventValue.city)))
             })
-            setEvents(results)
+            setEvents({
+                'data': results
+            })
         } else if (selectedCityVal.length !== 0 && eventTypeValue !== '') {
-            const results = EventsData.data.events.data.filter(eventValue => {
-                return ((selectedCityVal.includes(eventValue.attributes.city)) && (eventValue.attributes.type === eventTypeValue))
+            const results = events.data.filter(eventValue => {
+                return ((selectedCityVal.includes(eventValue.city)) && (eventValue.type === eventTypeValue))
             })
-            setEvents(results)
+            setEvents({
+                'data': results
+            })
         } else if (selectedCityVal.length !== 0) {
-            const results = EventsData.data.events.data.filter(eventValue => {
-                return selectedCityVal.includes(eventValue.attributes.city)
+            const results = events.data.filter(eventValue => {
+                return selectedCityVal.includes(eventValue.city)
             })
-            setEvents(results)
+            setEvents({
+                'data': results
+            })
         } else if (searchVal !== '') {
-            const results = EventsData.data.events.data.filter(eventValue => {
-                return (eventValue.attributes.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.attributes.description.toLowerCase().includes(searchVal.toLowerCase()))
+            const results = events.data.filter(eventValue => {
+                return (eventValue.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.description.toLowerCase().includes(searchVal.toLowerCase()))
             })
-            setEvents(results)
+            setEvents({
+                'data': results
+            })
         } else if (eventTypeValue !== "") {
-            const results = EventsData.data.events.data.filter(eventValue => {
-                return (eventValue.attributes.type === eventTypeValue)
+            const results = events.data.filter(eventValue => {
+                return (eventValue.type === eventTypeValue)
             })
-            setEvents(results)
+            setEvents({
+                'data': results
+            })
         } else {
-            setEvents(EventsData.data.events.data)
+            setSearchValue("")
         }
     }
 
@@ -149,10 +183,11 @@ const Search = () => {
         setSearchValue(value);
         if (value === '') return setEvents(events)
     }
-
-    const handleSearchSubmit = () => {
+    const handleClearBtn = () => {
+        setSearchValue("");
+    };
+    const handleSearchSubmit = (e) => {
         e.preventDefault();
-        setEvents(EventsData.data.events.data);
         applyFilter(searchValue, selectedCity, '');
     };
 
@@ -236,13 +271,22 @@ const Search = () => {
                         size="small">
                         <AiOutlineSearch size={20} />
                     </Button>
+                    <Box sx={{
+                        display: "flex", alignItems: "center",
+                        padding: 1
+                    }}>
+                        <MdClear onClick={handleClearBtn} size={25} />
+                    </Box>
                 </div>
 
                 {/******************************************* Events *********************************************/}
                 <div>
-                    {events.length !== 0 ? (events.map((event) => {
-                        return (<EventCard key={event.id} event={event} />);
-                    })) : (<div>
+                    {/* events.data !== undefined && events.data.length !== 0 */}
+                    {currentCards !== undefined && currentCards.length !== 0 ? (
+                        currentCards.map((event) => {
+                            return (<EventCard key={event.id} event={event} />);
+                        })
+                    ) : (<div>
                         <Box
                             sx={{
                                 display: 'flex',
@@ -260,6 +304,16 @@ const Search = () => {
                         </Box>
                     </div>)}
                 </div>
+                <Box sx={{
+                    margin: "auto",
+                    width: "fit-content",
+                    alignItems: "center",
+                    py: 2
+                }}>
+                    <Pagination count={pageCount} page={currentPage} onChange={handleChange} />
+                </Box>
+
+
             </Grid>
         </Grid>
     </div>);
