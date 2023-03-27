@@ -8,7 +8,7 @@ import Checkout from "./pages/checkout/Checkout.jsx";
 import About from "./pages/About.jsx";
 import PrivateRoutes from "./utils/PrivateRoutes.jsx";
 import "./App.css";
-import Search from "./pages/Search.jsx";
+import Search from "./pages/Searchv2.jsx";
 import ResponsiveAppBar from "./components/Navbar.jsx";
 import OrganizerList from "./pages/OrganizerList.jsx";
 import OrganizerProfile from "./pages/OrganizerProfile.jsx";
@@ -84,10 +84,7 @@ function App() {
           <Route element= {<Checkout />} path = "/checkout" />
           <Route element= {<RegisteredEvents />} path = "/myEvents" />
           <Route element= {<Payments />} path = "/billing" />
-{/*           <Route element= {<Search />} path = "/search" /> */}
           <Route element={<Checkout />} path="/checkout" />
-
-
           <Route element={<OrganizerList />} path="/organizers" />
           <Route element={<OrganizerProfile />} path="/organizerProfile" />
           <Route element={<OrganizerList isAutheticationRequests={true}/>} path="/authenticationRequests" />
@@ -95,8 +92,6 @@ function App() {
           <Route element={<Logout />} path="/logout" />
           <Route element={<SubscriberList/>} path="/subscribers"/>
           <Route element={<PostEvent />} path="/postevent" />
-
-
           <Route element={<ManageEventsList />} path="/manageEvents" />
           <Route element={<DeleteEvent />} path="/deleteEvent" />
           <Route element={<ViewAllUsers />} path="/viewAllUsers" />

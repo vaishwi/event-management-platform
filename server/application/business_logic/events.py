@@ -18,7 +18,8 @@ class Event(Model):
     organizer = TextField()
     type = TextField()
 
-    def add_event(self, data):
+    @classmethod
+    def add_event(cls, data):
         e = Event(
             title=data.get('title'),
             description=data.get('description'),
@@ -36,25 +37,24 @@ class Event(Model):
         )
         e.save()
         return e.id
-    
 
-    def get_event(self, key):
+    @classmethod
+    def get_event(cls, key):
         event_dict = {
             "success": False,
             "data": {}
         }
         try:
-            event = Event.collection.get(f"event/{key}") 
+            event = Event.collection.get(f"event/{key}")
             event_dict['data'] = event.to_dict()
             event_dict['success'] = True
         except Exception as e:
             print(e)
         return event_dict
 
-    def get_all_events(self):
-        events = []
+    @classmethod
+    def get_all_events(cls, query):
         event_list = Event.collection.fetch()
-        
         events = [event.to_dict() for event in event_list]
         print(f"Events {events}")
         return events
