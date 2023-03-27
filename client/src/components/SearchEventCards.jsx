@@ -10,10 +10,10 @@ import Chip from "@mui/material/Chip";
 const EventCard = ({ event }) => {
   
   // const eventDate = new Date(Date.parse(event.start_date));
-  const eventDate = event.date;
+  const eventDate = `${event.date} ${event.time}`;
 
   const eventPrice =
-    event.price === "0" ? "Free" : `$ ${event.price}`;
+    event.price === 0 ? "Free" : `$ ${event.price}`;
   return (
     <CardActionArea component={RouterLink} to={`/event/${event.id}`}>
       <Grid
@@ -33,7 +33,7 @@ const EventCard = ({ event }) => {
                 style={{
                   padding: "0.5rem 0",
                 }}>
-                Location: {`${event.address_number} ${event.address_street} ${event.address_zip}`}
+                Location: {`${event.address},`}
               </p>
               <p>
                 {event.city} , {event.country}
