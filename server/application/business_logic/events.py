@@ -37,7 +37,7 @@ class Event(Model):
         )
         e.save()
         return e.id
-    
+
     @classmethod
     def get_event(cls, key):
         event_dict = {
@@ -45,7 +45,7 @@ class Event(Model):
             "data": {}
         }
         try:
-            event = Event.collection.get(f"event/{key}") 
+            event = Event.collection.get(f"event/{key}")
             event_dict['data'] = event.to_dict()
             event_dict['success'] = True
         except Exception as e:
@@ -53,11 +53,8 @@ class Event(Model):
         return event_dict
 
     @classmethod
-
-    def get_all_events(cls):
-        events = []
+    def get_all_events(cls, query):
         event_list = Event.collection.fetch()
-        
         events = [event.to_dict() for event in event_list]
         print(f"Events {events}")
         return events
