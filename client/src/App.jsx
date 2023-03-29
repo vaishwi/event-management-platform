@@ -22,6 +22,7 @@ import OrganizerEvents from "./pages/OrganizerEvents.jsx";
 import ManageEventsList from "./pages/manageEvents/ManageEventsList.jsx";
 import DeleteEvent from "./pages/manageEvents/DeleteEvent.jsx";
 import ViewAllUsers from "./pages/manageEvents/VIewAllUsers.jsx";
+import SignUpStart from "./pages/SignUpStart.jsx";
 
 
 let loginStatus = localStorage.getItem("loginStatus") === "true"
@@ -67,7 +68,7 @@ function App() {
       <Routes>
         {/* Unprotected Routes */}
         <Route element={<Login />} path="/login" />
-        <Route element={<SignUp />} path="/signup" />
+        <Route element={<SignUpStart />} path="/signup" />
         <Route element={<CheckoutForgetPassword />} path="/forgetPassword" />
 
 
