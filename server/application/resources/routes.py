@@ -7,5 +7,5 @@ def initialize_routes(api):
     api.add_resource(EventEndpoint, '/event/<id>', '/event')
     api.add_resource(Authentication, '/auth')
     api.add_resource(OrganizersEndpoint,'/organizers')
-    api.add_resource(OrganizerEndPoint,'/organizer')
+    api.add_resource(OrganizerEndPoint,'/organizer','/organizer/<id>')
     api.add_resource(UnauthenticateOrganizerEndPoint,'/unauthOrganizers')

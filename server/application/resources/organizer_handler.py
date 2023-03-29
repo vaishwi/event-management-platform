@@ -18,7 +18,11 @@ class OrganizerEndPoint(Resource):
         return response
 
     def get(self,id):
-        
+        response = Organizer().get_organizer(id)
+        if response['success']:
+            return response['data'], 200
+        return "Organizer not found", 404
+
 
 class UnauthenticateOrganizerEndPoint(Resource):
     def get(self):

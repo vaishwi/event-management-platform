@@ -38,24 +38,25 @@ class Organizer(Model):
         return organizer.id
     
 
-    def get_organizer(self, key):
-        event_dict = {
-            "success": False,
-            "data": {}
-        }
-        try:
-            event = Event.collection.get(f"event/{key}") 
-            event_dict['data'] = event.to_dict()
-            event_dict['success'] = True
-        except Exception as e:
-            print(e)
-        return event_dict
+    # def get_organizer(self, key):
+    #     event_dict = {
+    #         "success": False,
+    #         "data": {}
+    #     }
+    #     try:
+    #         event = Event.collection.get(f"event/{key}") 
+    #         event_dict['data'] = event.to_dict()
+    #         event_dict['success'] = True
+    #     except Exception as e:
+    #         print(e)
+    #     return event_dict
 
     def get_organizer(self,id):
+        organizer_dict = {}
         organizer = Organizer.collection.get(f"organizer/{id}") 
         organizer_dict['data'] = organizer.to_dict()
         organizer_dict['success'] = True
-        return organizer
+        return organizer_dict
 
     def get_all_organizer(self):
         organizer_list = Organizer.collection.fetch()
