@@ -20,6 +20,7 @@ class OrganizerEndPoint(Resource):
     def get(self,id):
         response = Organizer().get_organizer(id)
         if response['success']:
+            print(response)
             return response['data'], 200
         return "Organizer not found", 404
 

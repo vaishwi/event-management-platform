@@ -56,6 +56,7 @@ class Organizer(Model):
         organizer = Organizer.collection.get(f"organizer/{id}") 
         organizer_dict['data'] = organizer.to_dict()
         organizer_dict['success'] = True
+        print(organizer.to_dict())
         return organizer_dict
 
     def get_all_organizer(self):
