@@ -16,3 +16,13 @@ class OrganizerEndPoint(Resource):
         data = request.get_json()
         response = Organizer().add_organizer(data)
         return response
+
+    def get(self,id):
+        
+
+class UnauthenticateOrganizerEndPoint(Resource):
+    def get(self):
+        response = {}
+        unauthenticate_organizers = Organizer().get_authentication_requests()
+        response['data'] = unauthenticate_organizers
+        return response

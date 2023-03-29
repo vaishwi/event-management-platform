@@ -51,10 +51,27 @@ class Organizer(Model):
             print(e)
         return event_dict
 
+    def get_organizer(self,id):
+        organizer = Organizer.collection.get(f"organizer/{id}") 
+        organizer_dict['data'] = organizer.to_dict()
+        organizer_dict['success'] = True
+        return organizer
+
     def get_all_organizer(self):
-        organizers = []
         organizer_list = Organizer.collection.fetch()
         
+        organizers = []
         organizers = [organizer.to_dict() for organizer in organizer_list]
         print(f"Organizer {organizers}")
         return organizers
+
+    def get_authentication_requests(self):
+        
+        authentication_requests_list = Organizer.collection.filter('isAuthenticated', '==', False).fetch()
+
+        authentication_requests = []
+        authentication_requests = [auth_req.to_dict() for auth_req in authentication_requests_list]
+
+        print("type of output: ",type(authentication_requests_list))
+        print("type of conversion: ",type(authentication_requests))
+        return authentication_requests
