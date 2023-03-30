@@ -6,6 +6,11 @@ class RegistrationEndpoint(Resource):
 
     def post(self):
         data = request.get_json()
-        response = Credential.add_credential(data)
+        response = Credential().signup(data)
         return response
 
+class LoginEndpoint(Resource):
+    def post(self):
+        data = request.get_json()
+        response = Credential().login(data)
+        return response
