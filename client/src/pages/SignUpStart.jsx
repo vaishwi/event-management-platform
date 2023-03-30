@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 // import { createTheme } from '@mui/material/styles';
 import { makeStyles } from "@mui/styles";
-import { Button, Container, Grid, Paper, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Snackbar,
+} from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -19,6 +27,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 const theme = createTheme();
 
@@ -37,6 +46,10 @@ const useStyles = makeStyles(() => ({
     },
   },
 }));
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function Copyright(props) {
   return (
@@ -72,51 +85,149 @@ const SignUpStart = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [registrationError, setRegistrationError] = useState("");
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
+  const [lastnameError, setLastnameError] = useState(false);
+  const [firstnameError, setFirstnameError] = useState(false);
 
+  const [organizationError, setOrganizationError] = useState(false);
+  const [managedByError, setManagedByError] = useState(false);
 
   const handleSubmitAttendee = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      firstname: data.get("firstName"),
-      lastname: data.get("lastName"),
-      countryCode: data.get("countryCode"),
-      phonenumber: data.get("phoneNumber"),
+    console.log(data);
+    const data_json = {
+      // firstname: data.get("firstName"),
+      // lastname: data.get("lastName"),
+      name: data.get("firstName") + " " + data.get("lastName"),
+      // countryCode: data.get("countryCode"),
+      contactNo: data.get("countryCode") + data.get("phoneNumber"),
       email: data.get("email"),
       password: data.get("password"),
-    });
+      type: "attendee",
+    };
+    axios({
+      // Endpoint to send files
+      url: "http://127.0.0.1:5000/registration",
+      method: "POST",
+      data: data_json,
+    })
+      // Handle the response from backend here
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === "User does exist") {
+          setRegistrationError("Credential already exist");
+          setOpenSnackbar(true);
+        } else {
+          setRegistrationError("Credential already exist");
+          setOpenSnackbar(true);
+        }
+      })
+
+      // Catch errors if any
+      .catch((err) => {});
     navigate("/login");
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   };
 
   const handleSubmitOrganizer = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      firstname: data.get("firstName"),
-      lastname: data.get("lastName"),
-      countryCode: data.get("countryCode"),
-      phonenumber: data.get("phoneNumber"),
+    const data_json = {
+      // firstname: data.get("firstName"),
+      // lastname: data.get("lastName"),
+      managedBy: data.get("managedBy"),
+      // countryCode: data.get("countryCode"),
+      // phonenumber: data.get("phoneNumber"),
+      contactNo: data.get("countryCode") + data.get("phoneNumber"),
       email: data.get("email"),
       password: data.get("password"),
-      
-      organizer: data.get("organizer"),
+
+      organizationName: data.get("organization"),
       occupation: data.get("occupation"),
+      location: data.get("location"),
       about: data.get("about"),
       city: data.get("city"),
       state: data.get("state"),
-      
-    });
-    navigate("/login");
+      type: "organizer",
+    };
+    console.log(data_json);
+    axios({
+      // Endpoint to send files
+      url: "http://127.0.0.1:5000/registration",
+      method: "POST",
+      data: data_json,
+    })
+      // Handle the response from backend here
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === "User does exist") {
+          setRegistrationError("Credential already exist");
+          setOpenSnackbar(true);
+        } else {
+          navigate("/login");
+        }
+      })
+
+      // Catch errors if any
+      .catch((err) => {});
   };
   const handlePhoneNumberChange = (event) => {
     const newValue = event.target.value.replace(/[^0-9 +()-]/g, "");
     setPhoneNumber(newValue);
+    if (newValue.length < 5) {
+      setPhoneNumberError(true);
+    }
+    else {
+      setPhoneNumberError(false);
+    }
   };
 
-  function handleCountryCodeChange(value) {
-    console.log(value);
-    setCountryCode(value);
-  }
+  const handleCountryCodeChange = (event) => {
+    console.log(event.target.value);
+    setCountryCode(event.target.value);
+  };
+
+  const handleFirstNameChange = (event) => {
+    if (event.target.value.length < 1) {
+      setFirstnameError(true);
+    }
+    else {
+      setFirstnameError(false);
+    }
+  };
+
+  const handleLastNameChange = (event) => {
+    if (event.target.value.length < 1) {
+      setLastnameError(true);
+    }
+    else {
+      setLastnameError(false);
+    }
+  };
+
+  const handleOrganizationChange = (event) => {
+    if (event.target.value.length < 1) {
+      setOrganizationError(true);
+    }
+    else {
+      setOrganizationError(false);
+    }
+  };
+
+  const handleManagedByChange = (event) => {
+    if (event.target.value.length < 1) {
+      setManagedByError(true);
+    }
+    else {
+      setManagedByError(false);
+    }
+  };
 
   const handleEmailChange = (event) => {
     const newValue = event.target.value;
@@ -146,6 +257,17 @@ const SignUpStart = () => {
 
   return (
     <div className={classes.root}>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}>
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="error"
+          sx={{ width: "100%" }}>
+          {registrationError}
+        </Alert>
+      </Snackbar>
       <Container maxWidth="lg">
         <Grid
           container
@@ -211,7 +333,6 @@ const SignUpStart = () => {
               </Typography>
               <Box
                 component="form"
-                noValidate
                 onSubmit={handleSubmitAttendee}
                 sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
@@ -224,6 +345,9 @@ const SignUpStart = () => {
                       id="firstName"
                       label="First Name"
                       autoFocus
+                      onChange={handleFirstNameChange}
+                      error={firstnameError}
+                      helperText={firstnameError && "Please fill First Name"}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -234,6 +358,9 @@ const SignUpStart = () => {
                       label="Last Name"
                       name="lastName"
                       autoComplete="family-name"
+                      onChange={handleLastNameChange}
+                      error={lastnameError}
+                      helperText={lastnameError && "Please fill last Name"}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -247,7 +374,6 @@ const SignUpStart = () => {
                       fullWidth
                       required
                       name="phoneNumber"
-                      autoFocus
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
@@ -261,6 +387,10 @@ const SignUpStart = () => {
                           </InputAdornment>
                         ),
                       }}
+                      error={phoneNumberError}
+                      helperText={
+                        phoneNumberError && "Please fill Phone number"
+                      }
                       inputProps={{ maxLength: 20 }}
                     />
                   </Grid>
@@ -355,11 +485,50 @@ const SignUpStart = () => {
               </Typography>
               <Box
                 component="form"
-                noValidate
                 onSubmit={handleSubmitOrganizer}
                 sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="organization"
+                      label="Organization"
+                      name="organization"
+                      autoComplete="organization"
+                      onChange={handleOrganizationChange}
+                      error={organizationError}
+                      helperText={
+                        organizationError && "Please fill Organization Name"
+                      }
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="managedBy"
+                      label="Managed By"
+                      name="managedBy"
+                      autoComplete="managed-by"
+                      onChange={handleManagedByChange}
+                      error={managedByError}
+                      helperText={
+                        managedByError && "Please fill Managed By"
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      id="occupation"
+                      label="Occupation"
+                      name="occupation"
+                      autoComplete="occupation"
+                    />
+                  </Grid>
+                  {/* <Grid item xs={12} sm={6}>
                     <TextField
                       autoComplete="given-name"
                       name="firstName"
@@ -379,7 +548,7 @@ const SignUpStart = () => {
                       name="lastName"
                       autoComplete="family-name"
                     />
-                  </Grid>
+                  </Grid> */}
                   <Grid item xs={12}>
                     {/* <MuiPhoneNumber defaultCountry={'us'} onChange={handleCountryCodeChange}/> */}
                     <TextField
@@ -391,7 +560,6 @@ const SignUpStart = () => {
                       fullWidth
                       required
                       name="phoneNumber"
-                      autoFocus
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
@@ -405,6 +573,10 @@ const SignUpStart = () => {
                           </InputAdornment>
                         ),
                       }}
+                      error={phoneNumberError}
+                      helperText={
+                        phoneNumberError && "Please fill Phone number"
+                      }
                       inputProps={{ maxLength: 20 }}
                     />
                   </Grid>
@@ -451,22 +623,14 @@ const SignUpStart = () => {
                       }}
                     />
                   </Grid>
+
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
-                      id="organization"
-                      label="Organization"
-                      name="organization"
-                      autoComplete="organization"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      id="occupation"
-                      label="Occupation"
-                      name="occupation"
-                      autoComplete="occupation"
+                      id="location"
+                      label="Location"
+                      name="location"
+                      autoComplete="location"
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -476,7 +640,6 @@ const SignUpStart = () => {
                       fullWidth
                       id="city"
                       label="City"
-                      autoFocus
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -490,9 +653,10 @@ const SignUpStart = () => {
                   </Grid>
                   <Grid item sm={20}>
                     <TextField
-                    fullWidth
+                      fullWidth
                       id="outlined-multiline-static"
                       label="About"
+                      name="about"
                       multiline
                       rows={4}
                     />
