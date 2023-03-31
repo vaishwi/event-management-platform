@@ -20,8 +20,9 @@ class Organizer(Model):
     isAuthenticated = BooleanField()
     
 
-    def add_organizer(self, data):
+    def add_organizer(self, data, id):
         organizer = Organizer(
+                id = id,
                 organizationName = data.get('organizationName'),
                 managedBy = data.get('managedBy'),
                 occupation = data.get('occupation'),
@@ -31,9 +32,22 @@ class Organizer(Model):
                 location = data.get('location'),
                 state = data.get('state'),
                 city = data.get('city'),
-                subscribers = data.get('subscribers'),
-                isAuthenticated = data.get('isAuthenticated'),
+                subscribers = 0,
+                isAuthenticated = False,
         )
+        print(data)
+        print("---------------------------------")
+        print(data.get('organizationName'),
+               data.get('managedBy'),
+               data.get('occupation'),
+               data.get('about'),
+               data.get('contactNo'),
+               data.get('email'),
+               data.get('location'),
+               data.get('state'),
+               data.get('city'),
+              )
+        print("-----------------------------")
         organizer.save()
         return organizer.id
     

@@ -30,15 +30,17 @@ const MenuProps = {
     },
 };
 
-const eventTypes = ['Paid', 'Free']
+const eventTypes = ['Free','Paid']
 
 
 const Search = () => {
     const [events, setEvents] = useState({ "data": [] });
     const [filteredEvents, setFilteredEvents] = useState(events);
-    const cities = [];
-
+    // const cities = [];
+    const [cities, setCities] = useState([]);
+    console.log(cities.length);
     const [searchValue, setSearchValue] = useState("");
+    const [submitQuery, setSubmitQuery] = useState("");
     const [selectedCity, setSelectedCity] = useState([]);
     const [eventType, setEventType] = useState([]);
 
@@ -48,8 +50,15 @@ const Search = () => {
     const [cardsPerPage] = useState(5);
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    const currentCards = events.data.slice(indexOfFirstCard, indexOfLastCard);
-    const pageCount = events.data.length / cardsPerPage > 0 ? Math.floor(events.data.length / cardsPerPage) : 1;
+    let currentCards, pageCount;
+    if (events.length && events.length >= indexOfLastCard){
+        currentCards = events.slice(indexOfFirstCard, indexOfLastCard);
+        pageCount = events.length / cardsPerPage > 0 ? Math.floor(events.length / cardsPerPage) : 1;
+    } else if (events.length > 0){
+        currentCards = events;
+        pageCount = 1;
+    }
+    
 
 
     const handleChange = (event, value) => {
@@ -57,82 +66,66 @@ const Search = () => {
     };
 
     useEffect(() => {
-        if (searchValue.length === 0) {
-            let data = [];
-            axios.get(`http://localhost:5000/events`)
-                .then(res => {
-                    data = res.data;
-                    console.log("event", data);
-                    data.data.forEach(element => {
-                        if (!cities.includes(element.city)) {
-                            cities.push(element.city);
-                        }
-                    });
-                    setEvents(data)
-                })
-
-            data.forEach(element => {
-                if (!cities.includes(element.city)) {
-                    cities.push(element.city);
-                }
-            });
+        let data = [];
+        let url = `http://localhost:5000/events?`
+        
+        if (searchValue !== '') {
+            console.log(searchValue);
+            url = url + `query=${searchValue}`
         }
-    }, [currentPage, searchValue]);
+
+        if (eventType.length !== 0) {
+            url = url + `&type=${eventType[0]}`
+        }
+
+        axios.get(url)
+            .then(res => {
+                const events_data = res.data.data;
+                // setEvents(events_data);
+                let local_cities = []; 
+                events_data.forEach(element => {
+                    if (!local_cities.includes(element.city)) {
+                        local_cities.push(element.city);
+                    }
+                });
+                setCities(local_cities.sort());
+                applyFilter(searchValue, selectedCity, eventType, events_data);
+            });
+    }, [currentPage, submitQuery, selectedCity, eventType]);
 
 
-    const applyFilter = (searchVal, selectedCityVal, eventTypeValue) => {
-        if (searchVal !== '' && selectedCityVal.length !== 0 && eventTypeValue !== '') {
-            const results = events.data.filter(eventValue => {
-                return ((eventValue.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.description.toLowerCase().includes(searchVal.toLowerCase())) && (selectedCityVal.includes(eventValue.city)) && (eventValue.type === eventTypeValue))
+    const applyFilter = (searchVal, selectedCityVal, eventTypeValue, events_data) => {
+        let results = events_data;
+        if (searchVal !== '' && selectedCityVal.length !== 0 && eventTypeValue.length !== 0) {
+            results = events_data.filter(eventValue => {
+                return ((eventValue.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.description.toLowerCase().includes(searchVal.toLowerCase())) && (selectedCityVal.includes(eventValue.city)) && (eventValue.type === eventTypeValue[0]))
             })
-            setEvents({
-                'data': results
-            })
-        } else if (searchVal !== '' && eventTypeValue !== '') {
-            const results = events.data.filter(eventValue => {
-                return ((eventValue.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.description.toLowerCase().includes(searchVal.toLowerCase())) && (eventValue.type === eventTypeValue))
-            })
-            setEvents({
-                'data': results
+        } else if (searchVal !== '' && eventTypeValue.length !== 0) {
+            results = events_data.filter(eventValue => {
+                return ((eventValue.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.description.toLowerCase().includes(searchVal.toLowerCase())) && eventValue.type === eventTypeValue[0])
             })
         } else if (searchVal !== '' && selectedCityVal.length !== 0) {
-            const results = events.data.filter(eventValue => {
+            results = events_data.filter(eventValue => {
                 return ((eventValue.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.description.toLowerCase().includes(searchVal.toLowerCase())) && (selectedCityVal.includes(eventValue.city)))
             })
-            setEvents({
-                'data': results
-            })
-        } else if (selectedCityVal.length !== 0 && eventTypeValue !== '') {
-            const results = events.data.filter(eventValue => {
-                return ((selectedCityVal.includes(eventValue.city)) && (eventValue.type === eventTypeValue))
-            })
-            setEvents({
-                'data': results
+        } else if (selectedCityVal.length !== 0 && eventTypeValue.length !== 0) {
+            results = events_data.filter(eventValue => {
+                return ((selectedCityVal.includes(eventValue.city)) && (eventValue.type === eventTypeValue[0]))
             })
         } else if (selectedCityVal.length !== 0) {
-            const results = events.data.filter(eventValue => {
+            results = events_data.filter(eventValue => {
                 return selectedCityVal.includes(eventValue.city)
             })
-            setEvents({
-                'data': results
-            })
         } else if (searchVal !== '') {
-            const results = events.data.filter(eventValue => {
+            results = events_data.filter(eventValue => {
                 return (eventValue.title.toLowerCase().includes(searchVal.toLowerCase()) || eventValue.description.toLowerCase().includes(searchVal.toLowerCase()))
             })
-            setEvents({
-                'data': results
+        } else if (eventTypeValue.length !== 0) {
+            results = events_data.filter(eventValue => {
+                return (eventValue.type === eventTypeValue[0])
             })
-        } else if (eventTypeValue !== "") {
-            const results = events.data.filter(eventValue => {
-                return (eventValue.type === eventTypeValue)
-            })
-            setEvents({
-                'data': results
-            })
-        } else {
-            setSearchValue("")
-        }
+        } 
+        setEvents(results)
     }
 
     const handleCityChange = (event) => {
@@ -142,14 +135,6 @@ const Search = () => {
         console.log(value)
         const selectedValues = typeof value === 'string' ? value.split(',') : value;
         setSelectedCity(selectedValues);
-        if (value.length === 0) {
-            applyFilter(searchValue, value, '');
-        } else {
-            const results = events.filter(eventVal => {
-                return value.includes(eventVal.attributes.city)
-            })
-            setEvents(results)
-        }
     }
 
     const handleEventTypeChange = (event) => {
@@ -157,23 +142,12 @@ const Search = () => {
             target: { value },
         } = event;
         const eventValue = typeof value === 'string' ? value.split(',') : value;
-        setEventType(eventValue);
-
-        if (value.length === 0 || value.length === 2) {
-            applyFilter(searchValue, selectedCity, '');
-        } else if (value.length === 1 && value.includes('Free')) {
-            applyFilter(searchValue, selectedCity, "Free")
-            // const results = events.filter(eventVal => {
-            //     return eventVal.attributes.type === 'Free';
-            // })
-            // setEvents(results);
-        } else if (value.length === 1 && value.includes('Paid')) {
-            applyFilter(searchValue, selectedCity, "Paid")
-            // const results = events.filter(eventVal => {
-            //     return eventVal.attributes.type === 'Paid';
-            // })
-            // setEvents(results);
+        if (eventValue.length == 2) {
+            setEventType([]);    
+        } else {
+            setEventType(eventValue);
         }
+        
     };
 
     const handleSearchChange = (event) => {
@@ -183,12 +157,18 @@ const Search = () => {
         setSearchValue(value);
         if (value === '') return setEvents(events)
     }
+    
     const handleClearBtn = () => {
         setSearchValue("");
+        setSubmitQuery("");
+        setCities([]);
+        setEventType([]);
     };
+
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        applyFilter(searchValue, selectedCity, '');
+        setSubmitQuery(searchValue);
+        // applyFilter(searchValue, selectedCity, '', '');
     };
 
     return (<div>
@@ -281,7 +261,7 @@ const Search = () => {
 
                 {/******************************************* Events *********************************************/}
                 <div>
-                    {/* events.data !== undefined && events.data.length !== 0 */}
+                    {/* events. !== undefined && events..length !== 0 */}
                     {currentCards !== undefined && currentCards.length !== 0 ? (
                         currentCards.map((event) => {
                             return (<EventCard key={event.id} event={event} />);

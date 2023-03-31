@@ -4,7 +4,8 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-
+import MuiAlert from "@mui/material/Alert";
+import {Snackbar} from "@mui/material"
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -17,6 +18,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
+import axios from "axios";
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 
 function Copyright(props) {
   return (
@@ -80,6 +88,12 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [registrationError, setRegistrationError] = useState("");
+  
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -87,37 +101,83 @@ const Login = () => {
     const email = data.get("email");
     const password = data.get("password");
 
-    console.log({
+    const data_json = {
       email: data.get("email"),
       password: data.get("password"),
-    });
-    user.map((u) => {
-      if (u.email === email && u.password === password) {
-        localStorage.setItem("loginStatus", true);
-        localStorage.setItem("user", JSON.stringify(u));
+    };
+    // user.map((u) => {
+    //   if (u.email === email && u.password === password) {
+    //     localStorage.setItem("loginStatus", true);
+    //     localStorage.setItem("user", JSON.stringify(u));
 
-        if (u.userType === "user") {
-          localStorage.setItem("pages", JSON.stringify(userPages));
+    //     if (u.userType === "user") {
+    //       localStorage.setItem("pages", JSON.stringify(userPages));
 
-          console.log(JSON.stringify(userPages));
+    //       console.log(JSON.stringify(userPages));
 
-          navigate("/home");
-          window.location.reload();
-        }
-        if (u.userType === "organizer") {
-          localStorage.setItem("pages", JSON.stringify(organizationPages));
+    //       navigate("/home");
+    //       window.location.reload();
+    //     }
+    //     if (u.userType === "organizer") {
+    //       localStorage.setItem("pages", JSON.stringify(organizationPages));
 
-          navigate("/subscribers");
-          window.location.reload();
-        }
-        if (u.userType === "admin") {
-          localStorage.setItem("pages", JSON.stringify(adminPages));
+    //       navigate("/subscribers");
+    //       window.location.reload();
+    //     }
+    //     if (u.userType === "admin") {
+    //       localStorage.setItem("pages", JSON.stringify(adminPages));
 
-          navigate("/organizers");
-          window.location.reload();
-        }
-      }
-    });
+    //       navigate("/organizers");
+    //       window.location.reload();
+    //     }
+    //   }
+    // });
+    user.map((u) => { 
+      axios({
+        // Endpoint to send files
+        url: "http://127.0.0.1:5000/login",
+        method: "POST",
+        data: data_json,
+      })
+        // Handle the response from backend here
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.type === "attendee") {
+            localStorage.setItem("loginStatus", true);
+            localStorage.setItem("pages", JSON.stringify(userPages));
+            localStorage.setItem("user", JSON.stringify(res.data));
+            console.log(JSON.stringify(userPages));
+
+            navigate("/home");
+            window.location.reload();
+          } else if (res.data.type === "organizer") {
+            localStorage.setItem("loginStatus", true);
+            localStorage.setItem("pages", JSON.stringify(organizationPages));
+            localStorage.setItem("user", JSON.stringify(res.data));
+            
+            navigate("/subscribers");
+            window.location.reload();
+          } else if (res.data.type === "admin") {
+            localStorage.setItem("loginStatus", true);
+            localStorage.setItem("pages", JSON.stringify(adminPages));
+            localStorage.setItem("user", JSON.stringify(res.data));
+  
+            navigate("/organizers");
+            window.location.reload();
+          }
+          else {
+            setRegistrationError("Credential does not exist");
+            setOpenSnackbar(true);
+          }
+
+        })
+
+        .catch((err) => {
+          setRegistrationError(err);
+          setOpenSnackbar(true);
+        });
+    })
+
     // admin -> organizers
     // user -> home
     // organizer ->
@@ -149,6 +209,17 @@ const Login = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}>
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="error"
+          sx={{ width: "100%" }}>
+          {registrationError}
+        </Alert>
+      </Snackbar>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
