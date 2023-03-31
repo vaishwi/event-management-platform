@@ -7,7 +7,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
-export default function NewPassword() {
+export default function NewPassword(props) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -23,9 +23,18 @@ export default function NewPassword() {
         setPassword(newValue);
         if (newValue.length < 6) {
             setPasswordError(true);
+            props.setNewPassword("");
         } else {
             setPassword(newValue);
             setPasswordError(false);
+            props.setNewPassword(newValue);
+        }
+        if (newValue == confirmPassword) {
+            setConfirmPasswordError(false);
+        }
+        else {
+            setConfirmPasswordError(true);
+            props.setNewPassword("");
         }
     };
 
@@ -34,9 +43,11 @@ export default function NewPassword() {
         setConfirmPassword(newValue);
         if (newValue == password) {
             setConfirmPasswordError(false);
+            props.setNewPassword(newValue);
         }
         else{
             setConfirmPasswordError(true);
+            props.setNewPassword("");
         }
     };
 

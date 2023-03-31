@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
-export default function ResetCode() {
+export default function ResetCode(props) {
 
     
     const [codeError, setCodeError] = useState(false);
@@ -15,10 +15,19 @@ export default function ResetCode() {
         setCode(newValue);
         
         // const newValue = event.target.value;
-        if (newValue.length < 4 || newValue.length > 4) {
+        if (newValue.length < 6 || newValue.length > 6) {
             setCodeError(true);
         } else {
             setCodeError(false);
+        }
+        console.log("Transfer code: ", props.resetCode)
+        if (props.resetCode == newValue) {
+            console.log("match")
+            props.isResetCodeCorrect(true);
+        }
+        else {
+            console.log("not match")
+            props.isResetCodeCorrect(false);
         }
     };
     

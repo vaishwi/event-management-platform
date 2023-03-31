@@ -14,3 +14,16 @@ class LoginEndpoint(Resource):
         data = request.get_json()
         response = Credential().login(data)
         return response
+    
+class CheckEmailExist(Resource):
+    def post(self):
+        data = request.get_json()
+        response = Credential().checkEmail(data)
+        return response
+    
+class SetNewPassword(Resource):
+    def post(self):
+        data = request.get_json()
+        print(data)
+        response = Credential().setNewPassword(data)
+        return response

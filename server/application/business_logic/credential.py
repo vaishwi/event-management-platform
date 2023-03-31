@@ -71,6 +71,27 @@ class Credential(Model):
         print(credential.id)
         return credential.id
     
+    def checkEmail(self, data):
+        return True
+        print(data)
+        credential_list = Credential.collection.filter(email = data.get('email')).fetch()
+        
+        credential = [credential.to_dict() for credential in credential_list]
+        if(credential):
+            print("return true from checkEmail")
+            return True
+        else:
+            print("return false from checkEmail")
+            return False
+        
+    def setNewPassword(self, data):
+        credential = Credential.collection.filter(email = data.get('email')).get()
+        print("fetch: ", credential)
+        credential.password = data.get('password')
+        print("After update:", credential)
+        credential.update()
+        return credential.id
+
     def check_credential(data):
         # return False
         print(data)
