@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  overflow-x: auto;
+}
+
+.container > div {
+  flex-shrink: 0;
+  width: %;
+  padding: 10px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

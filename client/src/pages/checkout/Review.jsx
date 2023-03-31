@@ -22,7 +22,10 @@ const payments = [
   { name: 'Expiry date', detail: '04/2024' },
 ];
 
-export default function Review() {
+export default function Review(props) {
+
+  const {eventData, counter, payment} = props;
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -37,35 +40,39 @@ export default function Review() {
 {/*         ))} */}
 
         <ListItem sx={{ py: 1, px: 0 }}>
-          <ListItemText primary="Total" />
+          <ListItemText primary="Total:" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $40.0
+            CA $ {counter * eventData.price}
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Personal Details
-          </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(', ')}</Typography>
-        </Grid>
+
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Payment details
           </Typography>
           <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
+              <React.Fragment>
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
+                  <Typography gutterBottom>Card Name: </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
+                  <Typography gutterBottom>{payment?.name}</Typography>
                 </Grid>
-              </React.Fragment>
-            ))}
+                <Grid item xs={6}>
+                  <Typography gutterBottom>Card Number: </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{payment?.cardNumber}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>Expiry: </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{payment?.expiry}</Typography>
+                </Grid>
+            </React.Fragment>
           </Grid>
         </Grid>
       </Grid>
