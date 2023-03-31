@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
 import { useLocation } from "react-router-dom"
@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { LocationOn,EmailRounded,Phone,Business, PersonAdd } from '@mui/icons-material';
 import CustomDialogBox from "../components/CustomDialogBox.jsx";
+import axios from "axios";
 
 const theme = createTheme();
 
@@ -48,9 +49,10 @@ const useStyles = makeStyles(() => ({
 const OrganizerProfile = () => {
     const classes = useStyles();
 
-    const organizer = useLocation().state.organizer;
-    console.log(organizer)
-    const isAuthenticated = organizer.isAuthenticated
+    // const organizer = useLocation().state.organizer;
+    const organizerId = useLocation().state.organizerId;
+    console.log(organizerId)
+    const [isAuthenticated,setIsAutenticated] = useState()
 
     const [openDialog,setOpenDialog] = useState(false);
     const [dialogDiscription,setDialogDiscription] = useState("");
@@ -59,8 +61,33 @@ const OrganizerProfile = () => {
     const user = localStorage.getItem("user")
     const USER_TYPE = "user"
     const IS_USER = JSON.parse(user).userType == USER_TYPE
-    // const IS_USER = "user" == USER_TYPE
-    console.log(JSON.parse(user))
+    const [organizer,setOrganizer] = useState({})
+
+    // console.log(JSON.parse(user))
+
+    useEffect( ()=>{
+        axios({
+  
+            // Endpoint to send files
+            url: "http://127.0.0.1:5000/organizer/"+organizerId,
+            method: "GET",
+            headers:{
+                "Access-Control-Allow-Origin": "*"
+            }
+
+          })
+        
+            // Handle the response from backend here
+            .then((res) => {
+                console.log(res)
+                setOrganizer(res.data)
+                setIsAutenticated(res.data.isAuthenticated)
+             })
+        
+            // Catch errors if any
+            .catch((err) => { });
+    
+    })
 
     const openDialogBox = (description) =>{
         setOpenDialog(true)

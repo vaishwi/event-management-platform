@@ -16,3 +16,18 @@ class OrganizerEndPoint(Resource):
         data = request.get_json()
         response = Organizer().add_organizer(data)
         return response
+
+    def get(self,id):
+        response = Organizer().get_organizer(id)
+        if response['success']:
+            print(response)
+            return response['data'], 200
+        return "Organizer not found", 404
+
+
+class UnauthenticateOrganizerEndPoint(Resource):
+    def get(self):
+        response = {}
+        unauthenticate_organizers = Organizer().get_authentication_requests()
+        response['data'] = unauthenticate_organizers
+        return response

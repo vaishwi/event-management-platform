@@ -14,7 +14,7 @@ const OrganizerItem = (organizer) => {
 
     const handleClick = () =>{
         console.log(organizer);
-        naviagte("/organizerProfile",{state: {organizer:organizerInfo}})
+        naviagte("/organizerProfile",{state: {organizerId:organizerInfo.id}})
         
     }
 
