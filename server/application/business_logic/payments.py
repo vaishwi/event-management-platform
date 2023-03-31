@@ -11,12 +11,19 @@ class Payment(Model):
     userID = TextField();
 
     def add_payment(self, data):
+        print('in payment')
+        print(data)
+        payment = data.get('payment')
+        id = data.get('id')
+        print(payment)
+        # print(payment['name'])
+        print(id)
         e = Payment(
-            cardName=data.get('name'),
-            cardNumber=data.get('cardNumber'),
-            expiry=data.get('expiry'),
-            cvv=data.get('cvv'),
-            userID="2"
+            cardName=payment['name'],
+            cardNumber=payment['cardNumber'],
+            expiry=payment['expiry'],
+            cvv=payment['cvv'],
+            userID=id
         )
         e.save()
         return e.id

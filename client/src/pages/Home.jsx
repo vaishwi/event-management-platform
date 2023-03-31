@@ -140,8 +140,8 @@ import axios from 'axios';
       const organizer2 = {id:2,organizationName:"The comedy factory",managedBy:"Arpitkumar Patel", occupation:"Dalhousie Event Manager", about:orgAbout ,contactNo:contactNo, email:email, location:location, subscribers:70,state:"Halifax, NS",isAuthenticated:true}
 
       const handleRedirection_organization = (element) => {
-      console.log(element);
-       navigate('/organizerProfile', {state : element?.id})
+      const organizerInfo = element?.id
+       navigate('/organizerProfile', {state: {organizerId:organizerInfo}})
       }
 
     const handleRedirection = (element) => {

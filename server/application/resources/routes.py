@@ -17,6 +17,6 @@ def initialize_routes(api):
     api.add_resource(OrganizersEndpoint,'/organizers')
     api.add_resource(OrganizerEndPoint,'/organizer','/organizer/<id>','/authenticate/<id>')
     api.add_resource(UnauthenticateOrganizerEndPoint,'/unauthOrganizers')
-    api.add_resource(AddRegisterEvents, '/registerEvent', '/registerEvent/<id>')
+    api.add_resource(AddRegisterEvents, '/registerEvent', '/registerEvent/<id>/<eventID>')
     api.add_resource(AddPayment, '/addPayment', '/getPayments/<id>')
     api.add_resource(DeleteRegisteredEvents, '/deleteEvent/<id>')

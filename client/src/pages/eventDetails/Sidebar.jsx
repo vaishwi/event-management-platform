@@ -47,7 +47,10 @@ function Sidebar(props) {
 
     const checkRegistered = async () => {
                 try{
-                    const response = await axios.get('http://127.0.0.1:5000/registerEvent/'+eventState?.id)
+                const userID = localStorage.getItem('user');
+                const id = JSON.parse(userID).id;
+                console.log(id);
+                    const response = await axios.get('http://127.0.0.1:5000/registerEvent/'+id+'/'+eventState?.id)
                     console.log(eventState?.id)
                     console.log(response.data)
                     if(response.data) {

@@ -51,6 +51,7 @@ const OrganizerProfile = () => {
 
     // const organizer = useLocation().state.organizer;
     const organizerId = useLocation().state.organizerId;
+    console.log(useLocation().state);
     console.log(organizerId)
     const [isAuthenticated,setIsAutenticated] = useState()
 

@@ -14,14 +14,18 @@ class RegisterEvent(Model):
     def add_registerEvent(self, data):
         eventData = data.get('eventData')
         payment = data.get('payment')
+        userID = data.get('id')
+        print(userID)
+        result = {'payment': payment , 'userId': userID}
         if payment is not None:
-            response_api = requests.post("http://127.0.0.1:5000/addPayment", json={'payment': payment})
+            print('calling payment here')
+            response_api = requests.post("http://127.0.0.1:5000/addPayment", json={'payment': result})
             if isinstance(response_api, tuple) and len(response_api) == 2:
                 response, status_code = response_api
             else:
                 response = response_api
             e = RegisterEvent(
-                userID="2",
+                userID=data.get('id'),
                 eventID=eventData['id'],
                 price=data.get('counter') * eventData['price'],
                 paymentMethod=response.json(),
@@ -31,7 +35,7 @@ class RegisterEvent(Model):
             return e.id
         else:
             e = RegisterEvent(
-                userID="2",
+                userID=data.get('id'),
                 eventID=eventData['id'],
                 price= eventData['price'],
                 paymentMethod='0',
@@ -40,11 +44,11 @@ class RegisterEvent(Model):
             e.save()
             return e.id
 
-    def get_registered_event(self, key):
+    def get_registered_event(self, id, eventID):
 
         try:
             print("before")
-            response_list = RegisterEvent.collection.filter(eventID=key).fetch()
+            response_list = RegisterEvent.collection.filter(eventID=eventID , userID = id).fetch()
             output = [response.to_dict() for response in response_list]
             if (output):
                 print("return true from check_credential")

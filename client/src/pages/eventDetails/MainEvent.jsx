@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -9,10 +10,35 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Button from '@mui/material/Button';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import axios from 'axios';
 
 function MainEvent(props) {
   const { description, title, date, organizer, location, time, runtime, type} = props;
+      const [organizerName, setOrganizerName] = useState(null);
 
+    const navigate = useNavigate();
+      const handleRedirection = (element) => {
+      const organizerInfo = element
+       navigate('/organizerProfile', {state: {organizerId:organizerInfo}})
+      }
+    useEffect(() => {
+        const fetchOrganizerName = async () => {
+                    try{
+                        console.log(organizer)
+                        const response = await axios.get('http://127.0.0.1:5000/organizer/'+organizer);
+                        console.log(response.data)
+                        if(response.status === 200) {
+                            setOrganizerName(response.data)
+                        }
+                    } catch (e) {
+                        console.log(e)
+                        console.log(e.response.status)
+
+                    }
+                };
+                fetchOrganizerName();
+
+    },[])
   return (
     <Grid
       item
@@ -35,11 +61,11 @@ function MainEvent(props) {
         <Card sx = {{display: 'flex', boxShadow: 0.5}}>
             <CardContent align = "center" sx = {{flex:3, mt:1}}>
                 <Typography component="h6" variant="h6" gutterBottom>
-                  By {organizer}
+                  By {organizerName?.organizationName}
                 </Typography>
             </CardContent>
             <CardContent justifyContent="center" align = "center" sx = {{flex:1, mt:2.5}}>
-                <Button variant="contained">Visit</Button>
+                <Button variant="contained" onClick={() => handleRedirection(organizer)}>Visit</Button>
             </CardContent>
         </Card>
       </Grid>

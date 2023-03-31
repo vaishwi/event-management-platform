@@ -13,8 +13,10 @@ class AddRegisterEvents(Resource):
         response = RegisterEvent().add_registerEvent(data)
         return response
 
-    def get(self, id):
-        response = RegisterEvent().get_registered_event(id)
+    def get(self, id, eventID):
+        print(id)
+        print(eventID)
+        response = RegisterEvent().get_registered_event(id,eventID)
         print(response)
         if response:
             print(response)

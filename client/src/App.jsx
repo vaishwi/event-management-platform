@@ -75,7 +75,7 @@ function App() {
 
         {/* Protected Routes */}
         <Route element={<PrivateRoutes />}>
-          {user.userType === "organizer"? <Route element={<SubscriberList />} path="/" /> : user.userType === "user" ?<Route element={<Home />} path="/" />: <Route element={<OrganizerList isAutheticationRequests={true}/>} path="/" />}
+          {user.userType === "organizer"? <Route element={<SubscriberList />} path="/" /> : user.userType === "attendee" ?<Route element={<Home />} path="/" />: <Route element={<OrganizerList isAutheticationRequests={true}/>} path="/" />}
           
           <Route element={<Home />} path="/home" />
           <Route element={<About />} path="/about" />
