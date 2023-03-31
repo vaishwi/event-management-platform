@@ -51,26 +51,45 @@ class Organizer(Model):
         organizer.save()
         return organizer.id
     
+    def remove_organzier(self,id):
+        response_dict = {
+            "success": False
+        }
+        try:
+            Organizer.collection.delete(f"organizer/{id}")
+            response_dict['success'] = True
+        except Exception as e:
+            print(e)
+            
+        return response_dict
 
-    # def get_organizer(self, key):
-    #     event_dict = {
-    #         "success": False,
-    #         "data": {}
-    #     }
-    #     try:
-    #         event = Event.collection.get(f"event/{key}") 
-    #         event_dict['data'] = event.to_dict()
-    #         event_dict['success'] = True
-    #     except Exception as e:
-    #         print(e)
-    #     return event_dict
+    def authenticate_organizer(self,id):
+        organizer_dict = {
+            "success": False
+        }
+        try:
+            org = Organizer.collection.get(f"organizer/{id}")
+            org.isAuthenticated = True
+            org.update()
+            organizer_dict['success'] = True
+        except Exception as e:
+            print(e)
+            
+        return organizer_dict
 
     def get_organizer(self,id):
-        organizer_dict = {}
-        organizer = Organizer.collection.get(f"organizer/{id}") 
-        organizer_dict['data'] = organizer.to_dict()
-        organizer_dict['success'] = True
-        print(organizer.to_dict())
+        
+        organizer_dict = {
+            "success": False,
+            "data": {}
+        }
+        try:
+            organizer = Organizer.collection.get(f"organizer/{id}") 
+            organizer_dict['data'] = organizer.to_dict()
+            organizer_dict['success'] = True
+            # print(organizer.to_dict())
+        except Exception as e:
+            print(e)
         return organizer_dict
 
     def get_all_organizer(self):

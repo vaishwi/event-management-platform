@@ -24,6 +24,19 @@ class OrganizerEndPoint(Resource):
             return response['data'], 200
         return "Organizer not found", 404
 
+    def post(self,id):
+        response = Organizer().authenticate_organizer(id)
+        if response['success']:
+            print(response)
+            return response, 200
+        return "Authentication failed.", 404
+
+    def delete(self,id):
+        response = Organizer().remove_organzier(id)
+        if response['success']:
+            print(response)
+            return response, 200
+        return "Organizer not Deleted.", 404
 
 class UnauthenticateOrganizerEndPoint(Resource):
     def get(self):
