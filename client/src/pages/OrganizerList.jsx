@@ -19,7 +19,9 @@ const OrganizerList = (props) => {
                 // Endpoint to send files
                 url: "http://127.0.0.1:5000/unauthOrganizers",
                 method: "GET",
-
+                headers:{
+                    "Access-Control-Allow-Origin": "*"
+                }
               })
             
                 // Handle the response from backend here
@@ -41,6 +43,9 @@ const OrganizerList = (props) => {
             // Endpoint to send files
             url: "http://127.0.0.1:5000/organizers",
             method: "GET",
+            headers:{
+                "Access-Control-Allow-Origin": "*"
+            }
             // headers: {
         
             //   // Add any auth token here
