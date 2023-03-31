@@ -62,6 +62,7 @@ const OrganizerProfile = () => {
     const USER_TYPE = "user"
     const IS_USER = JSON.parse(user).userType == USER_TYPE
     const [organizer,setOrganizer] = useState({})
+    const [authRemoveFlag,setAuthRemoveFlag] = useState("")
 
     // console.log(JSON.parse(user))
 
@@ -97,7 +98,11 @@ const OrganizerProfile = () => {
 
     const handleAuthenticationRemoveClick = () =>{
         setOpenDialog(false)
+
         console.log("In click")
+
+        
+
     }
     
 
