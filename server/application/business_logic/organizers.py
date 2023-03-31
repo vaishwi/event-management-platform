@@ -51,24 +51,62 @@ class Organizer(Model):
         organizer.save()
         return organizer.id
     
+    def remove_organzier(self,id):
+        response_dict = {
+            "success": False
+        }
+        try:
+            Organizer.collection.delete(f"organizer/{id}")
+            response_dict['success'] = True
+        except Exception as e:
+            print(e)
+            
+        return response_dict
 
-    def get_organizer(self, key):
-        event_dict = {
+    def authenticate_organizer(self,id):
+        organizer_dict = {
+            "success": False
+        }
+        try:
+            org = Organizer.collection.get(f"organizer/{id}")
+            org.isAuthenticated = True
+            org.update()
+            organizer_dict['success'] = True
+        except Exception as e:
+            print(e)
+            
+        return organizer_dict
+
+    def get_organizer(self,id):
+        
+        organizer_dict = {
             "success": False,
             "data": {}
         }
         try:
-            event = Event.collection.get(f"event/{key}") 
-            event_dict['data'] = event.to_dict()
-            event_dict['success'] = True
+            organizer = Organizer.collection.get(f"organizer/{id}") 
+            organizer_dict['data'] = organizer.to_dict()
+            organizer_dict['success'] = True
+            # print(organizer.to_dict())
         except Exception as e:
             print(e)
-        return event_dict
+        return organizer_dict
 
     def get_all_organizer(self):
-        organizers = []
         organizer_list = Organizer.collection.fetch()
         
+        organizers = []
         organizers = [organizer.to_dict() for organizer in organizer_list]
         print(f"Organizer {organizers}")
         return organizers
+
+    def get_authentication_requests(self):
+        
+        authentication_requests_list = Organizer.collection.filter('isAuthenticated', '==', False).fetch()
+
+        authentication_requests = []
+        authentication_requests = [auth_req.to_dict() for auth_req in authentication_requests_list]
+
+        print("type of output: ",type(authentication_requests_list))
+        print("type of conversion: ",type(authentication_requests))
+        return authentication_requests
