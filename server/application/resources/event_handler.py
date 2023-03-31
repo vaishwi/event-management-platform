@@ -4,6 +4,7 @@ import json
 from application.auth_token import token_validator
 from application.business_logic.events import Event
 
+
 class EventsEndpoint(Resource):
 
     def get(self):

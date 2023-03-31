@@ -5,10 +5,11 @@ import SignUp from "./pages/SignUp.jsx";
 import Home from "./pages/Home.jsx";
 import Blog from "./pages/eventDetails/Blog.jsx";
 import Checkout from "./pages/checkout/Checkout.jsx";
+import CheckoutRegister from "./pages/checkout/CheckoutRegister.jsx";
 import About from "./pages/About.jsx";
 import PrivateRoutes from "./utils/PrivateRoutes.jsx";
 import "./App.css";
-import Search from "./pages/Search2.jsx";
+import Search from "./pages/Search.jsx";
 import ResponsiveAppBar from "./components/Navbar.jsx";
 import OrganizerList from "./pages/OrganizerList.jsx";
 import OrganizerProfile from "./pages/OrganizerProfile.jsx";
@@ -82,6 +83,7 @@ function App() {
           <Route element= {<Blog />} path = "/event" />
           <Route element= {<Blog />} path = "/event/:id" />
           <Route element= {<Checkout />} path = "/checkout" />
+          <Route element= {<CheckoutRegister />} path = "/registerEvent" />
           <Route element= {<RegisteredEvents />} path = "/myEvents" />
           <Route element= {<Payments />} path = "/billing" />
 {/*           <Route element= {<Search />} path = "/search" /> */}
