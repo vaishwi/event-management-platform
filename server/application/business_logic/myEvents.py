@@ -2,6 +2,8 @@ from fireo.models import Model
 from fireo.fields import TextField, NumberField, DateTime, IDField, BooleanField, ListField, Field
 import requests
 
+from application.business_logic.attendee import Attendee
+
 
 class RegisterEvent(Model):
     id = IDField()
@@ -10,16 +12,28 @@ class RegisterEvent(Model):
     price = NumberField();
     paymentMethod = TextField();
     count = NumberField();
+    eventName = TextField();
+    eventAddress = TextField();
+    eventDate = TextField();
+    eventOrganizer = TextField();
+    eventType = TextField();
+    eventBanner = TextField();
+    eventCity = TextField();
+    eventCountry = TextField();
+    eventTime = TextField();
+    # //event Name, event Address, event Date, event Organizer, user Name, type, banner_image city country time
 
     def add_registerEvent(self, data):
         eventData = data.get('eventData')
         payment = data.get('payment')
         userID = data.get('id')
-        print(userID)
+        print('event data')
+        print(eventData)
         result = {'payment': payment , 'userId': userID}
         if payment is not None:
             print('calling payment here')
-            response_api = requests.post("http://127.0.0.1:5000/addPayment", json={'payment': result})
+            print(result)
+            response_api = requests.post("http://127.0.0.1:5000/addPayment", json={'payment': payment, 'userId': userID})
             if isinstance(response_api, tuple) and len(response_api) == 2:
                 response, status_code = response_api
             else:
@@ -29,7 +43,16 @@ class RegisterEvent(Model):
                 eventID=eventData['id'],
                 price=data.get('counter') * eventData['price'],
                 paymentMethod=response.json(),
-                count=data.get('counter')
+                count=data.get('counter'),
+                eventName=eventData['title'],
+                eventAddress=eventData['address'],
+                eventDate=eventData['date'],
+                eventOrganizer=eventData['organizer'],
+                eventType=eventData['type'],
+                eventBanner = eventData['organizer'],
+                eventCity = eventData['city'],
+                eventCountry = eventData['country'],
+                eventTime = eventData['time'],
             )
             e.save()
             return e.id
@@ -39,7 +62,16 @@ class RegisterEvent(Model):
                 eventID=eventData['id'],
                 price= eventData['price'],
                 paymentMethod='0',
-                count=0
+                count=0,
+                eventName=eventData['title'],
+                eventAddress=eventData['address'],
+                eventDate=eventData['date'],
+                eventOrganizer=eventData['organizer'],
+                eventType=eventData['type'],
+                eventBanner=eventData['organizer'],
+                eventCity=eventData['city'],
+                eventCountry=eventData['country'],
+                eventTime=eventData['time'],
             )
             e.save()
             return e.id
@@ -59,6 +91,18 @@ class RegisterEvent(Model):
         except:
             return False
 
+    def get_registered_event_by_id(self, key):
+        registered_event_dict = {
+            "success": False,
+            "data": {}
+        }
+        try:
+            event = RegisterEvent.collection.get(f"register_event/{key}")
+            registered_event_dict['data'] = event.to_dict()
+            registered_event_dict['success'] = True
+        except Exception as e:
+            print(e)
+        return registered_event_dict
 
     def delete_registered_event(self, key):
         print(key)
@@ -75,3 +119,31 @@ class RegisterEvent(Model):
                 return True
         except:
             return False
+
+    def get_registered_event_by_user_id(self, key):
+        registered_events = []
+        try:
+            events = RegisterEvent.collection.filter('userID', '==', key).fetch()
+            registered_events = [event.to_dict() for event in events]
+            return registered_events
+        except Exception as e:
+            print(e)
+        return registered_events
+
+    def get_registered_users_by_event_id(self, key):
+        registered_users = []
+        try:
+            events = RegisterEvent.collection.filter('eventID', '==', key).fetch()
+            registered_events = [event.to_dict() for event in events]
+            for event in registered_events:
+                if "userID" in event:
+                    try:
+                        users = Attendee.collection.filter('id', '==', event["userID"]).fetch()
+                        temp = [u.to_dict() for u in users]
+                        registered_users.append(temp)
+                    except Exception as e:
+                        print(e)
+            return registered_users
+        except Exception as e:
+            print(e)
+        return registered_users

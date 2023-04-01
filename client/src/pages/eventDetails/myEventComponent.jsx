@@ -1,6 +1,6 @@
 // @mui
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios';
 import {
   Box,
   Card,
@@ -29,7 +29,7 @@ export default function MyEventsComponent() {
                       try{
                           const userID = localStorage.getItem('user');
                           const id = JSON.parse(userID).id;
-                          const response = await axios.get('http://127.0.0.1:5000/get_all_registered_events/'+id);
+                          const response = await axios.get('http://127.0.0.1:5000/getUserRegisterEvents/'+id);
                           console.log(response.data)
                           if(response.status === 200) {
                               setRegisteredEvents(response.data)
@@ -40,8 +40,7 @@ export default function MyEventsComponent() {
 
                       }
                   };
-//                   fetchRegisteredEvents();
-
+                  fetchRegisteredEvents();
       },[])
 
   return (
@@ -68,7 +67,7 @@ export default function MyEventsComponent() {
         :
                     registeredEvents
                        .map((element, index) => (
-            <TableContainer >
+            <TableContainer sx = {{mb:3}} >
               <Table>
                 <TableBody >
                     <TableRow hover tabIndex={-1} sx={{ height:100}} >

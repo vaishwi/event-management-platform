@@ -224,7 +224,7 @@ import axios from 'axios';
                               </Box>
                             </Grid>
                           </Grid>
-                        </Paper>
+                    </Paper>
                 </div>
                 <div>
                     <h1>Trending Events</h1>

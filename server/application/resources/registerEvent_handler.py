@@ -24,6 +24,25 @@ class AddRegisterEvents(Resource):
         return False, 200
 
 
+class GetRegisterEvents(Resource):
+    def get(self, id):
+        response = RegisterEvent().get_registered_event_by_user_id(id)
+        print(response)
+        if response:
+            print(response)
+            return response
+        return []
+
+
+class GetRegisterUsers(Resource):
+    def get(self, id):
+        response = {}
+        users = RegisterEvent().get_registered_users_by_event_id(id)
+        response['data'] = users
+        return response
+
+
+
 class DeleteRegisteredEvents(Resource):
 
     def delete(self, id):
