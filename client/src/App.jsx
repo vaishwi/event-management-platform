@@ -100,6 +100,8 @@ function App() {
           <Route element={<DeleteEvent />} path="/deleteEvent" />
           <Route element={<ViewAllUsers />} path="/viewAllUsers" />
           <Route element={<OrganizerEditProfile />} path="/editOrganizer" />
+          <Route element={<AttendeeProfile />} path="/attendeeProfile" />
+          
         </Route>
       </Routes>
     </div>
