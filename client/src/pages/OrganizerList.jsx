@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Box,Typography } from '@mui/material'
 import OrganizerItem from "../components/OranizerItem";
 import axios from "axios";
+import { Divider } from "antd";
 
 const OrganizerList = (props) => {
     
@@ -15,7 +16,6 @@ const OrganizerList = (props) => {
 
         if(isAutheticationRequests){
             axios({
-  
                 // Endpoint to send files
                 url: "http://127.0.0.1:5000/unauthOrganizers",
                 method: "GET",
@@ -35,9 +35,8 @@ const OrganizerList = (props) => {
                 // Catch errors if any
                 .catch((err) => { });
     
-        }
-
-        // https://www.geeksforgeeks.org/axios-in-react-a-guide-for-beginners/
+        }else{
+            // https://www.geeksforgeeks.org/axios-in-react-a-guide-for-beginners/
         axios({
   
             // Endpoint to send files
@@ -46,14 +45,6 @@ const OrganizerList = (props) => {
             headers:{
                 "Access-Control-Allow-Origin": "*"
             }
-            // headers: {
-        
-            //   // Add any auth token here
-            //   authorization: "your token comes here",
-            // },
-        
-            // Attaching the form data
-            // data: formData,
           })
         
             // Handle the response from backend here
@@ -66,14 +57,21 @@ const OrganizerList = (props) => {
         
             // Catch errors if any
             .catch((err) => { });
+        }
 
-    })
+    },[isAutheticationRequests])
 
     return (
     <div>
        < Box sx={{ mt:5,ml:30,mr:30,}}>
         <Typography variant="h3" component="h2" align="center">
             {isAutheticationRequests == true ? "Authentication Requests" : "Organizers List"}
+            
+        </Typography>
+        <Divider/>
+        <Typography variant="h5" component="h2" align="center">
+            
+            {isAutheticationRequests == true ? (unAuthenticatedOrganizerList.length==0 ?"No pending requests.":""):""}
         </Typography>
         </Box>
         <Box sx={{width: 'auto', mt:5,ml:5,mr:10,bgcolor: '#efefef'}}> 

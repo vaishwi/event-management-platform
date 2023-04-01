@@ -97,13 +97,10 @@ const SignUpStart = () => {
   const handleSubmitAttendee = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(data);
     const data_json = {
-      // firstname: data.get("firstName"),
-      // lastname: data.get("lastName"),
-      name: data.get("firstName") + " " + data.get("lastName"),
-      // countryCode: data.get("countryCode"),
-      contactNo: data.get("countryCode") + data.get("phoneNumber"),
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      contactNo: data.get("countryCode") +"-"+ data.get("phoneNumber"),
       email: data.get("email"),
       password: data.get("password"),
       type: "attendee",
@@ -116,7 +113,6 @@ const SignUpStart = () => {
     })
       // Handle the response from backend here
       .then((res) => {
-        console.log(res.data);
         if (res.data === "User does exist") {
           setRegistrationError("Credential already exist");
           setOpenSnackbar(true);
@@ -135,16 +131,14 @@ const SignUpStart = () => {
     setOpenSnackbar(false);
   };
 
+  // ********************************************* SignUp Organizer *********************************************
+
   const handleSubmitOrganizer = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const data_json = {
-      // firstname: data.get("firstName"),
-      // lastname: data.get("lastName"),
       managedBy: data.get("managedBy"),
-      // countryCode: data.get("countryCode"),
-      // phonenumber: data.get("phoneNumber"),
-      contactNo: data.get("countryCode") + data.get("phoneNumber"),
+      contactNo: data.get("countryCode") +"-"+ data.get("phoneNumber"),
       email: data.get("email"),
       password: data.get("password"),
 
@@ -156,7 +150,7 @@ const SignUpStart = () => {
       state: data.get("state"),
       type: "organizer",
     };
-    console.log(data_json);
+    
     axios({
       // Endpoint to send files
       url: "http://127.0.0.1:5000/registration",
@@ -165,7 +159,6 @@ const SignUpStart = () => {
     })
       // Handle the response from backend here
       .then((res) => {
-        console.log(res.data);
         if (res.data === "User does exist") {
           setRegistrationError("Credential already exist");
           setOpenSnackbar(true);
@@ -189,8 +182,7 @@ const SignUpStart = () => {
   };
 
   const handleCountryCodeChange = (event) => {
-    console.log(event.target.value);
-    setCountryCode(event.target.value);
+    setCountryCode(event);
   };
 
   const handleFirstNameChange = (event) => {
@@ -300,17 +292,6 @@ const SignUpStart = () => {
             </Paper>
           </Grid>
         </Grid>
-        {/* <Grid align="center" justify="center" alignItems="center">
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            disabled={!userType}
-            style={{ marginTop: "2rem" }}
-            onClick={() => handleSubmit(userType)}>
-            Continue as {userType}
-          </Button>
-        </Grid> */}
       </Container>
 
       {/* ********************************************* Signup Attendee ********************************************* */}
@@ -364,7 +345,6 @@ const SignUpStart = () => {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    {/* <MuiPhoneNumber defaultCountry={'us'} onChange={handleCountryCodeChange}/> */}
                     <TextField
                       label="Phone Number"
                       variant="outlined"
@@ -528,29 +508,8 @@ const SignUpStart = () => {
                       autoComplete="occupation"
                     />
                   </Grid>
-                  {/* <Grid item xs={12} sm={6}>
-                    <TextField
-                      autoComplete="given-name"
-                      name="firstName"
-                      required
-                      fullWidth
-                      id="firstName"
-                      label="First Name"
-                      autoFocus
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="lastName"
-                      label="Last Name"
-                      name="lastName"
-                      autoComplete="family-name"
-                    />
-                  </Grid> */}
+                  
                   <Grid item xs={12}>
-                    {/* <MuiPhoneNumber defaultCountry={'us'} onChange={handleCountryCodeChange}/> */}
                     <TextField
                       label="Phone Number"
                       variant="outlined"

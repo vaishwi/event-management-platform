@@ -44,3 +44,9 @@ class UnauthenticateOrganizerEndPoint(Resource):
         unauthenticate_organizers = Organizer().get_authentication_requests()
         response['data'] = unauthenticate_organizers
         return response
+
+class EditOrganizerEndpoint(Resource):
+    def post(self):
+        data = request.get_json()
+        response = Organizer().edit_organizer(data)
+        return response

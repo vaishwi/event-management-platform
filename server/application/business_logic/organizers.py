@@ -18,8 +18,8 @@ class Organizer(Model):
     city = TextField()
     subscribers = NumberField()
     isAuthenticated = BooleanField()
+    subscribed_users = ListField()
     
-
     def add_organizer(self, data, id):
         organizer = Organizer(
                 id = id,
@@ -34,20 +34,8 @@ class Organizer(Model):
                 city = data.get('city'),
                 subscribers = 0,
                 isAuthenticated = False,
+                subscribed_users =[]
         )
-        print(data)
-        print("---------------------------------")
-        print(data.get('organizationName'),
-               data.get('managedBy'),
-               data.get('occupation'),
-               data.get('about'),
-               data.get('contactNo'),
-               data.get('email'),
-               data.get('location'),
-               data.get('state'),
-               data.get('city'),
-              )
-        print("-----------------------------")
         organizer.save()
         return organizer.id
     
@@ -87,7 +75,7 @@ class Organizer(Model):
             organizer = Organizer.collection.get(f"organizer/{id}") 
             organizer_dict['data'] = organizer.to_dict()
             organizer_dict['success'] = True
-            # print(organizer.to_dict())
+            
         except Exception as e:
             print(e)
         return organizer_dict
@@ -110,3 +98,18 @@ class Organizer(Model):
         print("type of output: ",type(authentication_requests_list))
         print("type of conversion: ",type(authentication_requests))
         return authentication_requests
+
+    def edit_organizer(self, data):
+        print(data)
+        organizer = Organizer.collection.get(f"organizer/{data.get('id')}") 
+        print(organizer)
+        organizer.organizationName = data.get('organizationName')
+        organizer.managedBy = data.get('managedBy')
+        organizer.occupation = data.get('occupation')
+        organizer.about = data.get('about')
+        organizer.contactNo = data.get('contactNo')
+        organizer.location = data.get('location')
+        organizer.state = data.get('state')
+        organizer.city = data.get('city')
+        organizer.update()
+        return organizer.id

@@ -64,23 +64,23 @@ const Login = () => {
     { pageName: "Events", route: "/manageEvents" },
     { pageName: "Authentication Requests", route: "/authenticationRequests" },
   ];
-  const user = [
-    {
-      email: "user@gmail.com",
-      password: "123456",
-      userType: "user",
-    },
-    {
-      email: "admin@gmail.com",
-      password: "123456",
-      userType: "admin",
-    },
-    {
-      email: "organizer@gmail.com",
-      password: "123456",
-      userType: "organizer",
-    },
-  ];
+  // const user = [
+  //   {
+  //     email: "user@gmail.com",
+  //     password: "123456",
+  //     userType: "user",
+  //   },
+  //   {
+  //     email: "admin@gmail.com",
+  //     password: "123456",
+  //     userType: "admin",
+  //   },
+  //   {
+  //     email: "organizer@gmail.com",
+  //     password: "123456",
+  //     userType: "organizer",
+  //   },
+  // ];
 
   const [password, setPassword] = useState("");
   const emailValidation = /^[ ]*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})[ ]*$/i;
@@ -98,41 +98,13 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const email = data.get("email");
-    const password = data.get("password");
 
     const data_json = {
       email: data.get("email"),
       password: data.get("password"),
     };
+
     // user.map((u) => {
-    //   if (u.email === email && u.password === password) {
-    //     localStorage.setItem("loginStatus", true);
-    //     localStorage.setItem("user", JSON.stringify(u));
-
-    //     if (u.userType === "user") {
-    //       localStorage.setItem("pages", JSON.stringify(userPages));
-
-    //       console.log(JSON.stringify(userPages));
-
-    //       navigate("/home");
-    //       window.location.reload();
-    //     }
-    //     if (u.userType === "organizer") {
-    //       localStorage.setItem("pages", JSON.stringify(organizationPages));
-
-    //       navigate("/subscribers");
-    //       window.location.reload();
-    //     }
-    //     if (u.userType === "admin") {
-    //       localStorage.setItem("pages", JSON.stringify(adminPages));
-
-    //       navigate("/organizers");
-    //       window.location.reload();
-    //     }
-    //   }
-    // });
-    user.map((u) => { 
       axios({
         // Endpoint to send files
         url: "http://127.0.0.1:5000/login",
@@ -141,12 +113,11 @@ const Login = () => {
       })
         // Handle the response from backend here
         .then((res) => {
-          console.log(res.data);
+          console.log("res: ", res);
           if (res.data.userType === "attendee") {
             localStorage.setItem("loginStatus", true);
             localStorage.setItem("pages", JSON.stringify(userPages));
             localStorage.setItem("user", JSON.stringify(res.data));
-            console.log(JSON.stringify(userPages));
 
             navigate("/home");
             window.location.reload();
@@ -161,7 +132,7 @@ const Login = () => {
             localStorage.setItem("loginStatus", true);
             localStorage.setItem("pages", JSON.stringify(adminPages));
             localStorage.setItem("user", JSON.stringify(res.data));
-  
+
             navigate("/organizers");
             window.location.reload();
           }
@@ -176,16 +147,16 @@ const Login = () => {
           setRegistrationError(err);
           setOpenSnackbar(true);
         });
-    })
+    // })
+    // })
 
     // admin -> organizers
     // user -> home
-    // organizer ->
+    // organizer -> subscribers
   };
 
   const handleEmailChange = (event) => {
     const newValue = event.target.value;
-    // setEmail(newValue);
     if (!emailValidation.test(newValue)) {
       setEmailError(true);
     } else {
@@ -271,16 +242,7 @@ const Login = () => {
                 helperText={emailError && "Please enter valid email address"}
                 autoFocus
               />
-              {/* <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            /> */}
+
               <TextField
                 label="Password"
                 variant="outlined"
@@ -305,10 +267,7 @@ const Login = () => {
                   ),
                 }}
               />
-              {/* <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              /> */}
+
               <Button
                 type="submit"
                 fullWidth
@@ -319,19 +278,9 @@ const Login = () => {
               <Grid container>
                 <Grid item xs>
                   <Link to="/forgetPassword">Forgot password?</Link>
-                  {/*<Link*/}
-                  {/*    href="/forgetPassword"*/}
-                  {/*    variant="body2">*/}
-                  {/*    */}
-                  {/*</Link>*/}
                 </Grid>
                 <Grid item>
                   <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
-                  {/*<Link*/}
-                  {/*    href="/signup"*/}
-                  {/*    variant="body2">*/}
-                  {/*    {"Don't have an account? Sign Up"}*/}
-                  {/*</Link>*/}
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />

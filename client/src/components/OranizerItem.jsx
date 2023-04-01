@@ -2,6 +2,10 @@ import {ListItem, ListItemText, ListItemButton, Divider, Button } from '@mui/mat
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import CustomDialogBox from "./CustomDialogBox.jsx";
+import axios from "axios";
+
+const BASE_URL= "http://127.0.0.1:5000/"
+const SERVER_ERROR  = "Sever Error. Please try again."
 
 const OrganizerItem = (organizer) => {
     
@@ -15,17 +19,36 @@ const OrganizerItem = (organizer) => {
     const handleClick = () =>{
         console.log(organizer);
         naviagte("/organizerProfile",{state: {organizerId:organizerInfo.id}})
-        
     }
 
     const handleAuthenticationClick = () =>{
         setOpenDialog(false)
         console.log("In authentication handle")
+        
     }
 
 
     const openDialogBox= () => {
-        setOpenDialog(true)
+        console.log("In open dialog box")
+        const url = BASE_URL+"authenticate/"+organizerInfo.id
+                axios({
+                    url: url,
+                    method: "POST",
+                    headers:{
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                  })
+                    .then((res) => {
+                        setOpenDialog(true)
+                        // setIsAutenticated(true)
+                        organizerInfo.isAuthenticated = true
+                        
+                     })
+                    .catch((err) => { 
+                        setOpenDialog(true)
+                        setDialogDiscription(SERVER_ERROR)
+                    });
+
     }
 
     return ( 

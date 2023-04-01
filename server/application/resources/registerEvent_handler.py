@@ -53,3 +53,4 @@ class DeleteRegisteredEvents(Resource):
             print(response)
             return True, 200
         return False, 200
+
