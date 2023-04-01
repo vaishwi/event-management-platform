@@ -26,4 +26,3 @@ def initialize_routes(api):
     api.add_resource(SubscrtiberEndpoint,'/subscribe')
     api.add_resource(CheckEmailExist, '/checkEmail')
     api.add_resource(SetNewPassword, '/setNewPassword')
-    
