@@ -100,7 +100,7 @@ const SignUpStart = () => {
     const data_json = {
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
-      contactNo: data.get("countryCode") + data.get("phoneNumber"),
+      contactNo: data.get("countryCode") +"-"+ data.get("phoneNumber"),
       email: data.get("email"),
       password: data.get("password"),
       type: "attendee",
@@ -138,7 +138,7 @@ const SignUpStart = () => {
     const data = new FormData(event.currentTarget);
     const data_json = {
       managedBy: data.get("managedBy"),
-      contactNo: data.get("countryCode") + data.get("phoneNumber"),
+      contactNo: data.get("countryCode") +"-"+ data.get("phoneNumber"),
       email: data.get("email"),
       password: data.get("password"),
 
@@ -182,7 +182,7 @@ const SignUpStart = () => {
   };
 
   const handleCountryCodeChange = (event) => {
-    setCountryCode(event.target.value);
+    setCountryCode(event);
   };
 
   const handleFirstNameChange = (event) => {

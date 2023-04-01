@@ -24,6 +24,7 @@ import ManageEventsList from "./pages/manageEvents/ManageEventsList.jsx";
 import DeleteEvent from "./pages/manageEvents/DeleteEvent.jsx";
 import ViewAllUsers from "./pages/manageEvents/VIewAllUsers.jsx";
 import SignUpStart from "./pages/SignUpStart.jsx";
+import OrganizerEditProfile from "./pages/OrganizerEditProfile.jsx";
 
 
 let loginStatus = localStorage.getItem("loginStatus") === "true"
@@ -98,6 +99,7 @@ function App() {
           <Route element={<ManageEventsList />} path="/manageEvents" />
           <Route element={<DeleteEvent />} path="/deleteEvent" />
           <Route element={<ViewAllUsers />} path="/viewAllUsers" />
+          <Route element={<OrganizerEditProfile />} path="/editOrganizer" />
         </Route>
       </Routes>
     </div>

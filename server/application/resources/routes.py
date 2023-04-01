@@ -1,6 +1,6 @@
 from application.resources.event_handler import EventEndpoint, EventsEndpoint
 from application.resources.authentication import Authentication
-from application.resources.organizer_handler import OrganizerEndPoint, OrganizersEndpoint, UnauthenticateOrganizerEndPoint
+from application.resources.organizer_handler import OrganizerEndPoint, OrganizersEndpoint, UnauthenticateOrganizerEndPoint, EditOrganizerEndpoint
 from application.resources.registerEvent_handler import AddRegisterEvents, GetRegisterEvents, GetRegisterUsers
 from application.resources.payment_handler import AddPayment
 from application.resources.registerEvent_handler import DeleteRegisteredEvents
@@ -26,4 +26,5 @@ def initialize_routes(api):
     api.add_resource(SubscrtiberEndpoint,'/subscribe')
     api.add_resource(CheckEmailExist, '/checkEmail')
     api.add_resource(SetNewPassword, '/setNewPassword')
+    api.add_resource(EditOrganizerEndpoint, '/editOrganizer')
     

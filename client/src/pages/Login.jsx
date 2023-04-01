@@ -113,6 +113,7 @@ const Login = () => {
       })
         // Handle the response from backend here
         .then((res) => {
+          console.log("res: ", res);
           if (res.data.userType === "attendee") {
             localStorage.setItem("loginStatus", true);
             localStorage.setItem("pages", JSON.stringify(userPages));

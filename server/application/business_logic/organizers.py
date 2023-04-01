@@ -98,3 +98,18 @@ class Organizer(Model):
         print("type of output: ",type(authentication_requests_list))
         print("type of conversion: ",type(authentication_requests))
         return authentication_requests
+
+    def edit_organizer(self, data):
+        print(data)
+        organizer = Organizer.collection.get(f"organizer/{data.get('id')}") 
+        print(organizer)
+        organizer.organizationName = data.get('organizationName')
+        organizer.managedBy = data.get('managedBy')
+        organizer.occupation = data.get('occupation')
+        organizer.about = data.get('about')
+        organizer.contactNo = data.get('contactNo')
+        organizer.location = data.get('location')
+        organizer.state = data.get('state')
+        organizer.city = data.get('city')
+        organizer.update()
+        return organizer.id

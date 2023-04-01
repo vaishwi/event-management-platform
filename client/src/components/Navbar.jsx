@@ -29,9 +29,40 @@ else{
 // const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}]
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/logout'}]
+// const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/logout'}]
+var settings = []
+
+const organizationPages = [
+  { 'settingName': 'Profile', 'route': '/organizerProfile' },
+  { 'settingName': 'Dashboard', 'route': '/' },
+  { 'settingName': 'Logout', 'route': '/logout' }
+];
+const userPages = [
+  { 'settingName': 'Profile', 'route': '/' },
+  { 'settingName': 'Dashboard', 'route': '/' },
+  { 'settingName': 'Logout', 'route': '/logout' }
+];
+const adminPages = [
+  { 'settingName': 'Profile', 'route': '/' },
+  { 'settingName': 'Dashboard', 'route': '/' },
+  { 'settingName': 'Logout', 'route': '/logout' }
+];
 
 function ResponsiveAppBar() {
+  const user = localStorage.getItem("user");
+  const IS_ATTENDEE = JSON.parse(user).userType == "attendee";
+  const IS_ORGANIZER = JSON.parse(user).userType == "organizer";
+  const IS_ADMIN = JSON.parse(user).userType == "admin";
+
+  if (IS_ATTENDEE) {
+    settings = userPages
+  }
+  else if (IS_ORGANIZER) {
+    settings = organizationPages
+  }
+  else if (IS_ADMIN) {
+    settings = adminPages
+  }
 
   const navigate = useNavigate();
   
