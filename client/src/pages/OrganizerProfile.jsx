@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { useLocation } from "react-router-dom"
 import {
     Avatar,
@@ -17,6 +18,10 @@ import CustomDialogBox from "../components/CustomDialogBox.jsx";
 import axios from "axios";
 
 const theme = createTheme();
+
+const BASE_URL= "http://127.0.0.1:5000/"
+const SERVER_ERROR  = "Sever Error. Please try again."
+const SUBSCRIPTION_MESSAGE = "Successfully Subscribed."
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -51,6 +56,8 @@ const OrganizerProfile = () => {
 
     // const organizer = useLocation().state.organizer;
     const organizerId = useLocation().state.organizerId;
+    const naviagte = useNavigate();
+    
     console.log(organizerId)
     const [isAuthenticated,setIsAutenticated] = useState()
 
@@ -59,23 +66,23 @@ const OrganizerProfile = () => {
     const REMOVE_DIALOG_DESCR = "Organizer removed successfully."
     const AUTHENTICATE_DIALOG_DESCR = "Authentication Successful. Now you can post events."
     const user = localStorage.getItem("user")
-    const USER_TYPE = "user"
-    const IS_USER = JSON.parse(user).userType == USER_TYPE
+    const USER_TYPE = "attendee"
+    const IS_ATTENDEE = JSON.parse(user).userType == USER_TYPE
     const [organizer,setOrganizer] = useState({})
-    const [authRemoveFlag,setAuthRemoveFlag] = useState("")
+
+    const [attendeeId,setAttendeeID] = useState("")
+    const [hasAttendeeSubscribed,setHasAttendeeSubscribed] = useState("")
 
     // console.log(JSON.parse(user))
 
     useEffect( ()=>{
         axios({
-  
-            // Endpoint to send files
-            url: "http://127.0.0.1:5000/organizer/"+organizerId,
+            // Endpoint to fetch organizer profile
+            url: BASE_URL+"organizer/"+organizerId,
             method: "GET",
             headers:{
                 "Access-Control-Allow-Origin": "*"
             }
-
           })
         
             // Handle the response from backend here
@@ -87,22 +94,98 @@ const OrganizerProfile = () => {
         
             // Catch errors if any
             .catch((err) => { });
+            if(IS_ATTENDEE){
+                let attendee = localStorage.getItem("user")
+                attendee = JSON.parse(attendee)
+                setAttendeeID(attendee.id)
+                 // API CALL TO CHECK IF ATTENDEE IS ALREADY SUBSCRIBED OR NOT
+                axios({
+                    // Endpoint to send files
+                    url: BASE_URL+"subscribe/",
+                    method: "GET",
+                    headers:{
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    data:{"organizerId":organizerId,"attendeeId":attendeeId}
+                })  
+                    .then((res) => {
+                        setHasAttendeeSubscribed(res.is_subscribed)
+                        console.log(res)
+                        
+                    })
+                    .catch((err) => { });
+            }
+           
     
-    })
+    },[])
 
     const openDialogBox = (description) =>{
-        setOpenDialog(true)
-        setDialogDiscription(description)
-
+        if(IS_ATTENDEE){
+            url = BASE_URL+"subscribe/"
+            axios({
+                url: url,
+                method: "POST",
+                headers:{
+                    "Access-Control-Allow-Origin": "*"
+                },
+                data:{"organizerId":organizerId,"attendeeId":attendeeId}
+              })
+                .then((res) => {
+                    setOpenDialog(true)
+                    setDialogDiscription(SUBSCRIPTION_MESSAGE)
+                 })
+                .catch((err) => {
+                    setOpenDialog(true)
+                    setDialogDiscription(SERVER_ERROR)
+                 });
+        }
+        else{
+            if(isAuthenticated){
+                const url = BASE_URL+"organizer/"+organizerId
+                axios({
+                    url: url,
+                    method: "DELETE",
+                    headers:{
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                  })
+                    .then((res) => {
+                        setOpenDialog(true)
+                        setDialogDiscription(description)
+                     })
+                    .catch((err) => {
+                        setOpenDialog(true)
+                        setDialogDiscription(SERVER_ERROR )
+                        
+                     });
+            }
+            else{
+                const url = BASE_URL+"authenticate/"+organizerId
+                axios({
+                    url: url,
+                    method: "POST",
+                    headers:{
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                  })
+                    .then((res) => {
+                        setOpenDialog(true)
+                        setDialogDiscription(description)
+                        setIsAutenticated(true)
+                        
+                     })
+                    .catch((err) => { 
+                        setOpenDialog(true)
+                        setDialogDiscription(SERVER_ERROR)
+                    });
+            }
+        }
     }
 
     const handleAuthenticationRemoveClick = () =>{
         setOpenDialog(false)
-
+        naviagte("/organizers")
         console.log("In click")
-
-        
-
     }
     
 
@@ -133,9 +216,11 @@ const OrganizerProfile = () => {
                             <LocationOn fontSize="small" className={classes.contactInfoIcon} />
                             {organizer.state}
                         </Typography>
-                       {IS_USER && <div align="center">
+                       {IS_ATTENDEE  && <div align="center">
                        
-                       <Button variant="contained" sx={{mt:10}}>Subscribe</Button>
+                       <Button variant="contained" disabled = {!hasAttendeeSubscribed} sx={{mt:10}}>
+                            {hasAttendeeSubscribed? Subscribed : Subscribe}
+                        </Button>
                    </div> } 
                         
                         <Divider sx={{m:5}}/>
@@ -179,7 +264,7 @@ const OrganizerProfile = () => {
                             <Typography variant="subtitle1" sx={{ml:2}}>{organizer.location}</Typography>
                         </div>
                         
-                        {!IS_USER &&( isAuthenticated ==true ? 
+                        {!IS_ATTENDEE  &&( isAuthenticated ==true ? 
                             <div align="center">
                                 <Button variant='outlined' color="error" onClick={() => openDialogBox(REMOVE_DIALOG_DESCR,)}> Remove </Button>
                             </div> 

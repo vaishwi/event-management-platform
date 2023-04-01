@@ -15,7 +15,6 @@ const OrganizerList = (props) => {
 
         if(isAutheticationRequests){
             axios({
-  
                 // Endpoint to send files
                 url: "http://127.0.0.1:5000/unauthOrganizers",
                 method: "GET",
@@ -35,9 +34,8 @@ const OrganizerList = (props) => {
                 // Catch errors if any
                 .catch((err) => { });
     
-        }
-
-        // https://www.geeksforgeeks.org/axios-in-react-a-guide-for-beginners/
+        }else{
+            // https://www.geeksforgeeks.org/axios-in-react-a-guide-for-beginners/
         axios({
   
             // Endpoint to send files
@@ -46,14 +44,6 @@ const OrganizerList = (props) => {
             headers:{
                 "Access-Control-Allow-Origin": "*"
             }
-            // headers: {
-        
-            //   // Add any auth token here
-            //   authorization: "your token comes here",
-            // },
-        
-            // Attaching the form data
-            // data: formData,
           })
         
             // Handle the response from backend here
@@ -66,8 +56,9 @@ const OrganizerList = (props) => {
         
             // Catch errors if any
             .catch((err) => { });
+        }
 
-    })
+    },[isAutheticationRequests])
 
     return (
     <div>

@@ -132,7 +132,7 @@ const Login = () => {
     //     }
     //   }
     // });
-    user.map((u) => { 
+    // user.map((u) => { 
       axios({
         // Endpoint to send files
         url: "http://127.0.0.1:5000/login",
@@ -142,7 +142,7 @@ const Login = () => {
         // Handle the response from backend here
         .then((res) => {
           console.log(res.data);
-          if (res.data.type === "attendee") {
+          if (res.data.userType === "attendee") {
             localStorage.setItem("loginStatus", true);
             localStorage.setItem("pages", JSON.stringify(userPages));
             localStorage.setItem("user", JSON.stringify(res.data));
@@ -150,14 +150,14 @@ const Login = () => {
 
             navigate("/home");
             window.location.reload();
-          } else if (res.data.type === "organizer") {
+          } else if (res.data.userType === "organizer") {
             localStorage.setItem("loginStatus", true);
             localStorage.setItem("pages", JSON.stringify(organizationPages));
             localStorage.setItem("user", JSON.stringify(res.data));
             
             navigate("/subscribers");
             window.location.reload();
-          } else if (res.data.type === "admin") {
+          } else if (res.data.userType === "admin") {
             localStorage.setItem("loginStatus", true);
             localStorage.setItem("pages", JSON.stringify(adminPages));
             localStorage.setItem("user", JSON.stringify(res.data));
@@ -176,7 +176,7 @@ const Login = () => {
           setRegistrationError(err);
           setOpenSnackbar(true);
         });
-    })
+    // })
 
     // admin -> organizers
     // user -> home
