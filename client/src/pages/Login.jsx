@@ -119,7 +119,7 @@ const Login = () => {
             localStorage.setItem("user", JSON.stringify(res.data));
             
             navigate("/home");
-            // window.location.reload();
+            window.location.reload();
           } else if (res.data.userType === "organizer") {
             localStorage.setItem("loginStatus", true);
             localStorage.setItem("pages", JSON.stringify(organizationPages));
