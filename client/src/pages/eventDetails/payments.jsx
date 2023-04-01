@@ -34,7 +34,9 @@ const onHideClick = () => setShowPayments(false)
           };
     const addRegisterEvent = async () => {
         try{
-            const response = await axios.get('http://127.0.0.1:5000/getPayments/2')
+                const userID = localStorage.getItem('user');
+                const id = JSON.parse(userID).id;
+            const response = await axios.get('http://127.0.0.1:5000/getPayments/'+id)
             if(response.status === 200) {
                 setPayments(response.data.data)
             }

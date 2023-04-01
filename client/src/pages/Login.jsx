@@ -98,13 +98,13 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-   
+
     const data_json = {
       email: data.get("email"),
       password: data.get("password"),
     };
 
-    // user.map((u) => { 
+    // user.map((u) => {
       axios({
         // Endpoint to send files
         url: "http://127.0.0.1:5000/login",
@@ -113,11 +113,12 @@ const Login = () => {
       })
         // Handle the response from backend here
         .then((res) => {
+          console.log("res: ", res);
           if (res.data.userType === "attendee") {
             localStorage.setItem("loginStatus", true);
             localStorage.setItem("pages", JSON.stringify(userPages));
             localStorage.setItem("user", JSON.stringify(res.data));
-            
+
             navigate("/home");
             window.location.reload();
           } else if (res.data.userType === "organizer") {
@@ -131,7 +132,7 @@ const Login = () => {
             localStorage.setItem("loginStatus", true);
             localStorage.setItem("pages", JSON.stringify(adminPages));
             localStorage.setItem("user", JSON.stringify(res.data));
-            
+
             navigate("/organizers");
             window.location.reload();
           }
@@ -241,7 +242,7 @@ const Login = () => {
                 helperText={emailError && "Please enter valid email address"}
                 autoFocus
               />
-      
+
               <TextField
                 label="Password"
                 variant="outlined"
@@ -266,7 +267,7 @@ const Login = () => {
                   ),
                 }}
               />
-             
+
               <Button
                 type="submit"
                 fullWidth

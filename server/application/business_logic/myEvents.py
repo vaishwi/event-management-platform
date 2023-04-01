@@ -12,35 +12,84 @@ class RegisterEvent(Model):
     price = NumberField();
     paymentMethod = TextField();
     count = NumberField();
+    eventName = TextField();
+    eventAddress = TextField();
+    eventDate = TextField();
+    eventOrganizer = TextField();
+    eventType = TextField();
+    eventBanner = TextField();
+    eventCity = TextField();
+    eventCountry = TextField();
+    eventTime = TextField();
+    # //event Name, event Address, event Date, event Organizer, user Name, type, banner_image city country time
 
     def add_registerEvent(self, data):
         eventData = data.get('eventData')
         payment = data.get('payment')
+        userID = data.get('id')
+        print('event data')
+        print(eventData)
+        result = {'payment': payment , 'userId': userID}
         if payment is not None:
-            response_api = requests.post("http://127.0.0.1:5000/addPayment", json={'payment': payment})
+            print('calling payment here')
+            print(result)
+            response_api = requests.post("http://127.0.0.1:5000/addPayment", json={'payment': payment, 'userId': userID})
             if isinstance(response_api, tuple) and len(response_api) == 2:
                 response, status_code = response_api
             else:
                 response = response_api
             e = RegisterEvent(
-                userID="2",
+                userID=data.get('id'),
                 eventID=eventData['id'],
                 price=data.get('counter') * eventData['price'],
                 paymentMethod=response.json(),
-                count=data.get('counter')
+                count=data.get('counter'),
+                eventName=eventData['title'],
+                eventAddress=eventData['address'],
+                eventDate=eventData['date'],
+                eventOrganizer=eventData['organizer'],
+                eventType=eventData['type'],
+                eventBanner = eventData['organizer'],
+                eventCity = eventData['city'],
+                eventCountry = eventData['country'],
+                eventTime = eventData['time'],
             )
             e.save()
             return e.id
         else:
             e = RegisterEvent(
-                userID="2",
+                userID=data.get('id'),
                 eventID=eventData['id'],
-                price=eventData['price'],
+                price= eventData['price'],
                 paymentMethod='0',
-                count=0
+                count=0,
+                eventName=eventData['title'],
+                eventAddress=eventData['address'],
+                eventDate=eventData['date'],
+                eventOrganizer=eventData['organizer'],
+                eventType=eventData['type'],
+                eventBanner=eventData['organizer'],
+                eventCity=eventData['city'],
+                eventCountry=eventData['country'],
+                eventTime=eventData['time'],
             )
             e.save()
             return e.id
+
+    def get_registered_event(self, id, eventID):
+
+        try:
+            print("before")
+            response_list = RegisterEvent.collection.filter(eventID=eventID , userID = id).fetch()
+            output = [response.to_dict() for response in response_list]
+            if (output):
+                print("return true from check_credential")
+                return True
+            else:
+                print("return false")
+                return False
+        except:
+            return False
 
     def get_registered_event_by_id(self, key):
         registered_event_dict = {
