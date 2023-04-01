@@ -13,13 +13,15 @@ class AddRegisterEvents(Resource):
         response = RegisterEvent().add_registerEvent(data)
         return response
 
-    def get(self, id):
-        response = RegisterEvent().get_registered_event_by_id(id)
+    def get(self, id, eventID):
+        print(id)
+        print(eventID)
+        response = RegisterEvent().get_registered_event(id,eventID)
         print(response)
         if response:
             print(response)
-            return response["data"], 200
-        return "Event not found", 404
+            return True, 200
+        return False, 200
 
 
 class GetRegisterEvents(Resource):
@@ -38,6 +40,7 @@ class GetRegisterUsers(Resource):
         users = RegisterEvent().get_registered_users_by_event_id(id)
         response['data'] = users
         return response
+
 
 
 class DeleteRegisteredEvents(Resource):

@@ -10,8 +10,13 @@ export default function PaymentComponent(props)
 {
       const { onHideClick, payment, handleChange, addRegisterEvent } = props;
         const addCardDetails = async () => {
+            const userID = localStorage.getItem('user');
+            const id = JSON.parse(userID).id;
+            console.log(id);
+
              const response = await axios.post('http://127.0.0.1:5000/addPayment', {
-                                 payment
+                                 payment,
+                                 id,
              })
              addRegisterEvent();
         };

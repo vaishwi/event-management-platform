@@ -85,10 +85,14 @@ export default function Checkout() {
 
   const addRegisterEvent = async () => {
             try{
+                const userID = localStorage.getItem('user');
+                const id = JSON.parse(userID).id;
+                console.log(id);
                 const response = await axios.post('http://127.0.0.1:5000/registerEvent', {
                     counter,
                     payment,
-                    eventData
+                    eventData,
+                    id,
                 })
             } catch (e) {
                 console.log(e)

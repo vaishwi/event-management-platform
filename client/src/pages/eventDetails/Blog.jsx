@@ -14,6 +14,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import { useParams } from "react-router-dom";
+import axios from 'axios';
 
 
 const sidebar = {
@@ -54,7 +55,6 @@ const Blog = () => {
     }
     const [data, setData] = useState(null);
 
-    
     useEffect(() => {
         {console.log(location.state)}
         if(location.state != null){
@@ -63,7 +63,6 @@ const Blog = () => {
         if(params.hasOwnProperty('id')){
           setData(eve)
         }
-        
     },[])
 
     return (
@@ -75,6 +74,7 @@ const Blog = () => {
                   <div className = "mainEventImage">
                     <MainFeaturedPost title = {data.title} image= {data.banner_image} />
                   </div>
+{                        console.log(data?.organizer)}
                   <Grid container spacing={2}>
                     <MainEvent description = {data.description} type = {data.type} runtime = {data.runtime} time = {data.time} location = {data.address} organizer = {data.organizer} date = {data.date} title= {data.title} />
                     <Sidebar

@@ -29,7 +29,7 @@ const BASE_URL = "http://127.0.0.1:5000/";
 const SERVER_ERROR = "Sever Error. Please try again.";
 const SUBSCRIPTION_MESSAGE = "Successfully Subscribed.";
 
-  
+
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -78,7 +78,7 @@ const OrganizerProfile = () => {
   const REMOVE_DIALOG_DESCR = "Organizer removed successfully.";
   const AUTHENTICATE_DIALOG_DESCR =
     "Authentication Successful. Now you can post events.";
-  
+
   // const USER_TYPE = "attendee"
   const IS_ATTENDEE = JSON.parse(user).userType == "attendee";
   const IS_ORGANIZER = JSON.parse(user).userType == "organizer";
@@ -227,7 +227,7 @@ const OrganizerProfile = () => {
                             {organizer.location}
                         </Typography>
                         <Typography variant="subtitle2" align="center" >
-                            
+
               {organizer.city + " "+organizer.state}
             </Typography>
             {IS_ATTENDEE && (
@@ -351,3 +351,4 @@ const OrganizerProfile = () => {
 };
 
 export default OrganizerProfile;
+
