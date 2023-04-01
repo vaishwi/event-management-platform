@@ -18,8 +18,8 @@ class Organizer(Model):
     city = TextField()
     subscribers = NumberField()
     isAuthenticated = BooleanField()
+    subscribed_users = ListField()
     
-
     def add_organizer(self, data, id):
         organizer = Organizer(
                 id = id,
@@ -34,6 +34,7 @@ class Organizer(Model):
                 city = data.get('city'),
                 subscribers = 0,
                 isAuthenticated = False,
+                subscribed_users =[]
         )
         organizer.save()
         return organizer.id
