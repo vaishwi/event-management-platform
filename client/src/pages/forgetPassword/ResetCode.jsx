@@ -14,20 +14,16 @@ export default function ResetCode(props) {
         const newValue = event.target.value.replace(/[^0-9 +()-]/g, '');
         setCode(newValue);
         
-        // const newValue = event.target.value;
         if (newValue.length < 6 || newValue.length > 6) {
             setCodeError(true);
         } else {
             setCodeError(false);
         }
-        console.log("Transfer code: ", props.resetCode)
-        if (props.resetCode == newValue) {
-            console.log("match")
+        if (props.resetCode == newValue) {  // Password and Confirm password match
             props.isResetCodeCorrect(true);
         }
         else {
-            console.log("not match")
-            props.isResetCodeCorrect(false);
+            props.isResetCodeCorrect(false);    // Password and Confirm password does not match
         }
     };
     

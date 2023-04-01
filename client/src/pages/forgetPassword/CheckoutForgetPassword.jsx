@@ -46,16 +46,12 @@ var isCodeCorrect = false;
 var newPassword = "";
 
 const steps = ['Email', 'Reset Code', 'New Password'];
-// var email = ""
 
 function handleEmail (emailValue){
-  // this.setState({ email: emailValue });
-  console.log(emailValue)
   submittedEmail = emailValue;
 }
 
 function isResetCodeCorrect(value) {
-  console.log("in isResetCodeCorrect: ", value)
   isCodeCorrect = value
 }
 
@@ -97,7 +93,6 @@ export default function CheckoutForgetPassword() {
   const handleNext = () => {
     // setActiveStep(activeStep + 1);
     if (activeStep == 0) {
-      console.log("Email submitted........." + submittedEmail)
       const data_json = {email: submittedEmail}
       axios({
         // Endpoint to send files
@@ -108,18 +103,13 @@ export default function CheckoutForgetPassword() {
         // Handle the response from backend here
         .then((res) => {
           if (res.data == false) {
-            console.log("in axios res: ", res.data)
-            // setActiveStep(activeStep - 1)
             setResetPasswordError("Email does not exist");
             setOpenSnackbar(true);
           }
           else {
             setActiveStep(activeStep + 1)
-            console.log("in else axios res:", res.data)
             const code = Math.floor(100000 + Math.random() * 900000);
-            // setResetCode(code);
             resetCode = code;
-            console.log("generated code: ", resetCode)
             const config = {
                 SecureToken : "616d372e-755d-4eb1-b68a-72d2054e01cb",
                 To: submittedEmail ,
@@ -156,8 +146,7 @@ export default function CheckoutForgetPassword() {
         })
           // Handle the response from backend here
           .then((res) => {
-            if (res.data != false) {
-              console.log("Password save Successfully")
+            if (res.data != false) {      // Password save Successfully
               navigate('/login')
             } 
             else {

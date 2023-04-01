@@ -10,35 +10,21 @@ class Attendee(Model):
     name = TextField()
     email = TextField()
     contactNo = TextField()
+    firstName = TextField()
+    lastName = TextField()
 
+    '''
+    Adding Attendee detail in attendee collection
+    Input: 
+    '''
     def add_attendee(self, data, id):
         attendee = Attendee(
             id=id,
-            name = data.get("name"),
+            # name = data.get("name"),
+            firstName = data.get("firstName"),
+            lastName = data.get("lastName"),
             contactNo = data.get('contactNo'),
             email = data.get('email'),
         )
         attendee.save()
         return attendee.id
-    
-
-    # def get_organizer(self, key):
-    #     event_dict = {
-    #         "success": False,
-    #         "data": {}
-    #     }
-    #     try:
-    #         event = Event.collection.get(f"event/{key}") 
-    #         event_dict['data'] = event.to_dict()
-    #         event_dict['success'] = True
-    #     except Exception as e:
-    #         print(e)
-    #     return event_dict
-
-    # def get_all_organizer(self):
-    #     organizers = []
-    #     organizer_list = Organizer.collection.fetch()
-        
-    #     organizers = [organizer.to_dict() for organizer in organizer_list]
-    #     print(f"Organizer {organizers}")
-    #     return organizers

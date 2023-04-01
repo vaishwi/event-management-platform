@@ -7,10 +7,7 @@ export default function EmailForgetPassword(props) {
 
     const emailValidation = /^[ ]*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})[ ]*$/i;
 
-    // const [email, setEmail] = React.useState("");
     const [emailError, setEmailError] = React.useState(false);
-
-    
 
     const handleSubmit = (event) => {
         const code = Math.floor(100000 + Math.random() * 900000);
@@ -29,13 +26,11 @@ export default function EmailForgetPassword(props) {
 
     const handleEmailChange = (event) => {
         const newValue = event.target.value;
-        // setEmail(newValue);
         if (!emailValidation.test(newValue)) {
             setEmailError(true);
             props.email("");
         } else {
             setEmailError(false);
-            // setEmail(newValue);
             props.email(newValue);
         }
     };
