@@ -8,7 +8,7 @@ from application.business_logic.payments import Payment
 class AddPayment(Resource):
 
     def post(self):
-        data = request.get_json()['payment']
+        data = request.get_json()
         response = Payment().add_payment(data)
         return response
 

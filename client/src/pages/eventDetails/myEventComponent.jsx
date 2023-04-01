@@ -1,4 +1,6 @@
 // @mui
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Box,
   Card,
@@ -15,8 +17,31 @@ import {
   Typography,
   TableContainer,
 } from '@mui/material';
+import CardContent from '@mui/material/CardContent';
+import InfoIcon from '@mui/icons-material/Info';
 
 export default function MyEventsComponent() {
+
+      const[registeredEvents, setRegisteredEvents] = useState([]);
+
+      useEffect(() => {
+          const fetchRegisteredEvents = async () => {
+                      try{
+                          const userID = localStorage.getItem('user');
+                          const id = JSON.parse(userID).id;
+                          const response = await axios.get('http://127.0.0.1:5000/getUserRegisterEvents/'+id);
+                          console.log(response.data)
+                          if(response.status === 200) {
+                              setRegisteredEvents(response.data)
+                          }
+                      } catch (e) {
+                          console.log(e)
+                          console.log(e.response.status)
+
+                      }
+                  };
+                  fetchRegisteredEvents();
+      },[])
 
   return (
 
@@ -26,7 +51,23 @@ export default function MyEventsComponent() {
       </Typography>
       <Divider />
         <Card sx = {{width:1, mt:4}} >
-            <TableContainer >
+        {console.log(registeredEvents)}
+        { registeredEvents.length === 0 ?
+            <Card sx = {{display: 'flex', boxShadow: 0.5}} style={{backgroundColor: "lightgray"}}>
+                            <CardContent sx = {{flex:3}}>
+                                <Typography component="h6" variant="h6" gutterBottom>
+                                    <InfoIcon sx = {{mr:1, mt:2}}/>
+                                     You have not registered in any events
+                                </Typography>
+
+                                <Typography component="h6" variant="h6" gutterBottom>
+                                </Typography>
+                            </CardContent>
+                        </Card>
+        :
+                    registeredEvents
+                       .map((element, index) => (
+            <TableContainer sx = {{mb:3}} >
               <Table>
                 <TableBody >
                     <TableRow hover tabIndex={-1} sx={{ height:100}} >
@@ -63,6 +104,7 @@ export default function MyEventsComponent() {
                 </TableBody>
               </Table>
             </TableContainer>
+            ))}
         </Card>
       </Container>
   );

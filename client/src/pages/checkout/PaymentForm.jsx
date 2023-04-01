@@ -1,13 +1,36 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import axios from 'axios';
 
 export default function PaymentForm(props) {
   const {payment, handleChange} = props;
+  const [payments, setPayments] = useState([]);
+    const [selectedOption, setSelectedOption] = useState('');
 
+    const handleOptionChange = (event) => {
+      setSelectedOption(event.target.value);
+    }
+      const addRegisterEvent = async () => {
+          try{
+              const userID = localStorage.getItem('user');
+              const id = JSON.parse(userID).id;
+              const response = await axios.get('http://127.0.0.1:5000/getPayments/'+id)
+              console.log(response)
+              if(response.status === 200) {
+                  setPayments(response.data.data)
+              }
+          } catch (e) {
+              console.log(e)
+              console.log(e.response.status)
+          }
+      };
+      useEffect(() => {
+            addRegisterEvent();
+      } , [])
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -68,6 +91,21 @@ export default function PaymentForm(props) {
             Your card details will be saved
         </Grid>
       </Grid>
+{/*        : <div> */}
+{/*          {payments */}
+{/*             .map((element, index) => ( */}
+{/*             <div className="full-width single-box"> */}
+{/*                <label key={element.id}> */}
+{/*                   <input type="radio" value={element.id} checked={selectedOption === element.id} onChange={handleOptionChange}  /> */}
+{/*                     <div>{element.cardNumber}</div> */}
+{/*                   {element.name} */}
+{/*                   {element.cvv} */}
+{/*                   {element.expiry} */}
+
+{/*                 </label> */}
+{/*             </div> */}
+{/*                       ))} */}
+{/*        </div> } */}
     </React.Fragment>
   );
 }
