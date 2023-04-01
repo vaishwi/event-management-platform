@@ -219,12 +219,16 @@ const OrganizerProfile = () => {
               {organizer.subscribers} Subscribers
             </Typography>
 
-            <Typography variant="subtitle2" align="center">
+            <Typography variant="subtitle2" align="center" sx={{mt:2}}>
               <LocationOn
                 fontSize="small"
                 className={classes.contactInfoIcon}
               />
-              {organizer.state}
+                            {organizer.location}
+                        </Typography>
+                        <Typography variant="subtitle2" align="center" >
+                            
+              {organizer.city + " "+organizer.state}
             </Typography>
             {IS_ATTENDEE && (
               <div align="center">

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Box,Typography } from '@mui/material'
 import OrganizerItem from "../components/OranizerItem";
 import axios from "axios";
+import { Divider } from "antd";
 
 const OrganizerList = (props) => {
     
@@ -65,6 +66,12 @@ const OrganizerList = (props) => {
        < Box sx={{ mt:5,ml:30,mr:30,}}>
         <Typography variant="h3" component="h2" align="center">
             {isAutheticationRequests == true ? "Authentication Requests" : "Organizers List"}
+            
+        </Typography>
+        <Divider/>
+        <Typography variant="h5" component="h2" align="center">
+            
+            {isAutheticationRequests == true ? (unAuthenticatedOrganizerList.length==0 ?"No pending requests.":""):""}
         </Typography>
         </Box>
         <Box sx={{width: 'auto', mt:5,ml:5,mr:10,bgcolor: '#efefef'}}> 
