@@ -114,26 +114,36 @@ const OrganizerProfile = () => {
       attendee = JSON.parse(attendee);
       setAttendeeID(attendee.id);
       // API CALL TO CHECK IF ATTENDEE IS ALREADY SUBSCRIBED OR NOT
+      console.log("In call of getting subscription detail.")
+      const data_json = { organizerId: organizerId, attendeeId: attendee.id }
+      console.log(data_json)
       axios({
         // Endpoint to send files
-        url: BASE_URL + "subscribe/",
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-        data: { organizerId: organizerId, attendeeId: attendeeId },
+        url: "http://127.0.0.1:5000/checksubscription",
+        method: "POST",
+        // headers: {
+        //   "Access-Control-Allow-Origin": "*",
+        // },
+        data: data_json,
       })
         .then((res) => {
-          setHasAttendeeSubscribed(res.is_subscribed);
-          console.log(res);
+            console.log(res)
+            console.log(res.data.is_subscribed)
+          setHasAttendeeSubscribed(res.data.is_subscribed);
+          
         })
         .catch((err) => {});
     }
-  }, []);
+  }, [hasAttendeeSubscribed]);
 
   const openDialogBox = (description) => {
     if (IS_ATTENDEE) {
-      url = BASE_URL + "subscribe/";
+      const url = BASE_URL + "subscribe";
+      console.log("In subscribe")
+      console.log("AttendeeId")
+      console.log(attendeeId)
+      console.log("organizer")
+      console.log(organizerId)
       axios({
         url: url,
         method: "POST",
@@ -145,6 +155,7 @@ const OrganizerProfile = () => {
         .then((res) => {
           setOpenDialog(true);
           setDialogDiscription(SUBSCRIPTION_MESSAGE);
+          setHasAttendeeSubscribed(true)
         })
         .catch((err) => {
           setOpenDialog(true);
@@ -192,7 +203,10 @@ const OrganizerProfile = () => {
 
   const handleAuthenticationRemoveClick = () => {
     setOpenDialog(false);
-    naviagte("/organizers");
+    if(IS_ADMIN){
+        naviagte("/organizers");
+    }
+    
     console.log("In click");
   };
 
@@ -234,9 +248,11 @@ const OrganizerProfile = () => {
               <div align="center">
                 <Button
                   variant="contained"
-                  disabled={!hasAttendeeSubscribed}
-                  sx={{ mt: 10 }}>
-                  {hasAttendeeSubscribed ? Subscribed : Subscribe}
+                  disabled={hasAttendeeSubscribed}
+                  sx={{ mt: 10 }}
+                  onClick={() => openDialogBox(SUBSCRIPTION_MESSAGE)}>
+                  {hasAttendeeSubscribed ? "Subscribed" : "Subscribe"}
+                 
                 </Button>
               </div>
             )}

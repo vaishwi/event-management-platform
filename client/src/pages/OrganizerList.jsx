@@ -4,6 +4,9 @@ import OrganizerItem from "../components/OranizerItem";
 import axios from "axios";
 import { Divider } from "antd";
 
+const BASE_URL = "http://127.0.0.1:5000/"
+
+
 const OrganizerList = (props) => {
     
     console.log(props.isAutheticationRequests)
@@ -17,7 +20,7 @@ const OrganizerList = (props) => {
         if(isAutheticationRequests){
             axios({
                 // Endpoint to send files
-                url: "http://127.0.0.1:5000/unauthOrganizers",
+                url: BASE_URL+"unauthOrganizers",
                 method: "GET",
                 headers:{
                     "Access-Control-Allow-Origin": "*"
@@ -40,7 +43,7 @@ const OrganizerList = (props) => {
         axios({
   
             // Endpoint to send files
-            url: "http://127.0.0.1:5000/organizers",
+            url: BASE_URL+"organizers",
             method: "GET",
             headers:{
                 "Access-Control-Allow-Origin": "*"
