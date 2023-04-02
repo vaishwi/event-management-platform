@@ -226,7 +226,7 @@ const Login = () => {
             </Typography>
             <Box
               component="form"
-              noValidate
+              // noValidate
               onSubmit={handleSubmit}
               sx={{ mt: 1 }}>
               <TextField

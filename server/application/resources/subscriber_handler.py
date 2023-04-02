@@ -7,7 +7,10 @@ from application.business_logic.attendee import Attendee
 
 class SubscrtiberEndpoint(Resource):
     def post(self):
+        print("inside post")
+        print(request)
         data = request.get_json()
+        print(data)
         response = {}
         response = Attendee().subscribe_organizer(data)
 
@@ -16,14 +19,14 @@ class SubscrtiberEndpoint(Resource):
             return response, 200
         return "Server Error", 404
 
-    def get(self):
-        data = request.get_json()
-        response = {}
-        response = Attendee().is_attendee_subscribed(data)
+    # def get(self):
+    #     data = request.get_json()
+    #     response = {}
+    #     response = Attendee().is_attendee_subscribed(data)
         
-        if response['success']:
-            print(response)
-            return response, 200
-        return "Server Error", 404
+    #     if response['success']:
+    #         print(response)
+    #         return response, 200
+    #     return "Server Error", 404
         
         

@@ -22,14 +22,14 @@ import {
 } from "@mui/icons-material";
 import CustomDialogBox from "../components/CustomDialogBox.jsx";
 import axios from "axios";
+import WorkIcon from '@mui/icons-material/Work';
+import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 
 const theme = createTheme();
 
 const BASE_URL = "http://127.0.0.1:5000/";
 const SERVER_ERROR = "Sever Error. Please try again.";
 const SUBSCRIPTION_MESSAGE = "Successfully Subscribed.";
-
-  
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -61,13 +61,9 @@ const AttendeeProfile = () => {
   const classes = useStyles();
   const user = localStorage.getItem("user");
   // const organizer = useLocation().state.organizer;
-  var attendeeId
-    try {
-        attendeeId = useLocation().state.attendeeId;
-    } catch (e) {
-        attendeeId = JSON.parse(user).id;
-    }
-//   const attendeeId = useLocation().state.attendeeId;
+  const attendeeId = JSON.parse(user).id;
+
+  //   const attendeeId = useLocation().state.attendeeId;
   const naviagte = useNavigate();
 
   console.log(attendeeId);
@@ -80,12 +76,14 @@ const AttendeeProfile = () => {
 
   const [attendee, setAttendee] = useState({});
 
-  const [attendeeId, setAttendeeID] = useState("");
-  const [hasAttendeeSubscribed, setHasAttendeeSubscribed] = useState("");
+  //   const [attendeeId, setAttendeeID] = useState("");
+  //   const [hasAttendeeSubscribed, setHasAttendeeSubscribed] = useState("");
 
   // console.log(JSON.parse(user))
 
   useEffect(() => {
+    console.log("attendeeId:", attendeeId);
+
     axios({
       // Endpoint to fetch organizer profile
       url: BASE_URL + "attendee/" + attendeeId,
@@ -102,10 +100,7 @@ const AttendeeProfile = () => {
 
       // Catch errors if any
       .catch((err) => {});
-    
   }, []);
-
-  
 
   return (
     <Container className={classes.root}>
@@ -124,33 +119,24 @@ const AttendeeProfile = () => {
             </div>
 
             <Typography variant="h5" align="center">
-              {organizer.organizationName}
+              {attendee.firstName} {attendee.lastName}
             </Typography>
-            <Typography variant="subtitle1" align="center">
+            {/* <Typography variant="subtitle1" align="center">
               {organizer.subscribers} Subscribers
-            </Typography>
+            </Typography> */}
 
-            <Typography variant="subtitle2" align="center" sx={{mt:2}}>
+            <Typography variant="subtitle2" align="center" sx={{ mt: 2 }}>
               <LocationOn
                 fontSize="small"
                 className={classes.contactInfoIcon}
               />
-                            {organizer.location}
-                        </Typography>
-                        <Typography variant="subtitle2" align="center" >
-                            
-              {organizer.city + " "+organizer.state}
+              {attendee.location}
             </Typography>
-            {IS_ATTENDEE && (
-              <div align="center">
-                <Button
-                  variant="contained"
-                  disabled={!hasAttendeeSubscribed}
-                  sx={{ mt: 10 }}>
-                  {hasAttendeeSubscribed ? Subscribed : Subscribe}
-                </Button>
-              </div>
-            )}
+            <Typography variant="subtitle2" align="center">
+              {/* {attendee.city + " " + attendee.state} */}
+              {attendee.city ? attendee.city : "City"} ,{" "}
+              {attendee.state ? attendee.state : "State"}
+            </Typography>
 
             <Divider sx={{ m: 5 }} />
           </Paper>
@@ -158,17 +144,17 @@ const AttendeeProfile = () => {
         <Grid item xs={12} md={8} sx={{ mt: 2 }}>
           <Paper elevation={3} className={classes.contactInfo}>
             <Typography variant="h5" align="center">
-              Organization Information
+              User Information
             </Typography>
             <div className={classes.contactInfoItem}>
               <Typography
                 variant="subtitle1"
                 paragraph={true}
                 className={classes.contactInfoIcon}>
-                {organizer.about}
+                {attendee.about}
               </Typography>
             </div>
-            <div className={classes.contactInfoItem}>
+            {/* <div className={classes.contactInfoItem}>
               <Typography
                 variant="subtitle1"
                 sx={{ fontWeight: "bold" }}
@@ -178,39 +164,62 @@ const AttendeeProfile = () => {
               <Typography variant="subtitle1" sx={{ ml: 1 }}>
                 {organizer.managedBy}
               </Typography>
-            </div>
+            </div> */}
             <div className={classes.contactInfoItem}>
               <Typography
                 variant="subtitle1"
                 sx={{ fontWeight: "bold" }}
-                className={classes.contactInfoIcon}>
-                Occupation :
+                              className={classes.contactInfoIcon}>
+                              <WorkIcon />
               </Typography>
               <Typography variant="subtitle1" sx={{ ml: 1 }}>
-                {organizer.occupation}
+                {attendee.occupation ? attendee.occupation : "Not set"}
               </Typography>
             </div>
             <div className={classes.contactInfoItem}>
               <EmailRounded />
               <Typography variant="subtitle1" sx={{ ml: 2 }}>
                 {" "}
-                {organizer.email}
+                {attendee.email}
               </Typography>
             </div>
             <div className={classes.contactInfoItem}>
               <Phone />
               <Typography variant="subtitle1" sx={{ ml: 2 }}>
-                {organizer.contactNo}
+                {attendee.contactNo}
               </Typography>
             </div>
 
             <div className={classes.contactInfoItem}>
               <Business />
               <Typography variant="subtitle1" sx={{ ml: 2 }}>
-                {organizer.location}
+                {attendee.location ? attendee.location : "Not set"}
               </Typography>
             </div>
-
+            <div>
+              <Typography
+                variant="subtitle1"
+                sx={{ fontWeight: "bold" }}
+                              className={classes.contactInfoIcon}>
+                              <SubscriptionsIcon /> Subscribed Organizations 
+              </Typography> 
+              <Typography variant="subtitle1" sx={{ ml: 2 }}>
+                {attendee.subscribered_organization ? attendee.subscribered_organization.map((organizer) => <li>{organizer.organizationName}</li>) : "Not set"}
+              </Typography>
+            </div>
+            <div align="center">
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => {
+                  naviagte("/editAttendee", {
+                    state: { attendee: attendee },
+                  });
+                }}>
+                {" "}
+                Edit{" "}
+              </Button>
+            </div>
           </Paper>
         </Grid>
       </Grid>

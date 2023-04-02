@@ -13,6 +13,11 @@ class Attendee(Model):
     contactNo = TextField()
     firstName = TextField()
     lastName = TextField()
+    about = TextField()
+    location = TextField()
+    state = TextField()
+    city = TextField()
+    occupation = TextField()
     subscribered_organization = ListField()
 
     '''
@@ -67,6 +72,7 @@ class Attendee(Model):
             
             attendee = Attendee.collection.get(f"attendee/{attendee_id}")
             subscribed_organizers = attendee.subscribered_organization
+
             is_organzier_exist = subscribed_organizers.count(organizer_id)
             if(is_organzier_exist>0):
                 response_dict['success'] = True
@@ -80,7 +86,43 @@ class Attendee(Model):
 
         return response_dict
 
+    def get_attendee(self, id):
+        attendee = Attendee.collection.get(f"attendee/{id}")
+        
+        organizer_list = attendee.subscribered_organization
+
+        organizer_list = ["organizer/"+id for id in organizer_list]
+        organizer_list = Organizer.collection.get_all(organizer_list)
+        organizer_list = [organizer.to_dict() for organizer in organizer_list]
+        
+        attendee_dict = {"id": id, 
+                        "firstName" : attendee.firstName,
+                        "lastName" : attendee.lastName,
+                        "contactNo" : attendee.contactNo,
+                        "email" : attendee.email,
+                        "location" :attendee.location,
+                        "state" :attendee.state,
+                        "city" :attendee.city,
+                        "about" :attendee.about,
+                        "occupation": attendee.occupation,
+                        "subscribered_organization" : organizer_list}
+
+        # attendee['subscribered_organization'] = organizer_list
+        print(attendee_dict)
+        return attendee_dict
     
+    def edit_attendee(self, data):
+        print(data)
+        attendee = Attendee.collection.get(f"attendee/{data.get('id')}") 
+        print(attendee)
+        attendee.occupation = data.get('occupation')
+        attendee.about = data.get('about')
+        attendee.contactNo = data.get('contactNo')
+        attendee.location = data.get('location')
+        attendee.state = data.get('state')
+        attendee.city = data.get('city')
+        attendee.update()
+        return attendee.id
 
     # def get_organizer(self, key):
     #     event_dict = {
