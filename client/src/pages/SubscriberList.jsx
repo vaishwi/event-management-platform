@@ -10,8 +10,6 @@ const SubscriberList = (props) => {
     const subscriber4 = {id:4,name:"Khushi",location:"Halifax,NS"}
     const subscriber5 = {id:5,name:"Deep",location:"Halifax,NS"}
 
-    
-
     const subList = [subscriber1,subscriber2,subscriber3,subscriber4,subscriber5]    
     
     const [subscriberList, setSubscriberList] = useState(subList)

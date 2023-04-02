@@ -9,22 +9,20 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddressForm from './OrderSummary.jsx';
+import ContactInformation from './ContactInformation.jsx';
 import PaymentForm from './PaymentForm';
-import Review from './Review';
+import ReviewRegister from './ReviewRegister';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const steps = ['Order Summary', 'Payment details', 'Place your order'];
+const steps = ['Contact Information', 'Register Now'];
 
-function getStepContent(step , eventData, counter, payment, handleChange) {
+function getStepContent(step, contactInfo, handleChange) {
   switch (step) {
     case 0:
-      return <AddressForm eventData = {eventData} counter = {counter}/>;
+      return <ContactInformation contactInfo = {contactInfo} handleChange = {handleChange}/>;
     case 1:
-      return <PaymentForm payment = {payment} handleChange = {handleChange}/>;
-    case 2:
-      return <Review eventData = {eventData} counter = {counter} payment = {payment}/>;
+      return <ReviewRegister contactInfo = {contactInfo}/>;
     default:
       throw new Error('Unknown step');
   }
@@ -36,41 +34,30 @@ export default function Checkout() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [eventData, setEventData] = useState(null);
+    const [eventData, setData] = useState(null);
     const [registerEvent, setRegisterEvent] = useState(false);
-    const [counter, setCounter] = useState(null);
-    const [payment, setPayment] = useState({
-        name: null,
-        cardNumber: null,
-        expiry: null,
-        cvv: null
+
+    const [contactInfo, setContactInfo] = useState({
+        firstName: null,
+        lastName: null,
+        email: null,
+        phoneNumber: null
     });
-    const [formFilled, setFormFilled] = useState(false);
     useEffect(() => {
         if(location.state != null){
-            setEventData(location.state.eventData);
-            setCounter(location.state.counter)
+            setData(location.state.eventData);
         }
     },[])
-
+   {console.log(eventData)}
   const [activeStep, setActiveStep] = React.useState(0);
-    const handleChange = (e , name) => {
-            setPayment(prev => ({
-            ...prev,
-            [name]: e.target.value
-            }))
-            console.log(payment)
-          };
-  const handleNext = (activeStep) => {
-    if(activeStep == 1 && payment.name && payment.cardNumber && payment.expiry && payment.cvv) {
-      setActiveStep(activeStep + 1);
+
+  const handleNext = () => {
+  if(activeStep == 0 && contactInfo.firstName && contactInfo.lastName && contactInfo.email && contactInfo.phoneNumber) {
+    setActiveStep(activeStep + 1);
     }
-    else if (activeStep == 0 || activeStep == 2){
-      if(activeStep == 2) setRegisterEvent(true);
-      setActiveStep(activeStep + 1);
-    }
-    else {
-        console.log("Error")
+  else if (activeStep == 1){
+    setActiveStep(activeStep + 1);
+     setRegisterEvent(true);
     }
   };
 
@@ -79,9 +66,16 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
-    const handleRedirection = (element) => {
-      navigate(element);
-    }
+  const handleRedirection = (element) => {
+    navigate(element);
+  }
+
+        const handleChange = (e , name) => {
+                setContactInfo(prev => ({
+                ...prev,
+                [name]: e.target.value
+                }))
+              };
 
   const addRegisterEvent = async () => {
             try{
@@ -89,11 +83,10 @@ export default function Checkout() {
                 const id = JSON.parse(userID).id;
                 console.log(id);
                 const response = await axios.post('http://127.0.0.1:5000/registerEvent', {
-                    counter,
-                    payment,
                     eventData,
                     id,
                 })
+
             } catch (e) {
                 console.log(e)
                 console.log(e.response.status)
@@ -103,7 +96,7 @@ export default function Checkout() {
 
 
     useEffect(() => {
-        if(activeStep == 3) addRegisterEvent();
+        if(activeStep == 2) addRegisterEvent();
     },[registerEvent])
 
   return (
@@ -131,7 +124,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep , eventData, counter, payment, handleChange)}
+              {getStepContent(activeStep, contactInfo, handleChange)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -141,11 +134,10 @@ export default function Checkout() {
 
                 <Button
                   variant="contained"
-                  onClick={() => handleNext(activeStep)}
+                  onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                {console.log(activeStep)}
-                  {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                  {activeStep === steps.length - 1 ? 'Confirm Registration' : 'Next'}
                 </Button>
               </Box>
             </React.Fragment>

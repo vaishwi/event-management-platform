@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp.jsx";
 import Home from "./pages/Home.jsx";
 import Blog from "./pages/eventDetails/Blog.jsx";
 import Checkout from "./pages/checkout/Checkout.jsx";
+import CheckoutRegister from "./pages/checkout/CheckoutRegister.jsx";
 import About from "./pages/About.jsx";
 import PrivateRoutes from "./utils/PrivateRoutes.jsx";
 import "./App.css";
@@ -22,6 +23,8 @@ import OrganizerEvents from "./pages/OrganizerEvents.jsx";
 import ManageEventsList from "./pages/manageEvents/ManageEventsList.jsx";
 import DeleteEvent from "./pages/manageEvents/DeleteEvent.jsx";
 import ViewAllUsers from "./pages/manageEvents/VIewAllUsers.jsx";
+import SignUpStart from "./pages/SignUpStart.jsx";
+import OrganizerEditProfile from "./pages/OrganizerEditProfile.jsx";
 
 
 let loginStatus = localStorage.getItem("loginStatus") === "true"
@@ -67,13 +70,13 @@ function App() {
       <Routes>
         {/* Unprotected Routes */}
         <Route element={<Login />} path="/login" />
-        <Route element={<SignUp />} path="/signup" />
+        <Route element={<SignUpStart />} path="/signup" />
         <Route element={<CheckoutForgetPassword />} path="/forgetPassword" />
 
 
         {/* Protected Routes */}
         <Route element={<PrivateRoutes />}>
-          {user.userType === "organizer"? <Route element={<SubscriberList />} path="/" /> : user.userType === "user" ?<Route element={<Home />} path="/" />: <Route element={<OrganizerList isAutheticationRequests={true}/>} path="/" />}
+          {user.userType === "organizer"? <Route element={<SubscriberList />} path="/" /> : user.userType === "attendee" ?<Route element={<Home />} path="/" />: <Route element={<OrganizerList isAutheticationRequests={true}/>} path="/" />}
           
           <Route element={<Home />} path="/home" />
           <Route element={<About />} path="/about" />
@@ -82,6 +85,7 @@ function App() {
           <Route element= {<Blog />} path = "/event" />
           <Route element= {<Blog />} path = "/event/:id" />
           <Route element= {<Checkout />} path = "/checkout" />
+          <Route element= {<CheckoutRegister />} path = "/registerEvent" />
           <Route element= {<RegisteredEvents />} path = "/myEvents" />
           <Route element= {<Payments />} path = "/billing" />
           <Route element={<Checkout />} path="/checkout" />
@@ -95,6 +99,7 @@ function App() {
           <Route element={<ManageEventsList />} path="/manageEvents" />
           <Route element={<DeleteEvent />} path="/deleteEvent" />
           <Route element={<ViewAllUsers />} path="/viewAllUsers" />
+          <Route element={<OrganizerEditProfile />} path="/editOrganizer" />
         </Route>
       </Routes>
     </div>

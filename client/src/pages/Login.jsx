@@ -4,7 +4,8 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-
+import MuiAlert from "@mui/material/Alert";
+import {Snackbar} from "@mui/material"
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -17,6 +18,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
+import axios from "axios";
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 
 function Copyright(props) {
   return (
@@ -56,23 +64,23 @@ const Login = () => {
     { pageName: "Events", route: "/manageEvents" },
     { pageName: "Authentication Requests", route: "/authenticationRequests" },
   ];
-  const user = [
-    {
-      email: "user@gmail.com",
-      password: "123456",
-      userType: "user",
-    },
-    {
-      email: "admin@gmail.com",
-      password: "123456",
-      userType: "admin",
-    },
-    {
-      email: "organizer@gmail.com",
-      password: "123456",
-      userType: "organizer",
-    },
-  ];
+  // const user = [
+  //   {
+  //     email: "user@gmail.com",
+  //     password: "123456",
+  //     userType: "user",
+  //   },
+  //   {
+  //     email: "admin@gmail.com",
+  //     password: "123456",
+  //     userType: "admin",
+  //   },
+  //   {
+  //     email: "organizer@gmail.com",
+  //     password: "123456",
+  //     userType: "organizer",
+  //   },
+  // ];
 
   const [password, setPassword] = useState("");
   const emailValidation = /^[ ]*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})[ ]*$/i;
@@ -80,52 +88,75 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [registrationError, setRegistrationError] = useState("");
+  
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const email = data.get("email");
-    const password = data.get("password");
 
-    console.log({
+    const data_json = {
       email: data.get("email"),
       password: data.get("password"),
-    });
-    user.map((u) => {
-      if (u.email === email && u.password === password) {
-        localStorage.setItem("loginStatus", true);
-        localStorage.setItem("user", JSON.stringify(u));
+    };
 
-        if (u.userType === "user") {
-          localStorage.setItem("pages", JSON.stringify(userPages));
+    // user.map((u) => {
+      axios({
+        // Endpoint to send files
+        url: "http://127.0.0.1:5000/login",
+        method: "POST",
+        data: data_json,
+      })
+        // Handle the response from backend here
+        .then((res) => {
+          console.log("res: ", res);
+          if (res.data.userType === "attendee") {
+            localStorage.setItem("loginStatus", true);
+            localStorage.setItem("pages", JSON.stringify(userPages));
+            localStorage.setItem("user", JSON.stringify(res.data));
 
-          console.log(JSON.stringify(userPages));
+            navigate("/home");
+            window.location.reload();
+          } else if (res.data.userType === "organizer") {
+            localStorage.setItem("loginStatus", true);
+            localStorage.setItem("pages", JSON.stringify(organizationPages));
+            localStorage.setItem("user", JSON.stringify(res.data));
+            
+            navigate("/subscribers");
+            window.location.reload();
+          } else if (res.data.userType === "admin") {
+            localStorage.setItem("loginStatus", true);
+            localStorage.setItem("pages", JSON.stringify(adminPages));
+            localStorage.setItem("user", JSON.stringify(res.data));
 
-          navigate("/home");
-          window.location.reload();
-        }
-        if (u.userType === "organizer") {
-          localStorage.setItem("pages", JSON.stringify(organizationPages));
+            navigate("/organizers");
+            window.location.reload();
+          }
+          else {
+            setRegistrationError("Credential does not exist");
+            setOpenSnackbar(true);
+          }
 
-          navigate("/subscribers");
-          window.location.reload();
-        }
-        if (u.userType === "admin") {
-          localStorage.setItem("pages", JSON.stringify(adminPages));
+        })
 
-          navigate("/organizers");
-          window.location.reload();
-        }
-      }
-    });
+        .catch((err) => {
+          setRegistrationError(err);
+          setOpenSnackbar(true);
+        });
+    // })
+    // })
+
     // admin -> organizers
     // user -> home
-    // organizer ->
+    // organizer -> subscribers
   };
 
   const handleEmailChange = (event) => {
     const newValue = event.target.value;
-    // setEmail(newValue);
     if (!emailValidation.test(newValue)) {
       setEmailError(true);
     } else {
@@ -149,6 +180,17 @@ const Login = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}>
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="error"
+          sx={{ width: "100%" }}>
+          {registrationError}
+        </Alert>
+      </Snackbar>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -200,16 +242,7 @@ const Login = () => {
                 helperText={emailError && "Please enter valid email address"}
                 autoFocus
               />
-              {/* <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            /> */}
+
               <TextField
                 label="Password"
                 variant="outlined"
@@ -234,10 +267,7 @@ const Login = () => {
                   ),
                 }}
               />
-              {/* <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              /> */}
+
               <Button
                 type="submit"
                 fullWidth
@@ -248,19 +278,9 @@ const Login = () => {
               <Grid container>
                 <Grid item xs>
                   <Link to="/forgetPassword">Forgot password?</Link>
-                  {/*<Link*/}
-                  {/*    href="/forgetPassword"*/}
-                  {/*    variant="body2">*/}
-                  {/*    */}
-                  {/*</Link>*/}
                 </Grid>
                 <Grid item>
                   <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
-                  {/*<Link*/}
-                  {/*    href="/signup"*/}
-                  {/*    variant="body2">*/}
-                  {/*    {"Don't have an account? Sign Up"}*/}
-                  {/*</Link>*/}
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />
