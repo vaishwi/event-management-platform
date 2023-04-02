@@ -5,15 +5,18 @@ from application.auth_token import token_validator
 from application.business_logic.attendee import Attendee
 
 
-class SubscrtiberEndpoint(Resource):
+
+class SubscriberCheckEndpoint(Resource):
+
     def post(self):
         print("inside post")
         print(request)
+        print("In subscribe handler")
         data = request.get_json()
         print(data)
         response = {}
-        response = Attendee().subscribe_organizer(data)
-
+        response = Attendee().is_attendee_subscribed(data)
+        
         if response['success']:
             print(response)
             return response, 200
@@ -28,5 +31,18 @@ class SubscrtiberEndpoint(Resource):
     #         print(response)
     #         return response, 200
     #     return "Server Error", 404
+class SubscriberEndpoint(Resource):
+
+    def post(self):
+        data = request.get_json()
+        response = {}
+        response = Attendee().subscribe_organizer(data)
+
+        if response['success']:
+            print(response)
+            return response, 200
+        return "Server Error", 404
+
+    
         
         
