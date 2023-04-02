@@ -9,14 +9,11 @@ from application.resources.registerEvent_handler import DeleteRegisteredEvents
 
 from application.resources.authentication_handler import RegistrationEndpoint, LoginEndpoint, CheckEmailExist, SetNewPassword
 from application.resources.organizer_handler import OrganizerEndPoint, OrganizersEndpoint
-<<<<<<< HEAD
 from application.resources.subscriber_handler import SubscrtiberEndpoint
 from application.resources.attendee_handler import AttendeeEndpoint
 from application.resources.attendee_handler import EditAttendeeEndpoint
-=======
 from application.resources.subscriber_handler import SubscriberEndpoint,SubscriberCheckEndpoint
 
->>>>>>> develop
 
 def initialize_routes(api):
     api.add_resource(EventsEndpoint, '/events')
