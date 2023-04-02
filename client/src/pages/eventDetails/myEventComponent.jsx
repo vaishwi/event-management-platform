@@ -31,6 +31,7 @@ export default function MyEventsComponent() {
       const navigate = useNavigate();
       const[registeredEvents, setRegisteredEvents] = useState([]);
       const [open, setOpen] = React.useState(false);
+      const[deleteID, setDeleteId] = useState([]);
 
           const fetchRegisteredEvents = async () => {
                       try{
@@ -59,7 +60,8 @@ export default function MyEventsComponent() {
 
                       }
             };
-      const handleClickOpen = () => {
+      const handleClickOpen = (element) => {
+      setDeleteId(element?.eventID);
               setOpen(true);
             };
 
@@ -155,7 +157,7 @@ export default function MyEventsComponent() {
                                       <Grid container >
                                         <Grid item xs={12}>
                                           <Button style={{maxWidth: '100%', maxHeight: '100%', minWidth: '30px', minHeight: '30px'}} sx = {{bgcolor: 'green', alignItems:"center", mb:2}} size = "large" fullWidth = "true" variant="contained" onClick={() => printPDF(element)}>Print tickets</Button>
-                                          <Button style={{maxWidth: '100%', maxHeight: '100%', minWidth: '30px', minHeight: '30px'}} sx = {{bgcolor: 'red', alignItems:"center"}} size = "large" fullWidth = "true" variant="contained" onClick={() => handleClickOpen()}>Cancel Registration</Button>
+                                          <Button style={{maxWidth: '100%', maxHeight: '100%', minWidth: '30px', minHeight: '30px'}} sx = {{bgcolor: 'red', alignItems:"center"}} size = "large" fullWidth = "true" variant="contained" onClick={() => handleClickOpen(element)}>Cancel Registration</Button>
 
                                         </Grid>
                                         <Grid item xs={12}>
@@ -180,7 +182,7 @@ export default function MyEventsComponent() {
 
                             <DialogActions>
                               <Button onClick={() => handleClose()}>No</Button>
-                              <Button onClick={() => cancelRegistration(element?.eventID)} autoFocus>
+                              <Button onClick={() => cancelRegistration(deleteID)} autoFocus>
                                 Yes
                               </Button>
                             </DialogActions>
