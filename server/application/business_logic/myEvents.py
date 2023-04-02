@@ -49,10 +49,10 @@ class RegisterEvent(Model):
                 eventDate=eventData['date'],
                 eventOrganizer=eventData['organizer'],
                 eventType=eventData['type'],
-                eventBanner = eventData['organizer'],
-                eventCity = eventData['city'],
-                eventCountry = eventData['country'],
-                eventTime = eventData['time'],
+                eventBanner=eventData['organizer'],
+                eventCity=eventData['city'],
+                eventCountry=eventData['country'],
+                eventTime=eventData['time'],
             )
             e.save()
             return e.id
