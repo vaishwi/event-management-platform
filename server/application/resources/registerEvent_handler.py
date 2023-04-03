@@ -36,10 +36,8 @@ class GetRegisterEvents(Resource):
 
 class GetRegisterUsers(Resource):
     def get(self, id):
-        response = {}
         users = RegisterEvent().get_registered_users_by_event_id(id)
-        response['data'] = users
-        return response
+        return users
 
 
 

@@ -12,6 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import {TableContainer} from "@mui/material";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { makeStyles } from "@mui/styles";
+import axios from 'axios';
+import login from "../Login.jsx";
 
 const useStyles = makeStyles({
     finalRow: {
@@ -27,7 +29,9 @@ const ViewAllUsers = () => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
+    const { eventID } = location; // Read values passed on state
     const [userList, setUserList] = useState([]);
+    const [eventId, setEventId] = useState('');
     const [orderDirection, setOrderDirection] = useState("asc");
 
     const classes = useStyles();
@@ -40,11 +44,11 @@ const ViewAllUsers = () => {
             case "asc":
             default:
                 return arr.sort((x, y) =>
-                    x.number > y.number ? 1 : y.number > x.number ? -1 : 0
+                    x.firstName > y.firstName ? 1 : y.firstName > x.firstName ? -1 : 0
                 );
             case "desc":
                 return arr.sort((x, y) =>
-                    x.number < y.number ? 1 : y.number < x.number ? -1 : 0
+                    x.firstName < y.firstName ? 1 : y.firstName < x.firstName ? -1 : 0
                 );
         }
     };
@@ -54,21 +58,33 @@ const ViewAllUsers = () => {
         setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
     };
 
-    const users = [
-        createData(1, "Arpit", "Patel", "arpit@gmail.com", "Night Party", "1234 West st, Halifax", "Dalhousie University", "3rd March 2023"),
-        createData(2, "Deep", "Dave", "deep@gmail.com", "Night Party", "1234 West st, Halifax", "Dalhousie University", "10th Feb 2023"),
-        createData(3, "Khushi", "Shah", "khushi@gmail.com", "Night Party", "1234 West st, Halifax", "Dalhousie University", "15rd March 2023"),
-        createData(4, "Purvesh", "Rathod", "purvesh@gmail.com", "Night Party", "1234 West st, Halifax", "Dalhousie University", "23rd March 2023"),
-        createData(5, "Vaishwi", "Patel", "vaishwi@gmail.com", "Night Party", "1234 West st, Halifax", "Dalhousie University", "11rd Feb 2023"),
-    ];
-
     useEffect(()=>{
-        setUserList(users)
+        console.log(location.state.eventID,"ioioioioioio>>>>")
+        console.log(eventID,"eventID>>>>>>>>>>")
+        setEventId(location.state.eventID)
+        let myList = []
+        const fetchUsers = async () => {
+            try{
+                const response = await axios.get('http://127.0.0.1:5000/getEventRegisterUsers/'+ location.state.eventID)
+                if(response.status === 200) {
+                    console.log(response,"response>>>>>>>>")
+                    response.data.map(x => {
+                        if(!myList.includes(x)){
+                            myList.push(x)
+                        }
+                    })
+                    setUserList(myList)
+                }
+            } catch (e) {
+                console.log(e)
+                setUserList([])
+            }
+        };
+        fetchUsers();
     },[])
     let totalUsers = 0;
 
     // Finding the Total Cost
-    users.forEach((row) => (totalUsers += row.email));
 
     return (
         <>
@@ -99,44 +115,29 @@ const ViewAllUsers = () => {
                             </TableCell>
                             <TableCell align="center" onClick={handleSortRequest}>
                                 <TableSortLabel active={true} direction={orderDirection}>
-                                    Event
-                                </TableSortLabel>
-                            </TableCell>
-                            <TableCell align="center" onClick={handleSortRequest}>
-                                <TableSortLabel active={true} direction={orderDirection}>
-                                    Place
-                                </TableSortLabel>
-                            </TableCell>
-                            <TableCell align="center" onClick={handleSortRequest}>
-                                <TableSortLabel active={true} direction={orderDirection}>
-                                    Organizer
-                                </TableSortLabel>
-                            </TableCell>
-                            <TableCell align="center" onClick={handleSortRequest}>
-                                <TableSortLabel active={true} direction={orderDirection}>
-                                    Register Date
+                                    Type
                                 </TableSortLabel>
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {userList.map((row) => (
-                            <TableRow key={row.number} hover  className={classes.tableRow}>
-                                <TableCell align="center" component="th" scope="row">
-                                    {row.number}
-                                </TableCell>
-                                <TableCell align="center">{row.firstName}</TableCell>
-                                <TableCell align="center">{row.lastName}</TableCell>
-                                <TableCell align="center">{row.email}</TableCell>
-                                <TableCell align="center">{row.eventName}</TableCell>
-                                <TableCell align="center">{row.eventAddress}</TableCell>
-                                <TableCell align="center">{row.organizerName}</TableCell>
-                                <TableCell align="center">{row.registerDate}</TableCell>
-                            </TableRow>
-                        ))}
+                                <TableRow key={row.id} hover  className={classes.tableRow}>
+                                    {console.log(row,"row>>>>>>")}
+                                    <TableCell align="center" component="th" scope="row">
+                                        {row.id}
+                                    </TableCell>
+                                    <TableCell align="center">{row.firstName}</TableCell>
+                                    <TableCell align="center">{row.lastName}</TableCell>
+                                    <TableCell align="center">{row.email}</TableCell>
+                                    <TableCell align="center">{row.type}</TableCell>
+                                </TableRow>
+                            )
+
+                        )}
                         <TableRow className={classes.finalRow}>
                             <TableCell align="right" colSpan={12}>
-                                <b>Total Users:</b> 5
+                                <b>Total Users:</b> {userList.length}
                             </TableCell>
                         </TableRow>
                     </TableBody>

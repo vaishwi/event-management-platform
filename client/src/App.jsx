@@ -98,7 +98,7 @@ function App() {
           <Route element={<Logout />} path="/logout" />
           <Route element={<SubscriberList/>} path="/subscribers"/>
           <Route element={<PostEvent />} path="/postevent" />
-          <Route element={<ManageEventsList />} path="/manageEvents" />
+          <Route element={<Home />} path="/manageEvents" />
           <Route element={<DeleteEvent />} path="/deleteEvent" />
           <Route element={<ViewAllUsers />} path="/viewAllUsers" />
           <Route element={<OrganizerEditProfile />} path="/editOrganizer" />
