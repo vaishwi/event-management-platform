@@ -33,3 +33,12 @@ class Payment(Model):
         response_list = Payment.collection.filter(userID=data).fetch()
         output = [response.to_dict() for response in response_list]
         return output
+
+    def delete_payment(self,data):
+        try:
+            print("before")
+            response_list = Payment.collection.delete(f"payment/{data}")
+            return True
+        except:
+            print("in here")
+            return False

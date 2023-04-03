@@ -11,6 +11,12 @@ import Button from '@mui/material/Button';
 import InfoIcon from '@mui/icons-material/Info';
 import PaymentComponent from '../../components/paymentComponent.jsx';
 import axios from 'axios';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function PaymentForm() {
 const theme = createTheme();
@@ -19,12 +25,23 @@ const [showPayments, setShowPayments] = React.useState(false)
 const [payments, setPayments] = useState([]);
 const onClick = () => setShowPayments(true)
 const onHideClick = () => setShowPayments(false)
+const [deleteID, setDeleteID] = useState(null);
     const [payment, setPayment] = useState({
         name: null,
         cardNumber: null,
         expiry: null,
         cvv: null
     });
+          const [open, setOpen] = React.useState(false);
+
+      const handleClickOpen = (element) => {
+              setDeleteID(element?.id);
+              setOpen(true);
+            };
+
+      const handleClose = () => {
+              setOpen(false);
+            };
     const handleChange = (e , name) => {
             setPayment(prev => ({
             ...prev,
@@ -44,6 +61,15 @@ const onHideClick = () => setShowPayments(false)
             console.log(e)
             console.log(e.response.status)
         }
+    };
+    const deletePayment = async (deleteID) => {
+                      try{
+                          const response = await axios.delete('http://127.0.0.1:5000/deletePayment/'+deleteID);
+                          addRegisterEvent();
+                          handleClose();
+                      } catch (e) {
+
+                      }
     };
     useEffect(() => {
           addRegisterEvent();
@@ -84,13 +110,31 @@ const onHideClick = () => setShowPayments(false)
                                 <Typography component="h6" variant="h6" gutterBottom>
                                       CVV: {element?.cvv}
                                 </Typography>
-                                <Typography component="h6" variant="h6" gutterBottom>
-                                </Typography>
+                                <div role = "presentation" onClick={() => handleClickOpen(element)}>
+                                    <DeleteIcon />
+                                </div>
                             </CardContent>
                         </Card>
             )}
             <Divider/>
           </Grid>
+          <Dialog
+                                      open={open}
+                                      onClose={handleClose}
+                                      aria-labelledby="alert-dialog-title"
+                                      aria-describedby="alert-dialog-description"
+                                    >
+                                      <DialogTitle id="alert-dialog-title">
+                                        {"Are you sure you want to cancel your registration?"}
+                                      </DialogTitle>
+
+                                      <DialogActions>
+                                        <Button onClick={() => handleClose()}>No</Button>
+                                        <Button onClick={() => deletePayment(deleteID)} autoFocus>
+                                          Yes
+                                        </Button>
+                                      </DialogActions>
+                      </Dialog>
         </Container>
       </ThemeProvider>
   );
