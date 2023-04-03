@@ -3,6 +3,7 @@ from fireo.fields import TextField, NumberField, DateTime, IDField, BooleanField
 import requests
 
 from application.business_logic.attendee import Attendee
+from application.business_logic.payments import Payment
 
 
 class RegisterEvent(Model):
@@ -37,16 +38,14 @@ class RegisterEvent(Model):
             print('calling payment here')
             print(result)
             if paymentID is None:
-                response_api = requests.post("http://127.0.0.1:5000/addPayment", json={'payment': payment, 'userId': userID})
-                if isinstance(response_api, tuple) and len(response_api) == 2:
-                    response, status_code = response_api
-                else:
-                    response = response_api
+                response = Payment().add_payment(result)
+                print("Response")
+                print(response)
                 e = RegisterEvent(
                     userID=data.get('id'),
                     eventID=eventData['id'],
                     price=data.get('counter') * eventData['price'],
-                    paymentMethod=response.json(),
+                    paymentMethod=response,
                     count=data.get('counter'),
                     eventName=eventData['title'],
                     eventAddress=eventData['address'],
