@@ -27,35 +27,59 @@ class RegisterEvent(Model):
         eventData = data.get('eventData')
         payment = data.get('payment')
         userID = data.get('id')
+        paymentID = data.get('paymentID')
+        print('Payment ID:')
+        print(paymentID)
         print('event data')
         print(eventData)
         result = {'payment': payment , 'userId': userID}
         if payment is not None:
             print('calling payment here')
             print(result)
-            response_api = requests.post("http://127.0.0.1:5000/addPayment", json={'payment': payment, 'userId': userID})
-            if isinstance(response_api, tuple) and len(response_api) == 2:
-                response, status_code = response_api
+            if paymentID is None:
+                response_api = requests.post("http://127.0.0.1:5000/addPayment", json={'payment': payment, 'userId': userID})
+                if isinstance(response_api, tuple) and len(response_api) == 2:
+                    response, status_code = response_api
+                else:
+                    response = response_api
+                e = RegisterEvent(
+                    userID=data.get('id'),
+                    eventID=eventData['id'],
+                    price=data.get('counter') * eventData['price'],
+                    paymentMethod=response.json(),
+                    count=data.get('counter'),
+                    eventName=eventData['title'],
+                    eventAddress=eventData['address'],
+                    eventDate=eventData['date'],
+                    eventOrganizer=eventData['organizer'],
+                    eventType=eventData['type'],
+                    eventBanner=eventData['banner_image'],
+                    eventCity=eventData['city'],
+                    eventCountry=eventData['country'],
+                    eventTime=eventData['time'],
+                )
+                e.save()
+                return e.id
             else:
-                response = response_api
-            e = RegisterEvent(
-                userID=data.get('id'),
-                eventID=eventData['id'],
-                price=data.get('counter') * eventData['price'],
-                paymentMethod=response.json(),
-                count=data.get('counter'),
-                eventName=eventData['title'],
-                eventAddress=eventData['address'],
-                eventDate=eventData['date'],
-                eventOrganizer=eventData['organizer'],
-                eventType=eventData['type'],
-                eventBanner=eventData['banner_image'],
-                eventCity=eventData['city'],
-                eventCountry=eventData['country'],
-                eventTime=eventData['time'],
-            )
-            e.save()
-            return e.id
+                e = RegisterEvent(
+                    userID=data.get('id'),
+                    eventID=eventData['id'],
+                    price=data.get('counter') * eventData['price'],
+                    paymentMethod=paymentID,
+                    count=data.get('counter'),
+                    eventName=eventData['title'],
+                    eventAddress=eventData['address'],
+                    eventDate=eventData['date'],
+                    eventOrganizer=eventData['organizer'],
+                    eventType=eventData['type'],
+                    eventBanner=eventData['banner_image'],
+                    eventCity=eventData['city'],
+                    eventCountry=eventData['country'],
+                    eventTime=eventData['time'],
+                )
+                e.save()
+                return e.id
+
         else:
             e = RegisterEvent(
                 userID=data.get('id'),

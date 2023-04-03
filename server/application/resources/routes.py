@@ -27,7 +27,7 @@ def initialize_routes(api):
     api.add_resource(AddRegisterEvents, '/registerEvent', '/registerEvent/<id>/<eventID>', '/getRegisterEvent/<id>')
     api.add_resource(GetRegisterEvents, '/getUserRegisterEvents/<id>')
     api.add_resource(GetRegisterUsers, '/getEventRegisterUsers/<id>')
-    api.add_resource(AddPayment, '/addPayment', '/getPayments/<id>')
+    api.add_resource(AddPayment, '/addPayment', '/getPayments/<id>', '/deletePayment/<id>')
     api.add_resource(DeleteRegisteredEvents, '/deleteEvent/<id>')
     api.add_resource(SubscriberEndpoint,'/subscribe')
     api.add_resource(SubscriberCheckEndpoint,'/checksubscription')
@@ -36,4 +36,5 @@ def initialize_routes(api):
     api.add_resource(EditOrganizerEndpoint, '/editOrganizer')
     api.add_resource(EditAttendeeEndpoint, '/editAttendee')
     api.add_resource(AttendeeEndpoint, '/attendee/<id>')
+
 

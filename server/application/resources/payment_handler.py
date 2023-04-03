@@ -17,3 +17,13 @@ class AddPayment(Resource):
         events = Payment().get_payments_id(id)
         response['data'] = events
         return response
+
+    def delete(self, id):
+        print("here")
+        print(id)
+        response = Payment().delete_payment(id)
+        print(response)
+        if response:
+            print(response)
+            return True, 200
+        return False, 200
