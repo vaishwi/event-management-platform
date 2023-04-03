@@ -155,9 +155,14 @@ import axios from 'axios';
   const [events, setEvents] = useState([]);
   const [organizers, setOrganizers] = useState([]);
   const [nav, setNav] = useState([false]);
+  const [userType, setUserType] = useState(null);
 
 
   useEffect(() =>{
+      const user = localStorage.getItem('user');
+      const userType = JSON.parse(user).userType;
+      console.log(userType,"userTyp>>>>>>>>>>>>>>")
+      setUserType(userType);
     localStorage.setItem("events", JSON.stringify(TempList));
     console.log("home",JSON.parse(localStorage.getItem("events")))
         const fetchEvents = async () => {
@@ -183,7 +188,7 @@ import axios from 'axios';
           <Content>
             <div className="layout-padding">
                 <div>
-                    <Paper
+                    {userType != "admin" ?<Paper
                           sx={{
                             position: 'relative',
                             backgroundColor: 'grey.800',
@@ -224,7 +229,7 @@ import axios from 'axios';
                               </Box>
                             </Grid>
                           </Grid>
-                    </Paper>
+                    </Paper>: null}
                 </div>
                 <div>
                     <h1>Trending Events</h1>
@@ -242,7 +247,7 @@ import axios from 'axios';
                                     <div className="earning-text full-width new-line">{element.date}</div>
                                     <div className="earning-text full-width">{element.city}</div>
                                 </div>
-                              <div>
+                              {/*<div>
                                 <Checkbox style={{padding: "inherit"}} icon={<FavoriteBorder />}
                                           checkedIcon={<Favorite />}
                                           name="checkedH"
@@ -254,7 +259,7 @@ import axios from 'axios';
                                           name="checkedH"
                                           onClick={notify2}
                                 />
-                              </div>
+                              </div>*/}
                             </div>
                       ))}
 
@@ -278,7 +283,7 @@ import axios from 'axios';
                                      <div className="earning-text full-width new-line">{element.date}</div>
                                      <div className="earning-text full-width">{element.city}</div>
                                  </div>
-                               <div>
+                               {/*<div>
                                  <Checkbox style={{padding: "inherit"}} icon={<FavoriteBorder />}
                                            checkedIcon={<Favorite />}
                                            name="checkedH"
@@ -290,14 +295,14 @@ import axios from 'axios';
                                            name="checkedH"
                                            onClick={notify2}
                                  />
-                               </div>
+                               </div>*/}
                              </div>
                        ))}
 
                      </div>
               </div>
 
-              <div>
+                {userType != "admin" ?<div>
               {console.log(organizers)}
                     <h1>Organizations</h1>
                     <div className="top-boxes full-width horizontal-scroll">
@@ -309,7 +314,7 @@ import axios from 'axios';
                         </div>
                       ))}
                     </div>
-              </div>
+              </div>:null}
             </div>
             <ToastContainer />
           </Content>

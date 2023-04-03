@@ -3,6 +3,7 @@ from fireo.fields import TextField, NumberField, DateTime, IDField, BooleanField
 import requests
 
 from application.business_logic.attendee import Attendee
+from application.business_logic.credential import Credential
 from application.business_logic.payments import Payment
 
 
@@ -161,12 +162,13 @@ class RegisterEvent(Model):
             for event in registered_events:
                 if "userID" in event:
                     try:
-                        users = Attendee.collection.filter('id', '==', event["userID"]).fetch()
+                        users = Credential.collection.filter('id', '==', event["userID"]).fetch()
                         temp = [u.to_dict() for u in users]
                         registered_users.append(temp)
                     except Exception as e:
                         print(e)
-            return registered_users
+            flat_list = [item for sublist in registered_users for item in sublist]
+            return flat_list
         except Exception as e:
             print(e)
         return registered_users

@@ -46,3 +46,15 @@ class EventEndpoint(Resource):
 
     def put(self, id):
         return f"Update an event with {id}"
+
+
+class DeleteEventEndpoint(Resource):
+    def delete(self, id):
+        print(id)
+        response = Event().delete_event(id)
+        print(response)
+        if response:
+            print(response)
+            return True, 200
+        return False, 200
+

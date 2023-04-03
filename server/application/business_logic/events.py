@@ -1,6 +1,8 @@
 from fireo.models import Model
 from fireo.fields import TextField, NumberField, DateTime, IDField, BooleanField, ListField, Field
 
+from application.business_logic.myEvents import RegisterEvent
+
 
 class Event(Model):
     id = IDField()
@@ -58,3 +60,13 @@ class Event(Model):
         events = [event.to_dict() for event in event_list]
         print(f"Events {events}")
         return events
+
+    def delete_event(self, key):
+        print(key)
+        try:
+            print("before")
+            Event.collection.delete(f"event/{key}")
+            RegisterEvent.collection.filter(eventID=key).delete()
+            return True
+        except:
+            return False

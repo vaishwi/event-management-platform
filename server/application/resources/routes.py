@@ -1,4 +1,4 @@
-from application.resources.event_handler import EventEndpoint, EventsEndpoint
+from application.resources.event_handler import EventEndpoint, EventsEndpoint, DeleteEventEndpoint
 from application.resources.authentication import Authentication
 from application.resources.organizer_handler import OrganizerEndPoint, OrganizersEndpoint, \
     UnauthenticateOrganizerEndPoint
@@ -18,6 +18,7 @@ from application.resources.subscriber_handler import SubscriberEndpoint,Subscrib
 def initialize_routes(api):
     api.add_resource(EventsEndpoint, '/events')
     api.add_resource(EventEndpoint, '/event/<id>', '/event')
+    api.add_resource(DeleteEventEndpoint, '/deleteEventAdmin/<id>')
     api.add_resource(Authentication, '/auth')
     api.add_resource(RegistrationEndpoint, '/registration')
     api.add_resource(LoginEndpoint, '/login')
