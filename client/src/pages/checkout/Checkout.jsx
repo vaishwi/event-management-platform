@@ -55,7 +55,7 @@ export default function Checkout() {
           try{
               const userID = localStorage.getItem('user');
               const id = JSON.parse(userID).id;
-              const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/id`)
+              const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/getPayments/${id}`)
               console.log(response)
               if(response.status === 200) {
                   setAllPaymentDetails(response.data.data)

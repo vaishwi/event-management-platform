@@ -93,14 +93,14 @@ const Blog = () => {
                 />
               </Grid>
               <Grid container spacing={4}>
-                <Grid item xs={10} md={12}>
+                <Grid item xs={12} md={12}>
                   <CardActionArea >
                     <Card sx={{ display: 'flex' }}>
                       {data.images.map((element, index) => (
                         <CardMedia
                           src={element}
                           component="img"
-                          sx={{ width: 100, flex: 1, display: { xs: 'none', sm: 'block' } }}
+                          sx={{ width: 100, flex: 1, }}
                         />
                       ))}
                     </Card>
