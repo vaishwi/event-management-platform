@@ -3,12 +3,12 @@ from flask import request
 import json
 from application.auth_token import token_validator
 from application.business_logic.attendee import Attendee
- """
-    This is a Flask RESTful API endpoint that retrieves an attendee by their ID.
-    The endpoint is accessed via an HTTP GET request.
-    @param id - the ID of the attendee to retrieve
-    @return a JSON response containing the attendee's information
-    """
+"""
+This is a Flask RESTful API endpoint that retrieves an attendee by their ID.
+The endpoint is accessed via an HTTP GET request.
+@param id - the ID of the attendee to retrieve
+@return a JSON response containing the attendee's information
+"""
 class AttendeeEndpoint(Resource):
    
     def get(self, id):
