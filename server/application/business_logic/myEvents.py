@@ -9,20 +9,20 @@ from application.business_logic.payments import Payment
 
 class RegisterEvent(Model):
     id = IDField()
-    userID = TextField();
-    eventID = TextField();
-    price = NumberField();
-    paymentMethod = TextField();
-    count = NumberField();
-    eventName = TextField();
-    eventAddress = TextField();
-    eventDate = TextField();
-    eventOrganizer = TextField();
-    eventType = TextField();
-    eventBanner = TextField();
-    eventCity = TextField();
-    eventCountry = TextField();
-    eventTime = TextField();
+    userID = TextField()
+    eventID = TextField()
+    price = NumberField()
+    paymentMethod = TextField()
+    count = NumberField()
+    eventName = TextField()
+    eventAddress = TextField()
+    eventDate = TextField()
+    eventOrganizer = TextField()
+    eventType = TextField()
+    eventBanner = TextField()
+    eventCity = TextField()
+    eventCountry = TextField()
+    eventTime = TextField()
     # //event Name, event Address, event Date, event Organizer, user Name, type, banner_image city country time
 
     def add_registerEvent(self, data):
