@@ -15,6 +15,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import {toast} from "react-toastify"; // Import css
 
 function Sidebar(props) {
       const { social, price, url, title, type, eventState } = props;
@@ -29,6 +32,7 @@ function Sidebar(props) {
     const [counter, setCounter] = useState(1);
     const [isRegistered, setIsRegistered] = useState(false);
     const [open, setOpen] = React.useState(false);
+    const [userType, setUserType] = useState(null);
 
     const handleDecrement = () => {
         setCounter(counter-1);
@@ -44,6 +48,40 @@ function Sidebar(props) {
       const handleClose = () => {
         setOpen(false);
       };
+
+    const handleDeleteRedirection = async (url) => {
+        try {
+            const response = await axios.delete('http://127.0.0.1:5000/deleteEventAdmin/' + eventState?.id)
+            if(response.status === 200) {
+                toast("Event Deleted Successfully")
+                navigate(url);
+            }
+        } catch (e) {
+            toast("Something went wrong")
+            navigate(url);
+        }
+
+    }
+    const submit = () => {
+        confirmAlert({
+            title: 'Are you sure?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => handleDeleteRedirection("/manageEvents")
+                },
+                {
+                    label: 'No',
+                    onClick: () => {}
+                }
+            ]
+        });
+    };
+
+    const handleTableOpen = (i) => {
+        console.log(i,"i>>>>>>>>>>")
+        navigate('/viewAllUsers', {state: {eventID:i}})
+    }
 
     const checkRegistered = async () => {
                 try{
@@ -77,6 +115,11 @@ function Sidebar(props) {
                 }
       };
     useEffect(() => {
+        const user = localStorage.getItem('user');
+        const userType = JSON.parse(user).userType;
+        console.log(userType,"userTyp>>>>>>>>>>>>>>")
+        console.log(eventState, "eventState>>>>>>>>")
+        setUserType(userType);
         checkRegistered();
     },[])
   return (
@@ -85,7 +128,8 @@ function Sidebar(props) {
 
       <Paper elevation={0} sx={{ p: 5, bgcolor: 'grey.200' }}>
         <Box sx = {{padding: 1.2}}>
-        <Box sx={{ flexGrow: 1 }}>
+            {userType != "admin" ?
+                <Box sx={{ flexGrow: 1 }}>
             { type == 'Paid' && !isRegistered &&<Grid container spacing={2}>
               <Grid item xs={6}>
                 <Typography variant="h6" gutterBottom sx = {{alignItems:"center", fontWeight:"bold"}} >
@@ -125,7 +169,18 @@ function Sidebar(props) {
                  </Grid>
                 </Grid>
             }
-          </Box>
+          </Box>:
+                <Box sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Button sx = {{bgcolor: 'red', alignItems:"center"}} size = "large" fullWidth = "true" variant="contained" onClick={submit}>Delete Event</Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button sx = {{bgcolor: 'blue', alignItems:"center"}} size = "large" fullWidth = "true" variant="contained" onClick={() => handleTableOpen(eventState?.id)}>View Registered Users</Button>
+                        </Grid>
+                    </Grid>
+                </Box>
+            }
         </Box>
         <Typography></Typography>
       </Paper>

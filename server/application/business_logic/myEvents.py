@@ -3,6 +3,8 @@ from fireo.fields import TextField, NumberField, DateTime, IDField, BooleanField
 import requests
 
 from application.business_logic.attendee import Attendee
+from application.business_logic.credential import Credential
+from application.business_logic.payments import Payment
 
 
 class RegisterEvent(Model):
@@ -27,35 +29,57 @@ class RegisterEvent(Model):
         eventData = data.get('eventData')
         payment = data.get('payment')
         userID = data.get('id')
+        paymentID = data.get('paymentID')
+        print('Payment ID:')
+        print(paymentID)
         print('event data')
         print(eventData)
         result = {'payment': payment , 'userId': userID}
         if payment is not None:
             print('calling payment here')
             print(result)
-            response_api = requests.post("http://127.0.0.1:5000/addPayment", json={'payment': payment, 'userId': userID})
-            if isinstance(response_api, tuple) and len(response_api) == 2:
-                response, status_code = response_api
+            if paymentID is None:
+                response = Payment().add_payment(result)
+                print("Response")
+                print(response)
+                e = RegisterEvent(
+                    userID=data.get('id'),
+                    eventID=eventData['id'],
+                    price=data.get('counter') * eventData['price'],
+                    paymentMethod=response,
+                    count=data.get('counter'),
+                    eventName=eventData['title'],
+                    eventAddress=eventData['address'],
+                    eventDate=eventData['date'],
+                    eventOrganizer=eventData['organizer'],
+                    eventType=eventData['type'],
+                    eventBanner=eventData['banner_image'],
+                    eventCity=eventData['city'],
+                    eventCountry=eventData['country'],
+                    eventTime=eventData['time'],
+                )
+                e.save()
+                return e.id
             else:
-                response = response_api
-            e = RegisterEvent(
-                userID=data.get('id'),
-                eventID=eventData['id'],
-                price=data.get('counter') * eventData['price'],
-                paymentMethod=response.json(),
-                count=data.get('counter'),
-                eventName=eventData['title'],
-                eventAddress=eventData['address'],
-                eventDate=eventData['date'],
-                eventOrganizer=eventData['organizer'],
-                eventType=eventData['type'],
-                eventBanner = eventData['organizer'],
-                eventCity = eventData['city'],
-                eventCountry = eventData['country'],
-                eventTime = eventData['time'],
-            )
-            e.save()
-            return e.id
+                e = RegisterEvent(
+                    userID=data.get('id'),
+                    eventID=eventData['id'],
+                    price=data.get('counter') * eventData['price'],
+                    paymentMethod=paymentID,
+                    count=data.get('counter'),
+                    eventName=eventData['title'],
+                    eventAddress=eventData['address'],
+                    eventDate=eventData['date'],
+                    eventOrganizer=eventData['organizer'],
+                    eventType=eventData['type'],
+                    eventBanner=eventData['banner_image'],
+                    eventCity=eventData['city'],
+                    eventCountry=eventData['country'],
+                    eventTime=eventData['time'],
+                )
+                e.save()
+                return e.id
+
         else:
             e = RegisterEvent(
                 userID=data.get('id'),
@@ -68,7 +92,7 @@ class RegisterEvent(Model):
                 eventDate=eventData['date'],
                 eventOrganizer=eventData['organizer'],
                 eventType=eventData['type'],
-                eventBanner=eventData['organizer'],
+                eventBanner=eventData['banner_image'],
                 eventCity=eventData['city'],
                 eventCountry=eventData['country'],
                 eventTime=eventData['time'],
@@ -138,12 +162,13 @@ class RegisterEvent(Model):
             for event in registered_events:
                 if "userID" in event:
                     try:
-                        users = Attendee.collection.filter('id', '==', event["userID"]).fetch()
+                        users = Credential.collection.filter('id', '==', event["userID"]).fetch()
                         temp = [u.to_dict() for u in users]
                         registered_users.append(temp)
                     except Exception as e:
                         print(e)
-            return registered_users
+            flat_list = [item for sublist in registered_users for item in sublist]
+            return flat_list
         except Exception as e:
             print(e)
         return registered_users

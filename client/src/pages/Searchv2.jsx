@@ -168,7 +168,6 @@ const Search = () => {
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         setSubmitQuery(searchValue);
-        // applyFilter(searchValue, selectedCity, '', '');
     };
 
     return (<div>

@@ -9,6 +9,8 @@ from application.business_logic.attendee import Attendee
 class SubscriberCheckEndpoint(Resource):
 
     def post(self):
+        print("inside post")
+        print(request)
         print("In subscribe handler")
         data = request.get_json()
         print(data)
@@ -20,6 +22,15 @@ class SubscriberCheckEndpoint(Resource):
             return response, 200
         return "Server Error", 404
 
+    # def get(self):
+    #     data = request.get_json()
+    #     response = {}
+    #     response = Attendee().is_attendee_subscribed(data)
+        
+    #     if response['success']:
+    #         print(response)
+    #         return response, 200
+    #     return "Server Error", 404
 class SubscriberEndpoint(Resource):
 
     def post(self):

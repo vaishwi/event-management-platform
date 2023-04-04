@@ -32,17 +32,17 @@ else{
 // const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/logout'}]
 var settings = []
 
-const organizationPages = [
+const organizationSettings = [
   { 'settingName': 'Profile', 'route': '/organizerProfile' },
   { 'settingName': 'Dashboard', 'route': '/' },
   { 'settingName': 'Logout', 'route': '/logout' }
 ];
-const userPages = [
-  { 'settingName': 'Profile', 'route': '/' },
+const userSettings = [
+  { 'settingName': 'Profile', 'route': '/attendeeProfile' },
   { 'settingName': 'Dashboard', 'route': '/' },
   { 'settingName': 'Logout', 'route': '/logout' }
 ];
-const adminPages = [
+const adminSettings = [
   { 'settingName': 'Profile', 'route': '/' },
   { 'settingName': 'Dashboard', 'route': '/' },
   { 'settingName': 'Logout', 'route': '/logout' }
@@ -55,13 +55,13 @@ function ResponsiveAppBar() {
   const IS_ADMIN = JSON.parse(user).userType == "admin";
 
   if (IS_ATTENDEE) {
-    settings = userPages
+    settings = userSettings
   }
   else if (IS_ORGANIZER) {
-    settings = organizationPages
+    settings = organizationSettings
   }
   else if (IS_ADMIN) {
-    settings = adminPages
+    settings = adminSettings
   }
 
   const navigate = useNavigate();
@@ -86,8 +86,12 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = (setting) => {
     setAnchorElUser(null);
     console.log(setting.route)
-    navigate(setting.route)
-
+    if (setting.route == '/organizerProfile') {
+      navigate(setting.route, {state: {organizerId: JSON.parse(user).id}})
+    }
+    else{
+      navigate(setting.route)
+    }
   };
 
   return (
