@@ -1,3 +1,8 @@
+/**
+ * @author Vaishwi Patel (B00914336)
+ * This module imports various components from the Material-UI library and the useNavigate hook from the React-Router library.
+ * These components are used to create a custom AppBar component for the application.
+ */
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -29,9 +34,45 @@ else{
 // const pages = [{'pageName':'Organizers','route':'/organizers'},{'pageName':'Events','route':'/'},{'pageName':'Authentication Requests','route':'/authenticationRequests'}]
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/logout'}]
+// const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/logout'}]
+var settings = []
+
+/**
+ * An array of objects representing the settings available to different types of users.
+ * Each object in the array contains a 'settingName' property, which is a string representing the name of the setting,
+ * and a 'route' property, which is a string representing the URL route for the setting.
+ */
+const organizationSettings = [
+  { 'settingName': 'Profile', 'route': '/organizerProfile' },
+  { 'settingName': 'Dashboard', 'route': '/' },
+  { 'settingName': 'Logout', 'route': '/logout' }
+];
+const userSettings = [
+  { 'settingName': 'Profile', 'route': '/attendeeProfile' },
+  { 'settingName': 'Dashboard', 'route': '/' },
+  { 'settingName': 'Logout', 'route': '/logout' }
+];
+const adminSettings = [
+  { 'settingName': 'Profile', 'route': '/' },
+  { 'settingName': 'Dashboard', 'route': '/' },
+  { 'settingName': 'Logout', 'route': '/logout' }
+];
 
 function ResponsiveAppBar() {
+  const user = localStorage.getItem("user");
+  const IS_ATTENDEE = JSON.parse(user).userType == "attendee";
+  const IS_ORGANIZER = JSON.parse(user).userType == "organizer";
+  const IS_ADMIN = JSON.parse(user).userType == "admin";
+
+  if (IS_ATTENDEE) {
+    settings = userSettings
+  }
+  else if (IS_ORGANIZER) {
+    settings = organizationSettings
+  }
+  else if (IS_ADMIN) {
+    settings = adminSettings
+  }
 
   const navigate = useNavigate();
   
@@ -46,19 +87,35 @@ function ResponsiveAppBar() {
     console.log(anchorElUser)
   };
 
+  /**
+   * Closes the navigation menu and navigates to the selected page.
+   * @param {{Object}} page - The page object containing the route to navigate to.
+   */
   const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
     console.log(page)
     navigate(page.route)
   };
 
+  /**
+   * Handles the closing of the user menu and navigates to the appropriate route based on the setting.
+   * @param {{object}} setting - The setting object that was clicked in the user menu.
+   */
   const handleCloseUserMenu = (setting) => {
     setAnchorElUser(null);
     console.log(setting.route)
-    navigate(setting.route)
-
+    if (setting.route == '/organizerProfile') {
+      navigate(setting.route, {state: {organizerId: JSON.parse(user).id}})
+    }
+    else{
+      navigate(setting.route)
+    }
   };
 
+  /**
+   * Renders the top navigation bar of the Eventify application.
+   * @returns A JSX element that displays the navigation bar.
+   */
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

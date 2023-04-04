@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -9,10 +10,35 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Button from '@mui/material/Button';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import axios from 'axios';
 
 function MainEvent(props) {
-  const { eventInfo, title, date, organizer, location, time, runtime, ticket, about} = props;
+  const { description, title, date, organizer, location, time, runtime, type} = props;
+      const [organizerName, setOrganizerName] = useState(null);
 
+    const navigate = useNavigate();
+      const handleRedirection = (element) => {
+      const organizerInfo = element
+       navigate('/organizerProfile', {state: {organizerId:organizerInfo}})
+      }
+    useEffect(() => {
+        const fetchOrganizerName = async () => {
+                    try{
+                        console.log(organizer)
+                        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/organizer/${organizer}`);
+                        console.log(response.data)
+                        if(response.status === 200) {
+                            setOrganizerName(response.data)
+                        }
+                    } catch (e) {
+                        console.log(e)
+                        console.log(e.response.status)
+
+                    }
+                };
+                fetchOrganizerName();
+
+    },[])
   return (
     <Grid
       item
@@ -27,22 +53,19 @@ function MainEvent(props) {
       <Typography component = "h5" variant="h5" gutterBottom>
         {date}
       </Typography>
-      <Typography component = "h3" variant="h3" gutterBottom sx = {{fontWeight:"bolder"}}>
+      <Typography component = "h4" variant="h4" gutterBottom sx = {{fontWeight:"bolder"}}>
         {title}
       </Typography>
-      <Typography component="h6" variant="h6" gutterBottom sx = {{fontWeight:600}}>
-        {eventInfo}
-      </Typography>
 
-      <Grid item xs={12} md={8} sx = {{mt:3, mb:3}}>
+      <Grid item xs={12} md={8} sx = {{mt:1, mb:2}}>
         <Card sx = {{display: 'flex', boxShadow: 0.5}}>
-            <CardContent sx = {{flex:3}}>
+            <CardContent align = "center" sx = {{flex:3, mt:1}}>
                 <Typography component="h6" variant="h6" gutterBottom>
-                  By {organizer}
+                  By {organizerName?.organizationName}
                 </Typography>
             </CardContent>
-            <CardContent sx = {{flex:1}}>
-                <Button variant="contained">Visit</Button>
+            <CardContent justifyContent="center" align = "center" sx = {{flex:1, mt:2.5}}>
+                <Button variant="contained" onClick={() => handleRedirection(organizer)}>Visit</Button>
             </CardContent>
         </Card>
       </Grid>
@@ -50,19 +73,29 @@ function MainEvent(props) {
     <Typography component = "h6" variant="h6" gutterBottom sx = {{fontWeight:"bold"}}>
         When and Where
     </Typography>
-    <Grid item xs={12} md={12} sx={{ display: 'flex', gap: 2, mb: 3}}>
+    <Grid align = "center" item xs={12} md={12} sx={{ display: 'flex', gap: 2, mb: 3}}>
             <Card sx={{ flex: 1 , boxShadow: 2 }}>
-              <CardContent>
-                <Typography component="h5" variant="h5">
-                  <CalendarMonthIcon/>
-                  Date and time
-                </Typography>
-                <Typography variant="h6" color="text.secondary" sx = {{fontWeight:"normal", fontStyle: "normal"}}>
-                    {date}
-                </Typography>
-                <Typography variant="h7" color="text.secondary" sx = {{fontWeight:"normal", fontStyle: "normal"}}>
-                    {time}
-                </Typography>
+              <CardContent sx = {{mt:3.5}}>
+                <Grid container rowSpacing={1} >
+                  <Grid xs={6}>
+                    <Typography component="h5" variant="h5">
+                        <CalendarMonthIcon/>
+                            Date
+                    </Typography>
+                  </Grid>
+                  <Grid xs={6}>
+                     <Typography component="h5" variant="h5">
+                         <AccessTimeIcon/>
+                             Time
+                     </Typography>
+                  </Grid>
+                  <Grid xs={6}>
+                        {date}
+                  </Grid>
+                  <Grid xs={6}>
+                        {time}
+                  </Grid>
+                </Grid>
               </CardContent>
             </Card>
             <Card sx={{ flex: 1 , boxShadow: 2 }}>
@@ -94,13 +127,13 @@ function MainEvent(props) {
                   </CardContent>
                   <CardContent sx = {{flex:2}}>
                       <Typography component="h8" variant="h8" gutterBottom>
-                        <BookOnlineIcon/> {ticket}
+                        <BookOnlineIcon/> {type}
                       </Typography>
                   </CardContent>
               </Card>
             </Grid>
           <Typography variant="h6" component="h7" color = "black" sx = {{fontWeight:"normal", fontStyle: "normal"}}>
-            {about}
+            {description}
           </Typography>
       </Grid>
     </Grid>

@@ -1,10 +1,15 @@
+/**
+ * @author Arpitkumar Patel (B00927071)
+ * This module imports the necessary components from the Material-UI library and React.
+ * @module
+ */
 import * as React from "react";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
-export default function ResetCode() {
+export default function ResetCode(props) {
 
     
     const [codeError, setCodeError] = useState(false);
@@ -14,14 +19,23 @@ export default function ResetCode() {
         const newValue = event.target.value.replace(/[^0-9 +()-]/g, '');
         setCode(newValue);
         
-        // const newValue = event.target.value;
-        if (newValue.length < 4 || newValue.length > 4) {
+        if (newValue.length < 6 || newValue.length > 6) {
             setCodeError(true);
         } else {
             setCodeError(false);
         }
+        if (props.resetCode == newValue) {  // Password and Confirm password match
+            props.isResetCodeCorrect(true);
+        }
+        else {
+            props.isResetCodeCorrect(false);    // Password and Confirm password does not match
+        }
     };
     
+    /**
+     * Renders a form for entering a password reset code.
+     * @returns A React Fragment containing a form for entering a password reset code.
+     */
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>

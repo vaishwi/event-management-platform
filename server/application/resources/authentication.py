@@ -1,10 +1,21 @@
-from flask_restful import Resource
-from flask import request, jsonify
+"""
+@author Purvesh Rathod (B00903204)
+Create JWT token for the user at the time of Authentication.
+"""
 import jwt
 import datetime
+from flask_restful import Resource
+from flask import request, jsonify
 
 
 class Authentication(Resource):
+    """
+    This is a Flask resource that handles authentication. It receives a POST request with authorization credentials and returns a token if the credentials are valid.
+    The token is encoded using JWT and has an expiration time of 60 minutes.
+    The resource returns a JSON response with the token if the authentication is successful, and a 401 error if it fails.
+    The resource is part of a larger Flask application, as indicated by the import statement at the beginning of the code.
+    The JWT_SECRET_KEY is a configuration parameter that should be set in the Flask app configuration.
+    """
 
     def post(self):
         from application import app

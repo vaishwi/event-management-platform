@@ -1,3 +1,8 @@
+/**
+ * @author Purvesh Rathod (B00903204)
+ * Component to show events on the search page.
+ * @module Search
+ */
 import React from "react";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -8,9 +13,12 @@ import { Link as RouterLink } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 
 const EventCard = ({ event }) => {
-  const eventDate = new Date(Date.parse(event.attributes.start_date));
+  
+  // const eventDate = new Date(Date.parse(event.start_date));
+  const eventDate = `${event.date} ${event.time}`;
+
   const eventPrice =
-    event.attributes.price === 0 ? "Free" : `$ ${event.attributes.price}`;
+    event.price === 0 ? "Free" : `$ ${event.price}`;
   return (
     <CardActionArea component={RouterLink} to={`/event/${event.id}`}>
       <Grid
@@ -21,7 +29,7 @@ const EventCard = ({ event }) => {
         <Grid item sm={12} md={8}>
           <CardHeader
             className="card-header"
-            title={event.attributes.title}
+            title={event.title}
             subheader={eventDate.toString()}
           />
           <CardContent>
@@ -30,10 +38,10 @@ const EventCard = ({ event }) => {
                 style={{
                   padding: "0.5rem 0",
                 }}>
-                Location: {event.attributes.address}
+                Location: {`${event.address},`}
               </p>
               <p>
-                {event.attributes.city} , {event.attributes.country}
+                {event.city} , {event.country}
               </p>
               <Chip
                 color="primary"
@@ -55,20 +63,9 @@ const EventCard = ({ event }) => {
             className="card-media"
             component="img"
             sx={{ objectFit: "cover", maxHeight: "200px" }}
-            image={event.attributes.image.data[0].attributes.url}
-            alt={event.attributes.title}
+            image={event.banner_image}
+            alt={event.title}
           />
-          {/*<Carousel>*/}
-          {/*    {event.attributes.image.data.map((img) => {*/}
-          {/*        return <CardMedia*/}
-          {/*            className="card-media"*/}
-          {/*            component="img"*/}
-          {/*            sx={{objectFit: 'cover'}}*/}
-          {/*            image={img.attributes.url}*/}
-          {/*            alt={event.attributes.title}*/}
-          {/*        />*/}
-          {/*    })}*/}
-          {/*</Carousel>*/}
         </Grid>
       </Grid>
     </CardActionArea>
