@@ -41,6 +41,9 @@ if(localStorage.getItem("loginStatus") == null){
 function App() {
   // localStorage.setItem("user",JSON.stringify({userType:""}))
 
+  /**
+   * Checks if certain items are present in the local storage and sets them to default values if they are not.
+   */
   if(localStorage.getItem("loginStatus") == null){
     console.log("In null login")
     localStorage.setItem("loginStatus",'false')
