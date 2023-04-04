@@ -1,3 +1,7 @@
+/**
+"""
+This module imports various components from the Material-UI library and defines a functional React component that renders a password reset form. The form consists of three steps: entering the email address associated with the account, entering the reset code sent to the email, and setting a new password. The component uses the useState hook to manage the form state and the useNavigate hook to handle navigation between the steps. Axios is used to make HTTP requests to the server for password reset functionality.
+ */
 import * as React from 'react';
 import { useState } from "react";
 import CssBaseline from '@mui/material/CssBaseline';

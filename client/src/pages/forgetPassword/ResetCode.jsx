@@ -1,3 +1,7 @@
+/**
+ * This module imports the necessary components from the Material-UI library and React.
+ * @module
+ */
 import * as React from "react";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
@@ -27,6 +31,10 @@ export default function ResetCode(props) {
         }
     };
     
+    /**
+     * Renders a form for entering a password reset code.
+     * @returns A React Fragment containing a form for entering a password reset code.
+     */
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
