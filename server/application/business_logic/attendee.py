@@ -1,4 +1,5 @@
 """
+@author Arpitkumar Patel (B00927071)
 This code imports necessary modules and classes from the FireO library and the Organizer class from the application's business logic. 
 """
 from fireo.models import Model

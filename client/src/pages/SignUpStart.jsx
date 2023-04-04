@@ -1,4 +1,5 @@
 /**
+ * @author Arpitkumar Patel (B00927071)
  * This module contains a React component that renders a login form. It uses Material-UI
  * components for styling and form elements. When the user submits the form, it sends a
  * request to the server to authenticate the user. If the authentication is successful,

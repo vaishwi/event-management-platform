@@ -1,4 +1,5 @@
 /**
+ * @author Arpitkumar Patel (B00927071)
  * This module imports the necessary components from the Material-UI library and React.
  * @module
  */

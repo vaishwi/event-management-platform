@@ -1,4 +1,5 @@
 /**
+ * @author Arpitkumar Patel (B00927071)
  * A React component that displays user information and allows the user to edit their profile.
  * @returns {JSX.Element} - A React component that displays user information and allows the user to edit their profile.
  */

@@ -1,4 +1,5 @@
 /**
+ * @author Arpitkumar Patel (B00927071)
  * This module contains a React component that renders a form for user registration.
  * It imports various components from the Material-UI library, including TextField, Checkbox,
  * and Button. It also imports other modules such as axios and react-router-dom.

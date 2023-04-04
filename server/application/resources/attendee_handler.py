@@ -1,3 +1,7 @@
+"""
+@author Arpitkumar Patel (B00927071)
+This code defines two Flask endpoints for managing attendee information. 
+"""
 from flask_restful import Resource
 from flask import request
 import json

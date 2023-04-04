@@ -1,4 +1,5 @@
 /**
+ * @author Arpitkumar Patel (B00927071)
  * A component that renders a form for creating a new password. The form includes
  * fields for entering and confirming a password, with options to toggle visibility
  * of the password fields. The component also includes validation for password length

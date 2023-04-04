@@ -1,4 +1,7 @@
-
+"""
+@author Arpitkumar Patel (B00927071)
+This code defines a `Credential` class that inherits from the `Model` class of the `fireo` library. The `Credential` class has several methods that interact with the database to perform various operations related to user authentication and authorization.
+"""
 from fireo.models import Model
 from fireo.fields import TextField, IDField
 from application.business_logic.organizers import Organizer

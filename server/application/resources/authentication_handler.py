@@ -1,3 +1,7 @@
+"""
+@author Arpitkumar Patel (B00927071)
+This code defines a Flask RESTful API with four endpoints for user registration, login, email checking, and password resetting. 
+"""
 from flask_restful import Resource
 from flask import request
 from application.business_logic.credential import Credential
