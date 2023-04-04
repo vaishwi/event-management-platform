@@ -167,8 +167,8 @@ import axios from 'axios';
     console.log("home",JSON.parse(localStorage.getItem("events")))
         const fetchEvents = async () => {
             try{
-                const response = await axios.get('http://127.0.0.1:5000/events')
-                const response1 = await axios.get('http://127.0.0.1:5000/organizers')
+                const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/events`)
+                const response1 = await axios.get(`${import.meta.env.VITE_SERVER_URL}/organizers`)
                 if(response.status === 200) {
                     setEvents(response.data.data)
                     setOrganizers(response1.data.data)

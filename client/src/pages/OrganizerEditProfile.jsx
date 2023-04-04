@@ -101,10 +101,10 @@ const OrganizerEditProfile = () => {
       if (data.get("phoneNumber") == "") {
           data_json['contactNo'] = ""
       }
-    
+
     axios({
       // Endpoint to send files
-      url: "http://127.0.0.1:5000/editOrganizer",
+      url: `${import.meta.env.VITE_SERVER_URL}/editOrganizer`,
       method: "POST",
       data: data_json,
     })

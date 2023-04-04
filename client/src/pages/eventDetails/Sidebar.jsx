@@ -51,7 +51,7 @@ function Sidebar(props) {
 
     const handleDeleteRedirection = async (url) => {
         try {
-            const response = await axios.delete('http://127.0.0.1:5000/deleteEventAdmin/' + eventState?.id)
+            const response = await axios.delete(`${import.meta.env.VITE_SERVER_URL}/deleteEventAdmin/${eventState?.id}`)
             if(response.status === 200) {
                 toast("Event Deleted Successfully")
                 navigate(url);
@@ -88,7 +88,7 @@ function Sidebar(props) {
                 const userID = localStorage.getItem('user');
                 const id = JSON.parse(userID).id;
                 console.log(id);
-                    const response = await axios.get('http://127.0.0.1:5000/registerEvent/'+id+'/'+eventState?.id)
+                    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/registerEvent/${id}/${eventState?.id}`)
                     console.log(eventState?.id)
                     console.log(response.data)
                     if(response.data) {
@@ -106,7 +106,7 @@ function Sidebar(props) {
 
     const cancelRegistration = async () => {
                 try{
-                    const response = await axios.delete('http://127.0.0.1:5000/deleteEvent/'+eventState?.id)
+                    const response = await axios.delete(`${import.meta.env.VITE_SERVER_URL}/deleteEvent/${eventState?.id}`)
                     checkRegistered();
                     handleClose();
 

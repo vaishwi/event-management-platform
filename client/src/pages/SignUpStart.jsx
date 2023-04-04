@@ -107,7 +107,7 @@ const SignUpStart = () => {
     };
     axios({
       // Endpoint to send files
-      url: "http://127.0.0.1:5000/registration",
+      url: `${import.meta.env.VITE_SERVER_URL}/registration/`,
       method: "POST",
       data: data_json,
     })
@@ -153,7 +153,7 @@ const SignUpStart = () => {
     
     axios({
       // Endpoint to send files
-      url: "http://127.0.0.1:5000/registration",
+      url: `${import.meta.env.VITE_SERVER_URL}/registration`,
       method: "POST",
       data: data_json,
     })

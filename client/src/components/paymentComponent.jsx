@@ -17,7 +17,7 @@ export default function PaymentComponent(props)
             const userId = JSON.parse(userID).id;
             console.log(userId);
 
-             const response = await axios.post('http://127.0.0.1:5000/addPayment', {
+             const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/addPayment`, {
                                  payment,
                                  userId,
              })

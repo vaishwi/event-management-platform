@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router';
 import CustomDialogBox from "./CustomDialogBox.jsx";
 import axios from "axios";
 
-const BASE_URL= "http://127.0.0.1:5000/"
 const SERVER_ERROR  = "Sever Error. Please try again."
 
 const OrganizerItem = (organizer) => {
@@ -30,24 +29,21 @@ const OrganizerItem = (organizer) => {
 
     const openDialogBox= () => {
         console.log("In open dialog box")
-        const url = BASE_URL+"authenticate/"+organizerInfo.id
-                axios({
-                    url: url,
-                    method: "POST",
-                    headers:{
-                        "Access-Control-Allow-Origin": "*"
-                    }
-                  })
-                    .then((res) => {
-                        setOpenDialog(true)
-                        // setIsAutenticated(true)
-                        organizerInfo.isAuthenticated = true
-                        
-                     })
-                    .catch((err) => { 
-                        setOpenDialog(true)
-                        setDialogDiscription(SERVER_ERROR)
-                    });
+            axios({
+                url: `${import.meta.env.VITE_SERVER_URL}/authenticate/${organizerInfo.id}`,
+                method: "POST",
+                headers:{
+                    "Access-Control-Allow-Origin": "*"
+                }
+              }).then((res) => {
+                setOpenDialog(true)
+                // setIsAutenticated(true)
+                organizerInfo.isAuthenticated = true
+                 })
+                .catch((err) => {
+                    setOpenDialog(true)
+                    setDialogDiscription(SERVER_ERROR)
+                });
 
     }
 

@@ -96,7 +96,7 @@ export default function CheckoutForgetPassword() {
       const data_json = {email: submittedEmail}
       axios({
         // Endpoint to send files
-        url: "http://127.0.0.1:5000/checkEmail",
+        url: `${import.meta.env.VITE_SERVER_URL}/checkEmail`,
         method: "POST",
         data: data_json,
       })
@@ -140,7 +140,7 @@ export default function CheckoutForgetPassword() {
         const data_json = { email: submittedEmail, password: newPassword }
         axios({
           // Endpoint to send files
-          url: "http://127.0.0.1:5000/setNewPassword",
+          url: `${import.meta.env.VITE_SERVER_URL}/setNewPassword`,
           method: "POST",
           data: data_json,
         })
