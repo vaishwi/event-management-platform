@@ -83,14 +83,14 @@ const Blog = () => {
               {console.log(data?.organizer)}
               <Grid container spacing={2}>
                 <MainEvent description={data.description} type={data.type} runtime={data.runtime} time={data.time} location={data.address} organizer={data.organizer} date={data.date} title={data.title} />
-{/*                 <Sidebar */}
-{/*                   price={data.price} */}
-{/*                   social={sidebar.social} */}
-{/*                   title={data.title} */}
-{/*                   url={data.icon} */}
-{/*                   type={data.type} */}
-{/*                   eventState={data} */}
-{/*                 /> */}
+                <Sidebar
+                  price={data.price}
+                  social={sidebar.social}
+                  title={data.title}
+                  url={data.icon}
+                  type={data.type}
+                  eventState={data}
+                />
               </Grid>
               <Grid container spacing={4}>
                 <Grid item xs={12} md={12}>
