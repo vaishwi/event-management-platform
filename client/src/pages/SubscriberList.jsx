@@ -1,3 +1,8 @@
+/**
+ * This module imports the useState hook from the React library and the Box and Typography
+ * components from the MUI library. It also imports the SubscriberItem component from the
+ * components directory.
+ */
 import { useState } from "react";
 import { Box, Typography } from '@mui/material'
 import SubscriberItem from "../components/SubscriberItem";
@@ -15,6 +20,11 @@ const SubscriberList = (props) => {
     const [subscriberList, setSubscriberList] = useState(subList)
 
 
+    /**
+     * Renders a list of subscribers with a header.
+     * @param {{Array}} subscriberList - An array of subscriber objects to be rendered.
+     * @returns A JSX element containing the subscriber list and header.
+     */
     return (
     <div>
        < Box sx={{ mt:5,ml:30,mr:30,}}>
