@@ -1,4 +1,5 @@
 """
+@author Vaishwi Patel (B00914336)
 This code defines a `Organizer` class that inherits from the `Model` class of the `fireo.models` module. The `Organizer` class has several fields that represent the attributes of an organizer. The class has several methods that perform CRUD operations on the `Organizer` model. 
 """
 from fireo.models import Model

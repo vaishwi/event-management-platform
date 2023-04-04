@@ -1,4 +1,5 @@
 """
+@author Vaishwi Patel (B00914336)
 This code defines several Flask RESTful endpoints for interacting with an Organizer resource. 
 """
 from flask_restful import Resource

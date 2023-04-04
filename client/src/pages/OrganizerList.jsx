@@ -1,4 +1,5 @@
 /**
+ * @author Vaishwi Patel (B00914336)
  * A React component that displays a list of OrganizerItems fetched from an API.
  * @returns A JSX element that displays a list of OrganizerItems.
  */

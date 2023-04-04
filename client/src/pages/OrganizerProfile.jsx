@@ -1,4 +1,5 @@
 /**
+ * @author Vaishwi Patel (B00914336)
  * A React component that displays user information and allows the user to edit their profile.
  * @returns A React component that displays user information and allows the user to edit their profile.
  */

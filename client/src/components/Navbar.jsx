@@ -1,4 +1,5 @@
 /**
+ * @author Vaishwi Patel (B00914336)
  * This module imports various components from the Material-UI library and the useNavigate hook from the React-Router library.
  * These components are used to create a custom AppBar component for the application.
  */

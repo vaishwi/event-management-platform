@@ -1,4 +1,5 @@
 /**
+ * @author Vaishwi Patel (B00914336)
  * This module imports the useState hook from the React library and the Box and Typography
  * components from the MUI library. It also imports the SubscriberItem component from the
  * components directory.

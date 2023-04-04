@@ -1,4 +1,5 @@
 /**
+ * @author Vaishwi Patel (B00914336)
  * A custom dialog box component that displays a dialog with a title and a button.
  * @returns A Dialog component that displays the dialog box.
  */

@@ -1,4 +1,5 @@
 /**
+ * @author Vaishwi Patel (B00914336)
  * This module imports necessary components and hooks from the Material UI and React libraries.
  * It also imports a custom dialog box component and the Axios library for making HTTP requests.
  * @module

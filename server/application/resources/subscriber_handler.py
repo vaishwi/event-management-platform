@@ -1,4 +1,5 @@
 """
+@author Vaishwi Patel (B00914336)
 The code defines two Flask RESTful endpoints for handling subscriber requests. 
 """
 from flask_restful import Resource

@@ -1,4 +1,5 @@
 /**
+ * @author Vaishwi Patel (B00914336)
  * This function imports the `useNavigate` hook from the `react-router` library and the `useEffect` hook from the `react` library.
  * It can be used to navigate to a different page in the application when certain conditions are met.
  */
