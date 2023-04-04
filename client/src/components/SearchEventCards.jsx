@@ -1,3 +1,8 @@
+/**
+ * @author Purvesh Rathod (B00903204)
+ * Component to show events on the search page.
+ * @module Search
+ */
 import React from "react";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -61,17 +66,6 @@ const EventCard = ({ event }) => {
             image={event.banner_image}
             alt={event.title}
           />
-          {/*<Carousel>*/}
-          {/*    {event.image.data.map((img) => {*/}
-          {/*        return <CardMedia*/}
-          {/*            className="card-media"*/}
-          {/*            component="img"*/}
-          {/*            sx={{objectFit: 'cover'}}*/}
-          {/*            image={img.attributes.url}*/}
-          {/*            alt={event.title}*/}
-          {/*        />*/}
-          {/*    })}*/}
-          {/*</Carousel>*/}
         </Grid>
       </Grid>
     </CardActionArea>
