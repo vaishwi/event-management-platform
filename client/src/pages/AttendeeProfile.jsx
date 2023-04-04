@@ -1,3 +1,7 @@
+/**
+ * A React component that displays user information and allows the user to edit their profile.
+ * @returns {JSX.Element} - A React component that displays user information and allows the user to edit their profile.
+ */
 import React, { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
@@ -31,6 +35,10 @@ const BASE_URL = "http://127.0.0.1:5000/";
 const SERVER_ERROR = "Sever Error. Please try again.";
 const SUBSCRIPTION_MESSAGE = "Successfully Subscribed.";
 
+/**
+ * Defines the styles for a component using the makeStyles hook from Material-UI.
+ * @returns An object containing the CSS styles for the component.
+ */
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
@@ -60,27 +68,17 @@ const useStyles = makeStyles(() => ({
 const AttendeeProfile = () => {
   const classes = useStyles();
   const user = localStorage.getItem("user");
-  // const organizer = useLocation().state.organizer;
   const attendeeId = JSON.parse(user).id;
 
-  //   const attendeeId = useLocation().state.attendeeId;
   const naviagte = useNavigate();
-
-  console.log(attendeeId);
-  const [isAuthenticated, setIsAutenticated] = useState();
-
-  // const USER_TYPE = "attendee"
-  const IS_ATTENDEE = JSON.parse(user).userType == "attendee";
-  const IS_ORGANIZER = JSON.parse(user).userType == "organizer";
-  const IS_ADMIN = JSON.parse(user).userType == "admin";
 
   const [attendee, setAttendee] = useState({});
 
-  //   const [attendeeId, setAttendeeID] = useState("");
-  //   const [hasAttendeeSubscribed, setHasAttendeeSubscribed] = useState("");
-
-  // console.log(JSON.parse(user))
-
+  
+  /**
+   * Fetches attendee data from the server and sets the attendee state.
+   * @param {{string}} attendeeId - The ID of the attendee to fetch.
+   */
   useEffect(() => {
     console.log("attendeeId:", attendeeId);
 
@@ -102,6 +100,12 @@ const AttendeeProfile = () => {
       .catch((err) => {});
   }, []);
 
+  /**
+   * Renders a container with attendee information, including their profile picture, name, location, 
+   * occupation, contact information, and subscribed organizations.
+   * @param {{Object}} attendee - The attendee object containing their information.
+   * @returns A container with the attendee's information.
+   */
   return (
     <Container className={classes.root}>
       <Grid container spacing={3}>
@@ -154,17 +158,7 @@ const AttendeeProfile = () => {
                 {attendee.about}
               </Typography>
             </div>
-            {/* <div className={classes.contactInfoItem}>
-              <Typography
-                variant="subtitle1"
-                sx={{ fontWeight: "bold" }}
-                className={classes.contactInfoIcon}>
-                Managed By :
-              </Typography>
-              <Typography variant="subtitle1" sx={{ ml: 1 }}>
-                {organizer.managedBy}
-              </Typography>
-            </div> */}
+            
             <div className={classes.contactInfoItem}>
               <Typography
                 variant="subtitle1"

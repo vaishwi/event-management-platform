@@ -1,3 +1,7 @@
+/**
+ * A React component that displays a list of OrganizerItems fetched from an API.
+ * @returns A JSX element that displays a list of OrganizerItems.
+ */
 import { useEffect, useState } from "react";
 import { Box,Typography } from '@mui/material'
 import OrganizerItem from "../components/OranizerItem";
@@ -15,6 +19,10 @@ const OrganizerList = (props) => {
     const [organizerList, setOrganizerList] = useState([])
 
     // https://legacy.reactjs.org/docs/hooks-effect.html
+    /**
+     * useEffect hook that fetches a list of organizers from the server based on the value of isAutheticationRequests.
+     * @param {{boolean}} isAutheticationRequests - A boolean value that determines whether to fetch a list of authenticated or unauthenticated organizers.
+     */
     useEffect( () =>{
 
         if(isAutheticationRequests){
@@ -64,6 +72,10 @@ const OrganizerList = (props) => {
 
     },[isAutheticationRequests])
 
+    /**
+     * Renders a component that displays either a list of organizers or a list of authentication requests.
+     * @returns A React component that displays the appropriate list of organizers or authentication requests.
+     */
     return (
     <div>
        < Box sx={{ mt:5,ml:30,mr:30,}}>

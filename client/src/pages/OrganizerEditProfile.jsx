@@ -1,3 +1,8 @@
+/**
+ * This module contains a React component that renders a form for user registration.
+ * It imports various components from the Material-UI library, including TextField, Checkbox,
+ * and Button. It also imports other modules such as axios and react-router-dom.
+ */
 import * as React from "react";
 import { useState } from "react";
 import { makeStyles } from "@mui/styles";
@@ -66,28 +71,23 @@ const OrganizerEditProfile = () => {
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [countryCode, setCountryCode] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [registrationError, setRegistrationError] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState(false);
-  const [lastnameError, setLastnameError] = useState(false);
-  const [firstnameError, setFirstnameError] = useState(false);
 
   const [organizationError, setOrganizationError] = useState(false);
   const [managedByError, setManagedByError] = useState(false);
 
+  /**
+   * Handles the submission of the organizer's profile update form.
+   * @param {Event} event - The form submission event.
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-      const data_json = {
-        id: organizer.id,
+    const data_json = {
+      id: organizer.id,
       managedBy: data.get("managedBy"),
-      contactNo: data.get("countryCode") +"-"+ data.get("phoneNumber"),
-    //   email: data.get("email"),
-    //   password: data.get("password"),
+      contactNo: data.get("countryCode") + "-" + data.get("phoneNumber"),
 
       organizationName: data.get("organization"),
       occupation: data.get("occupation"),
@@ -96,12 +96,12 @@ const OrganizerEditProfile = () => {
       city: data.get("city"),
       state: data.get("state"),
       type: "organizer",
-      };
+    };
 
-      if (data.get("phoneNumber") == "") {
-          data_json['contactNo'] = ""
-      }
-    
+    if (data.get("phoneNumber") == "") {
+      data_json["contactNo"] = "";
+    }
+
     axios({
       // Endpoint to send files
       url: "http://127.0.0.1:5000/editOrganizer",
@@ -111,9 +111,9 @@ const OrganizerEditProfile = () => {
       // Handle the response from backend here
       .then((res) => {
         if (res.data === organizer.id) {
-            navigate("/organizerProfile");
+          navigate("/organizerProfile");
         } else {
-            setRegistrationError("Update Failed");
+          setRegistrationError("Update Failed");
           setOpenSnackbar(true);
         }
       })
@@ -140,22 +140,6 @@ const OrganizerEditProfile = () => {
     setCountryCode(event);
   };
 
-  const handleFirstNameChange = (event) => {
-    if (event.target.value.length < 1) {
-      setFirstnameError(true);
-    } else {
-      setFirstnameError(false);
-    }
-  };
-
-  const handleLastNameChange = (event) => {
-    if (event.target.value.length < 1) {
-      setLastnameError(true);
-    } else {
-      setLastnameError(false);
-    }
-  };
-
   const handleOrganizationChange = (event) => {
     if (event.target.value.length < 1) {
       setOrganizationError(true);
@@ -172,30 +156,10 @@ const OrganizerEditProfile = () => {
     }
   };
 
-  const handleEmailChange = (event) => {
-    const newValue = event.target.value;
-    // setEmail(newValue);
-    if (!emailValidation.test(newValue)) {
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-    }
-  };
-
-  const handlePasswordChange = (event) => {
-    const newValue = event.target.value;
-    setPassword(newValue);
-    if (newValue.length < 6) {
-      setPasswordError(true);
-    } else {
-      setPasswordError(false);
-    }
-  };
-
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
+  /**
+   * Renders a form for editing the user's profile information.
+   * @returns A JSX element containing the form for editing the user's profile information.
+   */
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -287,47 +251,6 @@ const OrganizerEditProfile = () => {
                   inputProps={{ maxLength: 20 }}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  defaultValue={organizer.email}
-                  onChange={handleEmailChange}
-                  error={emailError}
-                  helperText={emailError && "Please enter valid email address"}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  label="Password"
-                  variant="outlined"
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={handlePasswordChange}
-                  fullWidth
-                  required
-                  error={passwordError}
-                  helperText={
-                    passwordError && "Password must be at least 6 characters"
-                  }
-                  InputProps={{
-                    endAdornment: (
-                      <IconButton
-                        onClick={handleTogglePasswordVisibility}
-                        edge="end">
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    ),
-                  }}
-                />
-              </Grid> */}
 
               <Grid item xs={12}>
                 <TextField
@@ -335,8 +258,8 @@ const OrganizerEditProfile = () => {
                   id="location"
                   label="Location"
                   name="location"
-                                  autoComplete="location"
-                                  defaultValue={organizer.location}
+                  autoComplete="location"
+                  defaultValue={organizer.location}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
