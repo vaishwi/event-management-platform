@@ -37,7 +37,13 @@ class Attendee(Model):
         attendee.save()
         return attendee.id
     
-    def subscribe_organizer(self,data):
+    """
+        This function subscribes an attendee to an organizer. It takes in a dictionary of data containing the organizer ID and attendee ID. It then updates the attendee's subscribed organization list with the organizer ID and updates the organizer's subscribed users list with the attendee ID. It also increments the organizer's subscriber count. If any errors occur, it returns a dictionary with a "success" key set to False. Otherwise, it returns a dictionary with a "success" key set to True.
+        @param self - the instance of the class
+        @param data - a dictionary containing the organizer ID and attendee ID
+        @return a dictionary with a "success" key set to True if the subscription was successful, or False if it was not.
+    """
+    def subscribe_organizer(self,data):    
         response_dict = {
             "success": False
         }
@@ -60,7 +66,14 @@ class Attendee(Model):
 
         return response_dict
     
+    """
+        Given an attendee and an organizer, check if the attendee is subscribed to the organizer.
+        @param self - the instance of the class
+        @param data - a dictionary containing the organizer and attendee IDs
+        @return a dictionary containing a success flag and a boolean indicating if the attendee is subscribed to the organizer.
+    """
     def is_attendee_subscribed(self,data):
+        
         response_dict = {
             "success": False,
             "is_subscribed":False
@@ -86,7 +99,14 @@ class Attendee(Model):
 
         return response_dict
 
+    """
+        Given an attendee ID, retrieve the attendee's information from the database.
+        @param self - the instance of the class
+        @param id - the ID of the attendee
+        @return a dictionary containing the attendee's information
+    """
     def get_attendee(self, id):
+        
         attendee = Attendee.collection.get(f"attendee/{id}")
         
         organizer_list = attendee.subscribered_organization
@@ -111,7 +131,14 @@ class Attendee(Model):
         print(attendee_dict)
         return attendee_dict
     
+    """
+        This method edits an attendee's information and updates it in the database.
+        @param self - the instance of the class
+        @param data - the data to be updated
+        @return the id of the updated attendee
+    """
     def edit_attendee(self, data):
+        
         print(data)
         attendee = Attendee.collection.get(f"attendee/{data.get('id')}") 
         print(attendee)
@@ -123,24 +150,3 @@ class Attendee(Model):
         attendee.city = data.get('city')
         attendee.update()
         return attendee.id
-
-    # def get_organizer(self, key):
-    #     event_dict = {
-    #         "success": False,
-    #         "data": {}
-    #     }
-    #     try:
-    #         event = Event.collection.get(f"event/{key}") 
-    #         event_dict['data'] = event.to_dict()
-    #         event_dict['success'] = True
-    #     except Exception as e:
-    #         print(e)
-    #     return event_dict
-
-    # def get_all_organizer(self):
-    #     organizers = []
-    #     organizer_list = Organizer.collection.fetch()
-        
-    #     organizers = [organizer.to_dict() for organizer in organizer_list]
-    #     print(f"Organizer {organizers}")
-    #     return organizers

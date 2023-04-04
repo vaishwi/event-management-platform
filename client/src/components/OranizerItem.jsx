@@ -1,3 +1,8 @@
+/**
+ * This module imports necessary components and hooks from the Material UI and React libraries.
+ * It also imports a custom dialog box component and the Axios library for making HTTP requests.
+ * @module
+ */
 import {ListItem, ListItemText, ListItemButton, Divider, Button } from '@mui/material'
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -27,6 +32,9 @@ const OrganizerItem = (organizer) => {
     }
 
 
+    /**
+     * Sends a POST request to the server to authenticate the organizer and opens a dialog box.
+     */
     const openDialogBox= () => {
         console.log("In open dialog box")
             axios({
@@ -47,6 +55,16 @@ const OrganizerItem = (organizer) => {
 
     }
 
+    /**
+     * Renders a list item component with the organizer's information and an optional
+     * authentication button.
+     * @param {{Object}} organizerInfo - An object containing the organizer's information.
+     * @param {{boolean}} isAuthenticated - A boolean indicating whether the organizer is authenticated.
+     * @param {{Function}} openDialogBox - A function to open the authentication dialog box.
+     * @param {{Function}} handleAuthenticationClick - A function to handle the authentication button click.
+     * @param {{string}} dialogDiscription - A string describing the authentication dialog box.
+     * @returns A React component that renders a list item with the organizer's information and an optional authentication button.
+     */
     return ( 
 
         <div>
