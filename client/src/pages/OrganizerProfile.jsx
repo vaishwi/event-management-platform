@@ -1,3 +1,7 @@
+/**
+ * A React component that displays user information and allows the user to edit their profile.
+ * @returns A React component that displays user information and allows the user to edit their profile.
+ */
 import React, { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
@@ -31,6 +35,10 @@ const SUBSCRIPTION_MESSAGE = "Successfully Subscribed.";
 
 
 
+/**
+ * Defines the styles for a component using the makeStyles hook from Material-UI.
+ * @returns An object containing the CSS styles for the component.
+ */
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
@@ -91,6 +99,9 @@ const OrganizerProfile = () => {
 
   // console.log(JSON.parse(user))
 
+  /**
+   * useEffect hook that fetches the organizer data and subscription details for the attendee (if applicable).
+   */
   useEffect(() => {
     axios({
       // Endpoint to fetch organizer profile
@@ -136,6 +147,10 @@ const OrganizerProfile = () => {
     }
   }, [hasAttendeeSubscribed]);
 
+  /**
+   * Opens a dialog box based on the user type and performs the appropriate action.
+   * @param {{string}} description - The description to display in the dialog box.
+   */
   const openDialogBox = (description) => {
     if (IS_ATTENDEE) {
       const url = BASE_URL + "subscribe";
@@ -201,6 +216,10 @@ const OrganizerProfile = () => {
     }
   };
 
+  /**
+   * Handles the click event for removing authentication. 
+   * Closes the dialog and navigates to the organizers page if the user is an admin.
+   */
   const handleAuthenticationRemoveClick = () => {
     setOpenDialog(false);
     if(IS_ADMIN){
@@ -210,6 +229,16 @@ const OrganizerProfile = () => {
     console.log("In click");
   };
 
+  /**
+   * Renders a container with information about an organizer. Displays the organizer's name, 
+   * number of subscribers, location, and contact information. If the user is an attendee, 
+   * they can subscribe to the organizer. If the user is an admin, they can authenticate/ remove the organizer. 
+   * If the user is the organizer, they can edit their information. 
+   * @param {{Organizer}} organizer - The organizer object to display information about.
+   * @param {{boolean}} isAuthenticated - Whether or not the user is authenticated.
+   * @param {{boolean}} hasAttendeeSubscribed - Whether or not the attendee has subscribed to the organizer.
+   * @param {{boolean}} IS_ATTENDEE - Whether or not the user is an attendee
+   */
   return (
     <Container className={classes.root}>
       <Grid container spacing={3}>

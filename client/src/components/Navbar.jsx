@@ -1,3 +1,7 @@
+/**
+ * This module imports various components from the Material-UI library and the useNavigate hook from the React-Router library.
+ * These components are used to create a custom AppBar component for the application.
+ */
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -32,6 +36,11 @@ else{
 // const settings = [{'settingName':'Profile','route':'/'},{'settingName':'Dashboard','route':'/'},{'settingName':'Logout','route':'/logout'}]
 var settings = []
 
+/**
+ * An array of objects representing the settings available to different types of users.
+ * Each object in the array contains a 'settingName' property, which is a string representing the name of the setting,
+ * and a 'route' property, which is a string representing the URL route for the setting.
+ */
 const organizationSettings = [
   { 'settingName': 'Profile', 'route': '/organizerProfile' },
   { 'settingName': 'Dashboard', 'route': '/' },
@@ -77,12 +86,20 @@ function ResponsiveAppBar() {
     console.log(anchorElUser)
   };
 
+  /**
+   * Closes the navigation menu and navigates to the selected page.
+   * @param {{Object}} page - The page object containing the route to navigate to.
+   */
   const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
     console.log(page)
     navigate(page.route)
   };
 
+  /**
+   * Handles the closing of the user menu and navigates to the appropriate route based on the setting.
+   * @param {{object}} setting - The setting object that was clicked in the user menu.
+   */
   const handleCloseUserMenu = (setting) => {
     setAnchorElUser(null);
     console.log(setting.route)
@@ -94,6 +111,10 @@ function ResponsiveAppBar() {
     }
   };
 
+  /**
+   * Renders the top navigation bar of the Eventify application.
+   * @returns A JSX element that displays the navigation bar.
+   */
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
