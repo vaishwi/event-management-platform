@@ -63,7 +63,7 @@ const Blog = () => {
       setData(location.state);
     }
     if (params.hasOwnProperty('id')) {
-      let url = `http://localhost:5000/event/${params.id}`
+      let url = `${import.meta.env.VITE_SERVER_URL}/event/${params.id}`
       axios.get(url)
       .then(res => {
         setData(res.data);
