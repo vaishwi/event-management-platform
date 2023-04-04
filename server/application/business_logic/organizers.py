@@ -50,7 +50,7 @@ class Organizer(Model):
         organizer.save()
         return organizer.id
     
-     """
+    """
         This is a method of a class, but it seems to be incomplete. It takes an `id` parameter, but it is unclear what it is supposed to do with it. Please provide more context or the full implementation of the method.
     """
     def remove_organzier(self,id):
@@ -121,7 +121,7 @@ class Organizer(Model):
         print(f"Organizer {organizers}")
         return organizers
 
-     """
+    """
         This method retrieves all authentication requests from the database that have not yet been authenticated. It then converts the retrieved objects to a list of dictionaries and returns it.
         @return A list of dictionaries containing the authentication requests that have not yet been authenticated.
     """
