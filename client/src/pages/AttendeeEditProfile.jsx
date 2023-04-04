@@ -227,37 +227,7 @@ const AttendeeEditProfile = () => {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="organization"
-                  label="Organization"
-                  name="organization"
-                  autoComplete="organization"
-                  defaultValue={organizer.organizationName}
-                  onChange={handleOrganizationChange}
-                  error={organizationError}
-                  helperText={
-                    organizationError && "Please fill Organization Name"
-                  }
-                  autoFocus
-                />
-              </Grid> */}
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="managedBy"
-                  label="Managed By"
-                  name="managedBy"
-                  autoComplete="managed-by"
-                  defaultValue={organizer.managedBy}
-                  onChange={handleManagedByChange}
-                  error={managedByError}
-                  helperText={managedByError && "Please fill Managed By"}
-                />
-              </Grid> */}
+              
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
@@ -329,47 +299,7 @@ const AttendeeEditProfile = () => {
                   inputProps={{ maxLength: 20 }}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  defaultValue={organizer.email}
-                  onChange={handleEmailChange}
-                  error={emailError}
-                  helperText={emailError && "Please enter valid email address"}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  label="Password"
-                  variant="outlined"
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={handlePasswordChange}
-                  fullWidth
-                  required
-                  error={passwordError}
-                  helperText={
-                    passwordError && "Password must be at least 6 characters"
-                  }
-                  InputProps={{
-                    endAdornment: (
-                      <IconButton
-                        onClick={handleTogglePasswordVisibility}
-                        edge="end">
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    ),
-                  }}
-                />
-              </Grid> */}
+              
 
               <Grid item xs={12}>
                 <TextField
