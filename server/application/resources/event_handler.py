@@ -1,6 +1,9 @@
-from flask_restful import Resource
+"""
+@author Purvesh Rathod (B00903204)
+APIs related to Events and Event management.
+"""
 from flask import request
-import json
+from flask_restful import Resource
 from application.auth_token import token_validator
 from application.business_logic.events import Event
 

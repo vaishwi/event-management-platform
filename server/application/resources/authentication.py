@@ -1,7 +1,11 @@
-from flask_restful import Resource
-from flask import request, jsonify
+"""
+@author Purvesh Rathod (B00903204)
+Create JWT token for the user at the time of Authentication.
+"""
 import jwt
 import datetime
+from flask_restful import Resource
+from flask import request, jsonify
 
 
 class Authentication(Resource):

@@ -1,7 +1,10 @@
-from flask import Flask, jsonify, request
+"""
+@author Purvesh Rathod (B00903204)
+Initialize Flask application and initialize routes
+"""
+from flask import Flask
 from flask_cors import CORS
 import fireo
-from functools import wraps
 from flask_restful import Api
 from application.resources.routes import initialize_routes
 app = Flask(__name__)

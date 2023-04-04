@@ -1,3 +1,7 @@
+"""
+@author Purvesh Rathod (B00903204)
+Event model class. CRUD operation of the Event collection.
+"""
 from fireo.models import Model
 from fireo.fields import TextField, NumberField, DateTime, IDField, BooleanField, ListField, Field
 

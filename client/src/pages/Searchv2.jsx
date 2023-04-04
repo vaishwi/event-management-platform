@@ -1,3 +1,8 @@
+/**
+ * @author Purvesh Rathod (B00903204)
+ * This module contains the frontend logic for global search of the application.
+ * @module Search
+ */
 import React, { useEffect, useState } from "react";
 import EventCard from "../components/SearchEventCards";
 import Grid from "@mui/material/Grid";
@@ -35,39 +40,30 @@ const eventTypes = ['Free','Paid']
 
 const Search = () => {
     const [events, setEvents] = useState({ "data": [] });
-    const [filteredEvents, setFilteredEvents] = useState(events);
-    // const cities = [];
     const [cities, setCities] = useState([]);
-    console.log(cities.length);
     const [searchValue, setSearchValue] = useState("");
     const [submitQuery, setSubmitQuery] = useState("");
     const [selectedCity, setSelectedCity] = useState([]);
     const [eventType, setEventType] = useState([]);
-
-
-    // Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage] = useState(5);
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    let currentCards, pageCount;
-    if (events.length && events.length >= indexOfLastCard){
+
+    let currentCards, pageCount;if (events.length && events.length >= indexOfLastCard){
         currentCards = events.slice(indexOfFirstCard, indexOfLastCard);
         pageCount = events.length / cardsPerPage > 0 ? Math.floor(events.length / cardsPerPage) : 1;
     } else if (events.length > 0){
         currentCards = events;
         pageCount = 1;
     }
-    
-
 
     const handleChange = (event, value) => {
         setCurrentPage(value);
     };
 
     useEffect(() => {
-        let data = [];
-        let url = `http://localhost:5000/events?`
+        let url = `${import.meta.env.VITE_SERVER_URL}/events?`
         
         if (searchValue !== '') {
             console.log(searchValue);

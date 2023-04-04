@@ -1,3 +1,8 @@
+/**
+ * @author Purvesh Rathod (B00903204)
+ * SearchBar component to show on the search page
+ * @module Search
+ */
 import React from "react";
 import "../styles/searchPage.css";
 import { AiOutlineSearch } from "react-icons/ai";
