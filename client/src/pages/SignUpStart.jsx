@@ -151,7 +151,7 @@ const SignUpStart = () => {
      */
     axios({
       // Endpoint to send files
-      url: `${import.meta.env.VITE_SERVER_URL}/registration/`,
+      url: `${import.meta.env.VITE_SERVER_URL}/registration`,
       method: "POST",
       data: data_json,
     })
@@ -502,14 +502,14 @@ const SignUpStart = () => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                     <FormControlLabel
                       control={
                         <Checkbox value="allowExtraEmails" color="primary" />
                       }
                       label="I want to receive inspiration, marketing promotions and updates via email."
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Button
                   type="submit"
@@ -705,14 +705,14 @@ const SignUpStart = () => {
                       rows={4}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                     <FormControlLabel
                       control={
                         <Checkbox value="allowExtraEmails" color="primary" />
                       }
                       label="I want to receive inspiration, marketing promotions and updates via email."
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Button
                   type="submit"
