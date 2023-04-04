@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
-import SignUp from "./pages/SignUp.jsx";
 import Home from "./pages/Home.jsx";
 import Blog from "./pages/eventDetails/Blog.jsx";
 import Checkout from "./pages/checkout/Checkout.jsx";
