@@ -1,3 +1,11 @@
+/**
+ * This module imports the necessary components from the Material-UI library to create a form.
+ * @module
+ * @requires React
+ * @requires Grid
+ * @requires Typography
+ * @requires TextField
+ */
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";

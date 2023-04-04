@@ -1,3 +1,9 @@
+/**
+ * This module contains a React component that renders a form for user registration.
+ * It imports various components from the Material-UI library, including TextField, Checkbox,
+ * and Button. It also imports other modules such as axios and react-router-dom.
+ * @module RegistrationForm
+ */
 import * as React from "react";
 import { useState } from "react";
 import { makeStyles } from "@mui/styles";
@@ -77,6 +83,11 @@ const AttendeeEditProfile = () => {
   const [organizationError, setOrganizationError] = useState(false);
   const [managedByError, setManagedByError] = useState(false);
 
+  /**
+   * Handles the submission of the attendee's profile update form. Sends a POST request to the server
+   * with the updated profile information.
+   * @param {{event}} event - the form submission event
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -84,9 +95,7 @@ const AttendeeEditProfile = () => {
       id: attendee.id,
       managedBy: data.get("managedBy"),
       contactNo: data.get("countryCode") + "-" + data.get("phoneNumber"),
-      //   email: data.get("email"),
-      //   password: data.get("password"),
-
+      
       organizationName: data.get("organization"),
       occupation: data.get("occupation"),
       location: data.get("location"),
@@ -124,6 +133,11 @@ const AttendeeEditProfile = () => {
     setOpenSnackbar(false);
   };
 
+  /**
+   * Handles changes to the phone number input field by updating the state with the new value
+   * and checking if the new value is valid. If the new value is less than 5 characters, sets
+   * the phone number error state to true.
+   */
   const handlePhoneNumberChange = (event) => {
     const newValue = event.target.value.replace(/[^0-9 +()-]/g, "");
     setPhoneNumber(newValue);
@@ -190,6 +204,10 @@ const AttendeeEditProfile = () => {
     }
   };
 
+  /**
+   * Renders a form for editing a user's profile information.
+   * @returns A JSX element containing the form for editing a user's profile information.
+   */
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

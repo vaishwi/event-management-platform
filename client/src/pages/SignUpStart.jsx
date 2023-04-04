@@ -1,3 +1,10 @@
+/**
+ * This module contains a React component that renders a login form. It uses Material-UI
+ * components for styling and form elements. When the user submits the form, it sends a
+ * request to the server to authenticate the user. If the authentication is successful,
+ * the user is redirected to the home page.
+ * @module LoginForm
+ */
 import React, { useState } from "react";
 // import { createTheme } from '@mui/material/styles';
 import { makeStyles } from "@mui/styles";
@@ -21,7 +28,6 @@ import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Checkbox from "@mui/material/Checkbox";
-// import Link from '@mui/material/Link';
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -31,6 +37,10 @@ import axios from "axios";
 
 const theme = createTheme();
 
+/**
+ * Creates a set of Material UI styles for a component.
+ * @returns An object containing the styles for the component.
+ */
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
@@ -47,10 +57,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+/**
+ * A React functional component that creates an Alert component with the given props.
+ * @param {{object}} props - The props to pass to the Alert component.
+ * @param {{React.Ref}} ref - A reference to the Alert component.
+ * @returns An Alert component with the given props.
+ */
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
+/**
+ * A functional component that renders the copyright information for the Eventify website.
+ * @param {{object}} props - The props object that contains the properties to be passed to the Typography component.
+ * @returns A Typography component that displays the copyright information for the website.
+ */
 function Copyright(props) {
   return (
     <Typography
@@ -65,18 +86,30 @@ function Copyright(props) {
   );
 }
 
+/**
+ * A component that renders a sign up form for either an attendee or an organizer.
+ * @returns JSX element that contains the sign up form.
+ */
 const SignUpStart = () => {
   const navigate = useNavigate();
 
   const classes = useStyles();
   const [userType, setUserType] = useState("");
 
+  /**
+   * Sets the user type to the given type.
+   * @param {{string}} type - the type of user to set
+   */
   const handleUserType = (type) => {
     setUserType(type);
   };
 
   // ********************************************* SignUp Attendee *********************************************
 
+  /**
+   * A regular expression used to validate email addresses.
+   * @type {RegExp}
+   */
   const emailValidation = /^[ ]*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})[ ]*$/i;
 
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -94,6 +127,10 @@ const SignUpStart = () => {
   const [organizationError, setOrganizationError] = useState(false);
   const [managedByError, setManagedByError] = useState(false);
 
+  /**
+   * Handles the submission of attendee registration form data by sending a POST request to the server.
+   * @param {{event}} event - The event object that triggered the form submission.
+   */
   const handleSubmitAttendee = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -105,6 +142,12 @@ const SignUpStart = () => {
       password: data.get("password"),
       type: "attendee",
     };
+
+    /**
+     * Sends a POST request to the server to register a new user with the given data.
+     * If the user already exists, an error message is displayed.
+     * @param {{Object}} data_json - The user data to be sent to the server.
+     */
     axios({
       // Endpoint to send files
       url: `${import.meta.env.VITE_SERVER_URL}/registration/`,
@@ -133,6 +176,11 @@ const SignUpStart = () => {
 
   // ********************************************* SignUp Organizer *********************************************
 
+  /**
+   * Handles the submission of the organizer registration form. Sends a POST request to the server
+   * with the form data.
+   * @param {{event}} event - the form submission event
+   */
   const handleSubmitOrganizer = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -151,6 +199,12 @@ const SignUpStart = () => {
       type: "organizer",
     };
     
+    /**
+     * Sends a POST request to the specified URL with the given data. If the response data is "User does exist",
+     * sets the registration error and opens a snackbar. Otherwise, navigates to the login page.
+     * @param {{string}} url - the URL to send the POST request to
+     * @param {{object}} data_json - the data to send with the POST request
+     */
     axios({
       // Endpoint to send files
       url: `${import.meta.env.VITE_SERVER_URL}/registration`,
@@ -170,6 +224,13 @@ const SignUpStart = () => {
       // Catch errors if any
       .catch((err) => {});
   };
+
+  /**
+   * Handles changes to the phone number input field by removing any non-numeric characters
+   * and updating the state with the new value. Also sets an error flag if the length of the
+   * new value is less than 5.
+   * @param {{Event}} event - the event object representing the change in the input field
+   */
   const handlePhoneNumberChange = (event) => {
     const newValue = event.target.value.replace(/[^0-9 +()-]/g, "");
     setPhoneNumber(newValue);
@@ -185,6 +246,11 @@ const SignUpStart = () => {
     setCountryCode(event);
   };
 
+  /**
+   * Handles changes to the first name input field by checking if the input value is empty.
+   * If the input value is empty, sets the first name error state to true, otherwise sets it to false.
+   * @param {{Event}} event - The event object triggered by the input field.
+   */
   const handleFirstNameChange = (event) => {
     if (event.target.value.length < 1) {
       setFirstnameError(true);
@@ -203,6 +269,11 @@ const SignUpStart = () => {
     }
   };
 
+  /**
+   * Handles changes to the organization input field by checking if the input value is empty or not.
+   * If the input value is empty, sets the organization error state to true, otherwise sets it to false.
+   * @param {{Event}} event - The event object generated by the organization input field.
+   */
   const handleOrganizationChange = (event) => {
     if (event.target.value.length < 1) {
       setOrganizationError(true);
@@ -221,6 +292,10 @@ const SignUpStart = () => {
     }
   };
 
+  /**
+   * Handles the change event for the email input field. Validates the new value and sets the email error state accordingly.
+   * @param {{Event}} event - The event object for the email input field change event.
+   */
   const handleEmailChange = (event) => {
     const newValue = event.target.value;
     // setEmail(newValue);
@@ -231,6 +306,12 @@ const SignUpStart = () => {
     }
   };
 
+  /**
+   * Handles the change event for the password input field. Updates the password state
+   * with the new value and sets the password error state to true if the new value is less
+   * than 6 characters, otherwise sets it to false.
+   * @param {{Event}} event - the change event triggered by the password input field
+   */
   const handlePasswordChange = (event) => {
     const newValue = event.target.value;
     setPassword(newValue);
@@ -247,6 +328,9 @@ const SignUpStart = () => {
 
   // *****************************************************************************************************************
 
+  /**
+   * Renders a sign up form for either an Attendee or Organizer user type.
+   */
   return (
     <div className={classes.root}>
       <Snackbar

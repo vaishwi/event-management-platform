@@ -1,3 +1,10 @@
+/**
+ * A component that renders a form for creating a new password. The form includes
+ * fields for entering and confirming a password, with options to toggle visibility
+ * of the password fields. The component also includes validation for password length
+ * and matching confirmation password.
+ * @returns A React Fragment containing the new password form.
+ */
 import * as React from "react";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
@@ -17,6 +24,11 @@ export default function NewPassword(props) {
     const [passwordError, setPasswordError] = useState(false);
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
 
+    /**
+     * Handles the change event for the password input field. Updates the password state
+     * and checks if the new password meets the minimum length requirement. If the new password
+     * is less than 6 characters, sets the password error state to true and clears the new password.
+     */
     const handlePasswordChange = (event) => {
         const newValue = event.target.value;
         setPassword(newValue);
@@ -58,6 +70,10 @@ export default function NewPassword(props) {
         setShowConfirmPassword(!showConfirmPassword);
     };
 
+    /**
+     * Renders a form for creating a new password with two input fields for password and confirm password.
+     * @returns A React Fragment containing the form elements.
+     */
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>

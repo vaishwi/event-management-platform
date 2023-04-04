@@ -1,5 +1,6 @@
+
 from fireo.models import Model
-from fireo.fields import TextField, NumberField, DateTime, IDField, BooleanField, ListField, Field
+from fireo.fields import TextField, IDField
 from application.business_logic.organizers import Organizer
 from application.business_logic.attendee import Attendee
 
@@ -12,6 +13,14 @@ class Credential(Model):
     firstName = TextField()
     lastName = TextField()
     
+    """
+    This method is used to sign up a new user. 
+    It first checks if the user already exists by calling the `check_credential` method of the `Credential` class. 
+    If the user does not exist, it adds the user's credentials by calling the `add_credential` method of the `Credential` class. 
+    It then adds the user to the appropriate table based on their `type` attribute. If the user is an organizer, 
+    it calls the `add_organizer` method of the `Organizer` class. If the user is an attendee, 
+    it calls the `add_attendee` method of the `Attendee` class. Finally, it returns the ID of the newly created user.
+    """
     def signup(self, data):
         credential_id = Credential.check_credential(data)
         # credential_id = False
@@ -26,6 +35,11 @@ class Credential(Model):
                 id = Attendee().add_attendee(data, credential_id)
             return id
 
+    """
+    This method is used to validate user credentials and return a dictionary of user information if the credentials are valid. 
+    @param data - the user credentials
+    @return a dictionary of user information if the credentials are valid, otherwise a string indicating that the credentials were not found.
+    """
     def login(self, data):
         credential = Credential.validate_credential(data)
         if (credential == False):
@@ -40,6 +54,13 @@ class Credential(Model):
         else:
             return "Credential not found"
 
+    """
+    This code creates a new credential object based on the data provided. If the type of the credential is "attendee", 
+    then the first and last name are also included in the object. Otherwise, only the email, password, and type are included. 
+    The credential object is then saved to the database and the ID of the credential is returned.
+    @param data - a dictionary containing the data for the new credential object
+    @return the ID of the newly created credential object
+    """
     def add_credential(data):
         
         if (data.get("type") == "attendee"):
@@ -61,6 +82,11 @@ class Credential(Model):
         credential.save()
         return credential.id
     
+    """
+    This method checks if an email exists in the database.
+    @param data - a dictionary containing the email to check
+    @return True if the email exists in the database, False otherwise.
+    """
     def checkEmail(self, data):
         # return True
         credential_list = Credential.collection.filter(email = data.get('email')).fetch()
@@ -71,12 +97,22 @@ class Credential(Model):
         else:
             return False
         
+    """
+    This method sets a new password for a user with the given email address.
+    @param data - a dictionary containing the email and new password
+    @return the id of the updated credential
+    """
     def setNewPassword(self, data):
         credential = Credential.collection.filter(email = data.get('email')).get()
         credential.password = data.get('password')
         credential.update()
         return credential.id
 
+    """
+    Given a dictionary of data, check if the credentials exist in the database.
+    @param data - a dictionary containing email and type of credential
+    @return True if the credentials exist in the database, False otherwise.
+    """
     def check_credential(data):
         # return False
         credential_list = Credential.collection.filter(email = data.get('email'), type=data.get('type')).fetch()
@@ -87,6 +123,13 @@ class Credential(Model):
         else:
             return False
         
+    """
+    Given a dictionary of data containing an email and password, validate the credentials by checking 
+    if there is a match in the Credential collection. If there is a match, return the credential as a dictionary. 
+    If there is no match, return False.
+    @param data - a dictionary containing an email and password
+    @return - a dictionary of the credential if there is a match, False otherwise.
+    """
     def validate_credential(data):
         credential_list = Credential.collection.filter(email = data.get('email'), password=data.get('password')).fetch()
         
