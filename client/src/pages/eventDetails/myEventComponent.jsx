@@ -37,7 +37,7 @@ export default function MyEventsComponent() {
                       try{
                           const userID = localStorage.getItem('user');
                           const id = JSON.parse(userID).id;
-                          const response = await axios.get('http://127.0.0.1:5000/getUserRegisterEvents/'+id);
+                          const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/getUserRegisterEvents/${id}`);
                           console.log(response.data)
                           if(response.status === 200) {
                               setRegisteredEvents(response.data)
@@ -53,7 +53,7 @@ export default function MyEventsComponent() {
       };
       const cancelRegistration = async (eventID) => {
                       try{
-                          const response = await axios.delete('http://127.0.0.1:5000/deleteEvent/'+eventID)
+                          const response = await axios.delete(`${import.meta.env.VITE_SERVER_URL}/deleteEvent/${eventID}`)
                           fetchRegisteredEvents();
                           handleClose();
                       } catch (e) {

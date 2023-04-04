@@ -53,7 +53,7 @@ const [deleteID, setDeleteID] = useState(null);
         try{
                 const userID = localStorage.getItem('user');
                 const id = JSON.parse(userID).id;
-            const response = await axios.get('http://127.0.0.1:5000/getPayments/'+id)
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/getPayments/${id}`)
             if(response.status === 200) {
                 setPayments(response.data.data)
             }
@@ -64,7 +64,7 @@ const [deleteID, setDeleteID] = useState(null);
     };
     const deletePayment = async (deleteID) => {
                       try{
-                          const response = await axios.delete('http://127.0.0.1:5000/deletePayment/'+deleteID);
+                          const response = await axios.delete(`${import.meta.env.VITE_SERVER_URL}/deletePayment/${deleteID}`);
                           addRegisterEvent();
                           handleClose();
                       } catch (e) {

@@ -111,7 +111,7 @@ const AttendeeEditProfile = () => {
 
     axios({
       // Endpoint to send files
-      url: "http://127.0.0.1:5000/editAttendee",
+      url: `${import.meta.env.VITE_SERVER_URL}/editAttendee`,
       method: "POST",
       data: data_json,
     })

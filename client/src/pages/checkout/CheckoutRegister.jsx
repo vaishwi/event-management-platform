@@ -82,10 +82,12 @@ export default function Checkout() {
                 const userID = localStorage.getItem('user');
                 const id = JSON.parse(userID).id;
                 console.log(id);
-                const response = await axios.post('http://127.0.0.1:5000/registerEvent', {
-                    eventData,
-                    id,
-                })
+                const response = await axios.post(
+                    `${import.meta.env.VITE_SERVER_URL}/registerEvent`,
+                    {
+                        eventData,
+                        id,
+                    })
 
             } catch (e) {
                 console.log(e)

@@ -55,7 +55,7 @@ export default function Checkout() {
           try{
               const userID = localStorage.getItem('user');
               const id = JSON.parse(userID).id;
-              const response = await axios.get('http://127.0.0.1:5000/getPayments/'+id)
+              const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/id`)
               console.log(response)
               if(response.status === 200) {
                   setAllPaymentDetails(response.data.data)
@@ -124,7 +124,7 @@ export default function Checkout() {
                 const userID = localStorage.getItem('user');
                 const id = JSON.parse(userID).id;
                 console.log(id);
-                const response = await axios.post('http://127.0.0.1:5000/registerEvent', {
+                const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/registerEvent`, {
                     counter,
                     payment,
                     eventData,

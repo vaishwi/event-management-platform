@@ -31,7 +31,6 @@ import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 
 const theme = createTheme();
 
-const BASE_URL = "http://127.0.0.1:5000/";
 const SERVER_ERROR = "Sever Error. Please try again.";
 const SUBSCRIPTION_MESSAGE = "Successfully Subscribed.";
 
@@ -84,7 +83,7 @@ const AttendeeProfile = () => {
 
     axios({
       // Endpoint to fetch organizer profile
-      url: BASE_URL + "attendee/" + attendeeId,
+      url: `${import.meta.env.VITE_SERVER_URL}/attendee/${attendeeId}`,
       method: "GET",
       headers: {
         "Access-Control-Allow-Origin": "*",

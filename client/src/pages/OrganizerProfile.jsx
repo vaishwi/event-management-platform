@@ -28,8 +28,6 @@ import CustomDialogBox from "../components/CustomDialogBox.jsx";
 import axios from "axios";
 
 const theme = createTheme();
-
-const BASE_URL = "http://127.0.0.1:5000/";
 const SERVER_ERROR = "Sever Error. Please try again.";
 const SUBSCRIPTION_MESSAGE = "Successfully Subscribed.";
 
@@ -105,7 +103,7 @@ const OrganizerProfile = () => {
   useEffect(() => {
     axios({
       // Endpoint to fetch organizer profile
-      url: BASE_URL + "organizer/" + organizerId,
+      url: `${import.meta.env.VITE_SERVER_URL}/organizer/${organizerId}`,
       method: "GET",
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -130,7 +128,7 @@ const OrganizerProfile = () => {
       console.log(data_json)
       axios({
         // Endpoint to send files
-        url: "http://127.0.0.1:5000/checksubscription",
+        url: `${import.meta.env.VITE_SERVER_URL}/checksubscription`,
         method: "POST",
         // headers: {
         //   "Access-Control-Allow-Origin": "*",
@@ -153,14 +151,13 @@ const OrganizerProfile = () => {
    */
   const openDialogBox = (description) => {
     if (IS_ATTENDEE) {
-      const url = BASE_URL + "subscribe";
       console.log("In subscribe")
       console.log("AttendeeId")
       console.log(attendeeId)
       console.log("organizer")
       console.log(organizerId)
       axios({
-        url: url,
+        url: `${import.meta.env.VITE_SERVER_URL}/subscribe`,
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -178,9 +175,8 @@ const OrganizerProfile = () => {
         });
     } else if (IS_ADMIN) {
       if (isAuthenticated) {
-        const url = BASE_URL + "organizer/" + organizerId;
         axios({
-          url: url,
+          url: `${import.meta.env.VITE_SERVER_URL}/organizer/${organizerId}`,
           method: "DELETE",
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -195,9 +191,8 @@ const OrganizerProfile = () => {
             setDialogDiscription(SERVER_ERROR);
           });
       } else {
-        const url = BASE_URL + "authenticate/" + organizerId;
         axios({
-          url: url,
+          url: `${import.meta.env.VITE_SERVER_URL}/authenticate/${organizerId}`,
           method: "POST",
           headers: {
             "Access-Control-Allow-Origin": "*",

@@ -25,7 +25,7 @@ function MainEvent(props) {
         const fetchOrganizerName = async () => {
                     try{
                         console.log(organizer)
-                        const response = await axios.get('http://127.0.0.1:5000/organizer/'+organizer);
+                        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/organizer/${organizer}`);
                         console.log(response.data)
                         if(response.status === 200) {
                             setOrganizerName(response.data)
