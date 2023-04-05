@@ -1,3 +1,9 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the main component for user login
+ * This is the landing page when the user logins
+ * This component imports various MUI Components, it calls various other components which helps us to display all the event details and upon clicking the events some other components are called
+ */
 import React, {  useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

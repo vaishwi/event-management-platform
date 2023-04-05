@@ -1,4 +1,7 @@
-// @mui
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the main component which is to see the registered events of the users and will allow the user to print the pdf
+ *///
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';

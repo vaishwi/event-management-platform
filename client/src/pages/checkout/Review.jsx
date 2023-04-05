@@ -1,3 +1,9 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the main component which is used for the checkout process
+ * This component imports various MUI Components, it calls various other components which are used for checkout process
+ * This is the page which is used to review the details of the order for paid events
+ */
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';

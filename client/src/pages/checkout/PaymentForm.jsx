@@ -1,3 +1,9 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the main component which is used for the checkout process
+ * This component imports various MUI Components, it calls various other components which are used for checkout process for paid events
+ * This component asks user which type of payment method they want to approach with
+ */
 import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';

@@ -1,3 +1,7 @@
+"""
+@author Khushi Shah (B00923816)
+APIs related to Registered Events Management.
+"""
 from flask_restful import Resource
 from flask import request
 import json

@@ -1,3 +1,8 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the main component which is used for the checkout process for unpaid events
+ * This component imports various MUI Components, it calls various other components which are used for checkout process for unpaid events
+ */
 import React, { useState, useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';

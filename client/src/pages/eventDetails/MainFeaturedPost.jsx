@@ -1,3 +1,7 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the main component which is used to display the big banner image with the name of the event
+ */
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
