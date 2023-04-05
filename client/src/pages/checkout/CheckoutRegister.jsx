@@ -15,7 +15,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ContactInformation from './ContactInformation.jsx';
-import PaymentForm from './PaymentForm';
 import ReviewRegister from './ReviewRegister';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';

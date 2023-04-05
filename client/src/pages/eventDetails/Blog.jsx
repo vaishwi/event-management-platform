@@ -35,31 +35,7 @@ const theme = createTheme();
 const Blog = () => {
   const params = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
 
-  const eve = {
-    "title": "Right-sized radical productivity",
-    "description": "Modi tempora tempora eius sed non. Magnam labore voluptatem quaerat dolorem. Consectetur numquam etincidunt consectetur modi. Labore sed sit etincidunt quiquia. Ipsum dolorem consectetur est amet sit. Ipsum magnam neque dolor. Numquam modi amet dolorem tempora est aliquam. Non ut velit voluptatem aliquam ut. Quaerat neque etincidunt eius dolor etincidunt. Dolorem voluptatem non quaerat.",
-    "banner_image": "https://images.unsplash.com/photo-1598387993281-cecf8b71a8f8?crop=entropy&cs=srgb&fm=jpg&ixid=Mnw0MTU0OTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk4NjY2MjA&ixlib=rb-4.0.3&q=85",
-    "images": [
-        "https://images.unsplash.com/photo-1472691681358-fdf00a4bfcfe?crop=entropy&cs=srgb&fm=jpg&ixid=Mnw0MTU0OTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk4NjY2MjA&ixlib=rb-4.0.3&q=85",
-        "https://images.unsplash.com/photo-1514441615332-67834d513dea?crop=entropy&cs=srgb&fm=jpg&ixid=Mnw0MTU0OTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk4NjY2MjA&ixlib=rb-4.0.3&q=85",
-        "https://images.unsplash.com/photo-1484494789010-20fc1a011197?crop=entropy&cs=srgb&fm=jpg&ixid=Mnw0MTU0OTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk4NjY2MjA&ixlib=rb-4.0.3&q=85",
-        "https://images.unsplash.com/photo-1513623935135-c896b59073c1?crop=entropy&cs=srgb&fm=jpg&ixid=Mnw0MTU0OTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk4NjY2MjA&ixlib=rb-4.0.3&q=85",
-        "https://images.unsplash.com/photo-1528605105345-5344ea20e269?crop=entropy&cs=srgb&fm=jpg&ixid=Mnw0MTU0OTJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk4NjY2MjA&ixlib=rb-4.0.3&q=85"
-    ],
-    "date": "04/13/2023",
-    "time": "17:00",
-    "address": "01731 James Parkway Apt. 022, Ruthstad, KY 89084",
-    "price": 62.73,
-    "city": "Causse-de-la-Selle",
-    "country": "France",
-    "runtime": 1,
-    "organizer": "10jp5Ijn3A9clKX06tk2",
-    "type": "Paid",
-    "id": "GNjdBgOM5G8kXTIzDCpB",
-    "key": "event/GNjdBgOM5G8kXTIzDCpB"
-  }
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -70,9 +46,9 @@ const Blog = () => {
     if (params.hasOwnProperty('id')) {
       let url = `${import.meta.env.VITE_SERVER_URL}/event/${params.id}`
       axios.get(url)
-      .then(res => {
-        setData(res.data);
-      });
+        .then(res => {
+          setData(res.data);
+        });
     }
   }, [])
 
