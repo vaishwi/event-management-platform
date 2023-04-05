@@ -9,21 +9,12 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import axios from 'axios';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 
 export default function PaymentForm(props) {
   const {payment, handleChange, handlePaymentID, allPaymentDetails, paymentID, validator} = props;
-  const [payments, setPayments] = useState([]);
-    const [selectedOption, setSelectedOption] = useState('');
-
-    const handleOptionChange = (event) => {
-      setSelectedOption(event.target.value);
-    }
 
   return (
     <React.Fragment>

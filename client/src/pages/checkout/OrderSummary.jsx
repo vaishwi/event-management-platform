@@ -5,7 +5,6 @@
  * This shows the final summary of the order which is being placed by the user
  */
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
