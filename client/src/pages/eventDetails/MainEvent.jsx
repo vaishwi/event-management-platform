@@ -1,3 +1,7 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the component which is used to display the main event details
+ */
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';

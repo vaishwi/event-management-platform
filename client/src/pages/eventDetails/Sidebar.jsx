@@ -1,3 +1,7 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the component which handles the sidebar which asks to register, so displays "already" registered message
+ */
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

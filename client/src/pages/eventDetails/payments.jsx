@@ -1,3 +1,7 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the component which is used to display the payment details of the user
+ */
 import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';

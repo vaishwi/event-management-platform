@@ -1,3 +1,8 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This component imports various MUI Components which displays the payment details and gives an option to add new payment card
+ * @returns payment display details
+ */
 import React, {useState, useEffect} from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';

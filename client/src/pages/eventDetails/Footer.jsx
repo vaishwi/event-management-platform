@@ -1,3 +1,7 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the component which is used as footer
+ */
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';

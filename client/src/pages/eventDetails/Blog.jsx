@@ -1,3 +1,8 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the component shows the details of the event
+ * This component imports various MUI Components, it calls various other components which are used to display the details of the events
+ */
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';

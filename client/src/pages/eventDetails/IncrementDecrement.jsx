@@ -1,3 +1,7 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the component which is used to increment and decrement the value of ticket
+ */
 import React, {useState} from 'react';
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";

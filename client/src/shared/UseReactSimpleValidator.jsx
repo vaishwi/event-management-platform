@@ -1,3 +1,7 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This uses simplereactvalidator which is used to add payment information, this component performs validation
+ */
 import SimpleReactValidator from 'simple-react-validator';
 import React, { useState } from 'react';
 
