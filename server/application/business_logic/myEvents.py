@@ -1,3 +1,7 @@
+"""
+@author Khushi Shah (B00923816)
+MyEvent model class. CRUD operation of the Register Event collection.
+"""
 from fireo.models import Model
 from fireo.fields import TextField, NumberField, DateTime, IDField, BooleanField, ListField, Field
 import requests

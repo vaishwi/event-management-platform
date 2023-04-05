@@ -1,23 +1,20 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the main component which is used for the checkout process
+ * This component imports various MUI Components, it calls various other components which are used for checkout process for paid events
+ * This component asks user which type of payment method they want to approach with
+ */
 import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import axios from 'axios';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 
 export default function PaymentForm(props) {
   const {payment, handleChange, handlePaymentID, allPaymentDetails, paymentID, validator} = props;
-  const [payments, setPayments] = useState([]);
-    const [selectedOption, setSelectedOption] = useState('');
-
-    const handleOptionChange = (event) => {
-      setSelectedOption(event.target.value);
-    }
 
   return (
     <React.Fragment>

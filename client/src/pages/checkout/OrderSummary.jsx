@@ -1,5 +1,10 @@
+/**
+ * @author Khushi Shah (B00923816)
+ * This is the main component which is used for the checkout process
+ * This component imports various MUI Components, it calls various other components which are used for checkout process
+ * This shows the final summary of the order which is being placed by the user
+ */
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
