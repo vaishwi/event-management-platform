@@ -18,8 +18,6 @@ Link for the group branch - https://git.cs.dal.ca/vaishwi/group_7_csci5709
 
 | Title              | URL                                                                                          |
 |--------------------|----------------------------------------------------------------------------------------------|
-| Project repository | [group_7_csci5709](https://git.cs.dal.ca/vaishwi/group_7_csci5709)                           |
-| Individual branch  | [purvesh_B00903204](https://git.cs.dal.ca/vaishwi/group_7_csci5709/-/tree/purvesh_B00903204) |
 | Eventify App URL   | [Eventify Frontend URL](https://enchanting-gecko-424d2c.netlify.app/)                        |
 | Backend URL        | [Eventify Backend URL](https://group7-eventify.onrender.com)                                 |
 
@@ -28,7 +26,7 @@ Link for the group branch - https://git.cs.dal.ca/vaishwi/group_7_csci5709
 ### Local development setup steps
 
 1. Clone project
-   `git clone https://git.cs.dal.ca/vaishwi/group_7_csci5709.git`
+   `git clone https://github.com/vaishwi/event-management-platform`
 
 
 2. Frontend (client) setup steps
